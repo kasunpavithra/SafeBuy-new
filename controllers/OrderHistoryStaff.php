@@ -1,5 +1,5 @@
 <?php
-class OrderLog extends Controller{
+class OrderHistoryStaff extends Controller{
     const STAT =array("Being Approved","Ready to ship","Invoiced","Shipped","Delivered","Closed","Cancelled",
     "return being approved","rerutn canceled", "return closed");
     private $orders;
@@ -12,7 +12,7 @@ class OrderLog extends Controller{
         $this->orders = $this->model->getOrders();
         $this->view->orders = $this->orders;
         //var_dump($orders);
-        $this->view->render('OrderLog');
+        $this->view->render('OrderHistoryStaff');
     }
 }
 ?>

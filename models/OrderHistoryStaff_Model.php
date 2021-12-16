@@ -1,6 +1,6 @@
 <?php
 
-class OrderLog_Model extends Model{
+class OrderHistoryStaff_Model extends Model{
     function __construct(){
         parent:: __construct();
     }
