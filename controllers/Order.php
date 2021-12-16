@@ -38,7 +38,7 @@ abstract class Order{
     }
 
     function getItems(){
-        
+        //create item objects
     }
 }
 
