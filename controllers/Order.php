@@ -19,8 +19,9 @@
 //     {
 //         return $this->orders;
 //     }
+//}
 
-class Order{
+abstract class Order{
     private $items;
     private $orderId;
     private $customerId;
@@ -37,8 +38,8 @@ class Order{
     }
 
     function getItems(){
-        
+        //create item objects
     }
 }
 
-}
+?>
