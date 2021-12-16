@@ -99,7 +99,7 @@
     <div class="col-md-11">
       <div class="row">
         <div class="col-md-12">
-          <div class="col-md-12"><label class="label label-danger">'. OrderLog::STAT[$odr["status"]]. '</label></div>
+          <div class="col-md-12"><label class="label label-danger">'. OrderHistoryStaff::STAT[$odr["status"]]. '</label></div>
           <span><strong>Order ID</strong></span> <span class="label label-info">group name</span><br />
           cost: $'. $odr["amount"]. '<br />
           <!-- add code to disable the accept reject buttons once the order is accepted
