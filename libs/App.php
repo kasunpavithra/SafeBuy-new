@@ -39,7 +39,7 @@ class App
             require $file;
             $this->_controller = new $this->_url[0];
             $this->_controller->loadModel($this->_url[0]);
-            //    $this->_controller->index();
+            //$this->_controller->index();
             // print_r($this->_controller);
 
             return true;
