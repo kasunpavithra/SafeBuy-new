@@ -6,16 +6,28 @@ class Order_Model extends Model
         parent::__construct();
     }
 
-    function printSomething()
-    {
+    function getOrderDetails($orderId){
+        $orderDetails =  $this->db->runQuery("SELECT Customer_id, amount,status,create_date FROM orders WHERE orderID=$orderId");
+        return $orderDetails;
     }
-    function getData()
-    {
-        // return $this->db->runQuery("SELECT * from customer");
+    function getCustomerDetails($customerId){
+        $customerDetails =  $this->db->runQuery("SELECT Name FROM customer WHERE Customer_id=$customerId");
+        return $customerDetails;
     }
-    function getOrders()
-    {
-        $orders = $this->db->runQuery("SELECT * FROM ORDERS");
-        return $orders;
+    function incrementStatus($order_id){
+        $new_status=$this->db->runQuery("SELECT Customer_id, amount,status,create_date FROM orders WHERE orderID=$order_id")[0]["status"]+1;
+        $this->db->runQuery("UPDATE orders SET status=$new_status WHERE orderID=$order_id");
+    
+    }
+    function approveOrder($order_id){
+        $this->db->runQuery("UPDATE orders SET status=1 WHERE orderID=$order_id");
+
+    }
+    function declineOrder($order_id){
+        $this->db->runQuery("UPDATE orders SET status=6 WHERE orderID=$order_id");
+    }
+    function closeOrder($order_id){
+        $this->db->runQuery("UPDATE orders SET status=5 WHERE orderID=$order_id");
+
     }
 }
