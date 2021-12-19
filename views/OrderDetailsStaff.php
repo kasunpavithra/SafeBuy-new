@@ -8,10 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- All CSS -->
-  <link rel="stylesheet" href="public/CSS/bootstrap.min.css">
-  <link rel="stylesheet" href="public/CSS/themify-icons.css">
-  <link rel="stylesheet" href="public/CSS/owl.carousel.min.css">
-  <link rel="stylesheet" href="public/CSS/home_staff.css">
+  <link rel="stylesheet" href="../../../public/CSS/bootstrap.min.css">
+  <link rel="stylesheet" href="../../../public/CSS/themify-icons.css">
+  <link rel="stylesheet" href="../../../public/CSS/owl.carousel.min.css">
+  <link rel="stylesheet" href="../../../public/CSS/home_staff.css">
   <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
   <meta name="robots" content="noindex, nofollow" />
   <title>Hello, world!</title>
@@ -96,21 +96,21 @@
     <div class="col-md-11">
       <div class="row">
         <div class="col-md-12">
-          <div class="col-md-12"><label class="label label-danger"> <?php echo $this->states[$this->orderDetails["status"]]; ?></label></div>
+          <div class="col-md-12"><label class="label label-danger"> <?php echo BuyOrder::STATES[$this->order->getStatus()]; ?></label></div>
           <span><strong>Order ID</strong></span> <span class="label label-info">group name</span><br />
-          cost: $<?php echo $this->orderDetails["amount"] ?> <br />
+          cost: $<?php echo $this->order->getamount() ?> <br />
           <!-- add code to disable the accept reject buttons once the order is accepted
                       -->
-          <form method="post" action="OrderDetailsStaff/updateStatus">
+          <form method="post" <?php echo 'action="../../../BuyOrder/con1/'.$this->order->getOrderId().'/updateStatus"'?>>
             <input name="approve" id="appr" type="submit" data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" title="View" value="Approve">
             <input name="cancel" id="cnl" type="submit" data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" title="Danger" value="Decline">
             <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" title="Danger" value="<?php
-                                                                                                                                                            echo $this->states_present[$this->orderDetails["status"] + 1]; ?>">
+                                                                                                                                                            echo BuyOrder::STATES_PRESENT[$this->order->getStatus() + 1]; ?>">
             <input name="close" id="cls" type="submit" data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" title="Danger" value="Close">
 
           </form>
         </div>
-        <div class="col-md-12">order made on: <?php echo $this->orderDetails["create_date"] ?> by <a href="#"><?php echo $this->customerDetails["Name"] ?> </a></div>
+        <div class="col-md-12">order made on: <?php echo $this->order->getCreateDate() ?> by <a href="#"><?php echo $this->order->getCustomerName() ?> </a></div>
       </div>
     </div>
   </div>
@@ -155,7 +155,7 @@
     decline_btn = document.getElementById("cnl");
     update_btn = document.getElementById("upt");
     close_btn = document.getElementById("cls");
-    var status_value = '<?= $this->orderDetails["status"] ?>';
+    var status_value = '<?= $this->order->getStatus() ?>';
     if (status_value == 0) {
       update_btn.style.visibility = 'hidden';
       close_btn.style.visibility = 'hidden';
