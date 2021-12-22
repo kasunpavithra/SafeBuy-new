@@ -30,4 +30,8 @@ class Order_Model extends Model
         $this->db->runQuery("UPDATE orders SET status=5 WHERE orderID=$order_id");
 
     }
+    function getOrderItems($orderId){
+        $orderItems = $this->db->runQuery("SELECT OrderItemID FROM orderitem WHERE orderID=$orderId");
+        return $orderItems;
+    }
 }
