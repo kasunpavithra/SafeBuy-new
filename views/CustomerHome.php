@@ -28,7 +28,7 @@
 <body>
     <h1>Hello <?php echo $_SESSION['username'] ?></h1>
     <a href="logout/">Log out</a>
-    <a href="../customerProfile/">Customer Profile</a>
+    <a href="customerProfile/">Customer Profile</a>
     <a href="OrderStatusCustomer.php">Orders</a>
     <script>
         function getQuantity(id) {

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php $row = ($this->row)[0];
+<?php $row = ($this->row);
 
 ?>
 
@@ -21,7 +21,172 @@
     <link rel="stylesheet" href="../public/CSS/notify.css">
     <!-- <link rel="stylesheet" href="../public/CSS/CreditCard.css"> -->
 
+<style>
+    #title {
+    margin: 0;
+    padding: 10px;
+}
 
+body {
+    margin: 0;
+}
+
+.titleClass {
+    background-color: grey;
+    top: 0;
+    text-align: center;
+    width: 100%;
+    z-index: 1;
+}
+
+#profile {
+    margin-top: 60px;
+    margin-left: 50px;
+    position: fixed;
+    z-index: 1;
+}
+
+.info {
+    margin-left: 20%;
+}
+
+@media screen and (max-width: 700px) {
+    #profile {
+        display: none;
+    }
+    .info {
+        margin: 0 auto;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    #sample {
+        display: none;
+    }
+}
+
+#sample {
+    text-align: center;
+}
+
+.btn btn-primary {
+    background-color: green;
+}
+</style>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200&display=swap');
+body {
+    background: #15940a;
+    color: black;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    background: #4ecc4a;
+    height: 60px;
+    position: relative;
+    border-bottom: 1px solid #495057
+}
+
+.icon {
+    cursor: pointer;
+    margin-right: 50px;
+    line-height: 60px
+}
+
+.icon span {
+    background: #f00;
+    padding: 7px;
+    border-radius: 50%;
+    color: #fff;
+    vertical-align: top;
+    margin-left: -25px
+}
+
+.icon img {
+    display: inline-block;
+    width: 40px;
+    margin-top: 4px
+}
+
+.icon:hover {
+    opacity: .7
+}
+
+.logo {
+    flex: 1;
+    margin-left: 50px;
+    color: #eee;
+    font-size: 25px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.notifications {
+    z-index: 1;
+    width: 300px;
+    height: 0px;
+    opacity: 0;
+    position: absolute;
+    top: 63px;
+    right: 62px;
+    border-radius: 5px 0px 5px 5px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}
+
+.notifications h2 {
+    font-size: 14px;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    color: #999
+}
+
+.notifications h2 span {
+    color: #f00
+}
+
+.notifications-item {
+    display: flex;
+    border-bottom: 1px solid #eee;
+    padding: 6px 9px;
+    margin-bottom: 0px;
+    cursor: pointer
+}
+
+.notifications-item:hover {
+    background-color: #eee
+}
+
+.notifications-item img {
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin-right: 9px;
+    border-radius: 50%;
+    margin-top: 2px
+}
+
+.notifications-item .text h4 {
+    color: #777;
+    font-size: 16px;
+    margin-top: 3px
+}
+
+.notifications-item .text p {
+    color: #aaa;
+    font-size: 12px
+}
+
+.icon span {
+    background: #f00;
+    padding: 3px;
+    border-radius: 50%;
+    color: #fff;
+    vertical-align: top;
+    margin-left: -25px;
+}
+</style>
     <title>Customer Account</title>
 </head>
 
@@ -48,9 +213,9 @@
         <div class="titleClass">
             <h1 id="title">Customer Profile</h1>
         </div>
-        <div style="text-align: right; background-color: grey; padding-right: 15px; ;"><a href="../customerhome/">
+        <div style="text-align: right; background-color: grey; padding-right: 15px; ;"><a href="../Dashboard">
                 <h2>MainPage</h2>
-            </a><a href="logout/">
+            </a><a href="../logout/">
                 <h4>LogOut</h4>
             </a></div>
     </div>
@@ -94,7 +259,7 @@
 
         <div class="col-2" id="profile">
             <div>
-                <img style="width: 50%;  ;margin: 20px; margin-left: auto; margin-right: auto; display: block;" src="data:image/jpeg;charset=utf8;base64,<?php echo base64_encode($row["Profile_pic"]); ?>" />
+                <img style="width: 50%;  ;margin: 20px; margin-left: auto; margin-right: auto; display: block;" src="data:image/jpeg;charset=utf8;base64,<?php echo base64_encode($row["profile_pic"]); ?>" />
             </div>
             <a class="list-group-item list-group-item-action active" href="#Overview">Overview</a>
             <a class="list-group-item list-group-item-action" href="#Orders">Orders</a>
@@ -167,7 +332,7 @@
                 <div class="card-header">Account</div>
                 <div class="row">
                     <div class="col-sm-4">
-                        <form action="saveImage" method="POST" enctype="multipart/form-data">
+                        <form action="../saveImage" method="POST" enctype="multipart/form-data">
 
                             <div class="card">
                                 <div class="card-body">
@@ -194,7 +359,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="saveEmail" method="POST">
+                                <form action="../saveEmail" method="POST">
                                     <div class="modal-body mx-3">
                                         <div class="md-form mb-5">
                                             <i class="fas fa-envelope prefix grey-text"></i>
@@ -219,7 +384,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="savePassword" method="POST">
+                                <form action="../savePassword" method="POST">
                                     <div class="modal-body mx-3">
                                         <div class="md-form mb-5">
                                             <i class="fas fa-envelope prefix grey-text"></i>
@@ -277,35 +442,35 @@
                 <div class="card-header">My Shipping Address</div>
                 <div class="card-body">
 
-                    <form action="saveInfo" method="POST">
+                    <form action="../saveInfo" method="POST">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="name">Name</label>
-                                <input type="text" class="form-control" id="name" placeholder="Name" name="name" value="<?php echo $row['Name'] ?>" required>
+                                <input type="text" class="form-control" id="name" placeholder="Name" name="name" value="<?php echo $row['username'] ?>" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="username">User Name</label>
 
-                                <input type="text" class="form-control" id="username" placeholder="User Name" name="username" value="<?php echo $row['Username'] ?>" required>
+                                <input type="text" class="form-control" id="username" placeholder="User Name" name="username" value="<?php echo $row['username'] ?>" required>
                             </div>
 
                         </div>
                         <div class="form-group">
                             <label for="inputAddress">Street Address</label>
-                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="inputAddress" value="<?php echo $row['Street'] ?>" required>
+                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="inputAddress" value="<?php echo $row['street'] ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="houseNumber">House Number</label>
-                            <input type="number" class="form-control" id="houseNumber" placeholder="House Number" name="houseNumber" value="<?php echo $row['House_no'] ?>" required>
+                            <input type="number" class="form-control" id="houseNumber" placeholder="House Number" name="houseNumber" value="<?php echo $row['house_no'] ?>" required>
                         </div>
                         <div class="form-group">
                             <label for="mobileNumber">Mobile Number</label>
-                            <input type="number" class="form-control" id="mobileNumber" placeholder="Mobile Number" name="mobileNumber" value="<?php echo $row['Mobile_no'] ?>" required>
+                            <input type="number" class="form-control" id="mobileNumber" placeholder="Mobile Number" name="mobileNumber" value="<?php echo $row['mobile_no'] ?>" required>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputCity">City</label>
-                                <input type="text" class="form-control" id="inputCity" name="inputCity" value="<?php echo $row['City'] ?>" required>
+                                <input type="text" class="form-control" id="inputCity" name="inputCity" value="<?php echo $row['city'] ?>" required>
                             </div>
 
 
@@ -313,13 +478,13 @@
                             <div class="form-group col-md-4">
                                 <label for="inputDistrict">District</label>
                                 <select id="district" name="District" class="form-control" required>
-                                    <option><?php echo $row["District"] ?></option>
+                                    <option><?php echo $row["district"] ?></option>
                                 </select>
                             </div>
 
                             <div class="form-group col-md-2">
                                 <label for="inputZip">Zip Code</label>
-                                <input type="text" class="form-control" id="inputZip" name="inputZip" value=" <?php echo $row['Zip_code'] ?>" required>
+                                <input type="text" class="form-control" id="inputZip" name="inputZip" value=" <?php echo $row['zip_code'] ?>" required>
                             </div>
 
                         </div>
