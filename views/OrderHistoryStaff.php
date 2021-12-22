@@ -92,7 +92,7 @@
   <!-- Header ends -->
   <!--order details started-->
   <?php
-    foreach ($this->orderLog->getOrders() as $odr){
+    foreach ($this->orderLog->getBuyOrders() as $odr){
         echo
   '<div class="row">
     <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail" /></div>

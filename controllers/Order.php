@@ -29,12 +29,12 @@ abstract class Order extends Controller{
 
     function setOrderItems(){
         $oItemsArr = $this->model->getOrderItems($this->orderId);
-        var_dump($oItemsArr);
+        // var_dump($oItemsArr);
         $count=0;
         foreach($oItemsArr as $item){
             $this->orderItems[$count++]=new OrderItem($item['OrderItemID']);
         }
-        var_dump($this->orderItems);
+        // var_dump($this->orderItems);
     }
 
 

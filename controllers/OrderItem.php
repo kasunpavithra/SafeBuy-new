@@ -26,7 +26,7 @@ class OrderItem extends Item{
         $this->oItemReview = $orderItemDe[7];
         $itemId = $orderItemDe[2];
         parent::__construct($itemId);
-        echo "that was sucessful!";
+        //echo "that was sucessful!";
         // var_dump($this);
     }
     function index()
