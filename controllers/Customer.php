@@ -1,5 +1,7 @@
 <?php
 include_once('Person.php');
+require_once("shop.php");
+require_once("Order.php");
 class Customer extends Person
 {
     private $customer_id;
@@ -20,13 +22,12 @@ class Customer extends Person
     {
         parent::__construct();
         $this->setDetails($id);
-      
     }
     function setDetails($id)
     {
         $this->loadModel("Customer");
         $details = $this->model->getDetails($id)[0];
-      
+
         $this->customer_id = $details["Customer_id"];
         $this->name = $details["Name"];
         $this->street = $details["Street"];
@@ -39,6 +40,7 @@ class Customer extends Person
         $this->email = $details["Email"];
         $this->profile_pic = $details["Profile_pic"];
 
+        // $this->orders=
         echo $this->username;
         echo $this->mobile_no;
     }
@@ -111,14 +113,13 @@ class Customer extends Person
     {
         if (isset($_POST["saveEmail"])) {
             $email = "'" . $_POST["email"] . "'";
-            
+
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $sql = "UPDATE CUSTOMER SET email=$email where Customer_id='" . $_SESSION['userID'] . "'";
                 echo $sql;
                 if ($this->model->saveEmail($sql)) {
                     header("Location: customerProfile/");
                 } else {
-                    
                 }
             } else {
                 echo "<script>alert('Invalid Email')</script>";
@@ -148,18 +149,11 @@ class Customer extends Person
             header("Location: ../../login/");
             die();
         }
-        // $this->view->categories = $this->getCategories();
-        // foreach ($this->view->categories as $key => $value) {
-        //     $this->view->categories[$key]["items"] = $this->getItems($this->view->categories[$key][0]);
-        // }
-        // foreach ($this->orderList as $key => $value) {
-        //     if ($_SESSION["userID"] == $value["Customer_id"]) {
-        //         print_r($value);
-        //         echo "<br>";
-        //         echo "<br>";
-        //         echo "<br>";
-        //     }
-        // }
+        $this->setShop(new Shop());
+        $this->view->categories = $this->getCategories();
+        foreach ($this->view->categories as $key => $value) {
+            $this->view->categories[$key]["items"] = $this->getItems($this->view->categories[$key][0]);
+        }
         $this->view->render('CustomerHome');
     }
     function logout()
@@ -386,6 +380,28 @@ class Customer extends Person
     public function setProfile_pic($profile_pic)
     {
         $this->profile_pic = $profile_pic;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of shop
+     */
+    public function getShop()
+    {
+        return $this->shop;
+    }
+
+
+
+    /**
+     * Set the value of shop
+     *
+     * @return  self
+     */
+    public function setShop($shop)
+    {
+        $this->shop = $shop;
 
         return $this;
     }

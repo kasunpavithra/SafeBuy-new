@@ -2,13 +2,14 @@
 require_once "ShopManager.php";
 require_once "DeliveryPerson.php";
 require_once "GeneralStaff.php";
+require_once "OrderLog.php";
+require_once "Menu.php";
 class Shop extends Controller
 {
     private $shopManager = array();
     private $deliveryPersons = array();
     private $orderLog;
     private $menu;
-    private $customers;
     private $shopStaffList = array();
     private $generalStaff = array();
     function __construct()
@@ -17,6 +18,8 @@ class Shop extends Controller
         $this->loadModel("Shop");
         $this->setShopStaffList();
         $this->setStaff($this->shopStaffList);
+        // $this->setOrderLog(new OrderLog());
+        $this->setMenu(new Menu());
     }
     function index()
 
@@ -24,8 +27,8 @@ class Shop extends Controller
         // $this->setShopStaffList();
         // $this->setStaff($this->shopStaffList);
     }
-
-
+    
+  
     public function setShopStaffList()
     {
         $staffList = $this->model->getStaffList();
@@ -45,5 +48,44 @@ class Shop extends Controller
                 array_push($this->deliveryPersons, new DeliveryPerson($value[0]));
             }
         }
+    }
+
+    /**
+     * Get the value of menu
+     */ 
+    public function getMenu()
+    {
+        return $this->menu;
+    }
+
+    /**
+     * Set the value of menu
+     *
+     * @return  self
+     */ 
+    public function setMenu($menu)
+    {
+        $this->menu = $menu;
+
+    }
+
+    /**
+     * Get the value of orderLog
+     */ 
+    public function getOrderLog()
+    {
+        return $this->orderLog;
+    }
+
+    /**
+     * Set the value of orderLog
+     *
+     * @return  self
+     */ 
+    public function setOrderLog($orderLog)
+    {
+        $this->orderLog = $orderLog;
+
+
     }
 }
