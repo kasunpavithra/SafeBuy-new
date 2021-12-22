@@ -1,13 +1,13 @@
 <?php
-abstract class Controller
+class Controller
 {
+   public $model;
 
     function __construct()
     {
         if (!isset($_SESSION["userID"])) {
             // header("Location:../login/");
             // exit;
-            
         }
         $this->view = new View();
     }
