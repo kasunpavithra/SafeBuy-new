@@ -1,6 +1,7 @@
 <?php
+require_once 'OrderItem.php';
 abstract class Order extends Controller{
-    private $items;
+    private $orderItems;
     private $orderId;
     private $customerId;
     private $createDate;
@@ -19,16 +20,30 @@ abstract class Order extends Controller{
         $this->amount = $orderDetails[1];
         $this->status = $orderDetails[2];
         $this->createDate = $orderDetails[3];
-
+        //get the customer name
         $this->customerName = $this->model->getCustomerDetails($this->getCustomerId())[0][0];
+
+        $this->setOrderItems();
         
     }
+
+    function setOrderItems(){
+        $oItemsArr = $this->model->getOrderItems($this->orderId);
+        var_dump($oItemsArr);
+        $count=0;
+        foreach($oItemsArr as $item){
+            $this->orderItems[$count++]=new OrderItem($item['OrderItemID']);
+        }
+        var_dump($this->orderItems);
+    }
+
+
     /**
-     * Get the value of items
+     * Get the value of orderItems
      */ 
-    public function getItems()
+    public function getOrderItems()
     {
-        return $this->items;
+        return $this->orderItems;
     }
 
     /**
