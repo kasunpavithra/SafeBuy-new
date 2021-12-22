@@ -1,10 +1,12 @@
 <?php
 class ReturnOrder extends Order{
 
-    function __construct($orderDetails)
+    function __construct($orderId)
     {
-        parent::__construct($orderDetails);
-        //rest
+        parent::__construct($orderId);
+    }
+    function index(){
+        //view logic here
     }
 }
 

@@ -16,7 +16,7 @@ class Controller
 
         $path = 'models/' . $modelName . '_model.php';
         // echo $path;
-        if ($this->model == null && file_exists(($path))) {
+        if (file_exists(($path))) {
             require_once $path;
             $className = $modelName . '_Model';
             $this->model = new $className();
