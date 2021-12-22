@@ -1,5 +1,6 @@
 <?php
-class StaffLogin extends Controller
+include_once "Login.php";
+class StaffLogin extends Login
 {
     function __construct()
     {
@@ -16,10 +17,26 @@ class StaffLogin extends Controller
             $username = $_POST['username'];
             $password = $_POST['password'];
             $islogin = $this->model->isLogin($username, $password);
-            if ($islogin) {
-                $_SESSION['username'] = $username;
-                $_SESSION['userID'] = $islogin;
-                header("Location:../staffhome/");
+
+            if ($islogin[0]) {
+                $_SESSION['staffusername'] = $username;
+                $_SESSION['staffuserID'] = $islogin[0];
+                switch ($islogin[1]) {
+                    case 0:
+                        header("Location:../ShopManager/con1/" . $islogin[0] . "/Dashboard");
+                        break;
+                    case 1:
+                        header("Location:../GeneralStaff/con1/" . $islogin[0] . "/Dashboard");
+
+                        break;
+                    case 2:
+
+                        header("Location:../DeliveryPerson/con1/" . $islogin[0] . "/Dashboard");
+                        break;
+                    default:
+                        header("Location:../stafflogin/");
+                        break;
+                }
             } else {
                 header("Location:../stafflogin/");
             }

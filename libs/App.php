@@ -33,12 +33,30 @@ class App
 
     private function __loadController()
     {
-        
         $file = 'controllers/' . $this->_url[0] . '.php';
         if (file_exists($file)) {
             require $file;
-            $this->_controller = new $this->_url[0];
-            $this->_controller->loadModel($this->_url[0]);
+
+            $urlLength = count($this->_url);
+            if($urlLength>1){
+                switch($this->_url[1]){
+                    case "con1":
+                        $this->_controller = new $this->_url[0]($this->_url[2]);
+                        array_splice($this->_url,1,2);
+                        break;
+                    case "con2":
+                        $this->_controller = new $this->_url[0]($this->_url[2],$this->_url[3]);
+                        array_splice($this->_url,1,3);
+                        break;
+                    default:
+                        $this->_controller = new $this->_url[0];
+                        break;
+                }
+            }else{
+                $this->_controller = new $this->_url[0];
+            }
+
+            // $this->_controller->loadModel($this->_url[0]);
             //$this->_controller->index();
             // print_r($this->_controller);
 
