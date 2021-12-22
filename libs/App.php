@@ -56,7 +56,7 @@ class App
                 $this->_controller = new $this->_url[0];
             }
 
-            //$this->_controller->loadModel($this->_url[0]);
+            $this->_controller->loadModel($this->_url[0]);
             //$this->_controller->index();
             // print_r($this->_controller);
 

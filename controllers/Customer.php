@@ -148,10 +148,10 @@ class Customer extends Person
             header("Location: ../../login/");
             die();
         }
-        $this->view->categories = $this->getCategories();
-        foreach ($this->view->categories as $key => $value) {
-            $this->view->categories[$key]["items"] = $this->getItems($this->view->categories[$key][0]);
-        }
+        // $this->view->categories = $this->getCategories();
+        // foreach ($this->view->categories as $key => $value) {
+        //     $this->view->categories[$key]["items"] = $this->getItems($this->view->categories[$key][0]);
+        // }
         // foreach ($this->orderList as $key => $value) {
         //     if ($_SESSION["userID"] == $value["Customer_id"]) {
         //         print_r($value);
