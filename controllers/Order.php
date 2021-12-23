@@ -1,28 +1,21 @@
 <?php
 require_once 'OrderItem.php';
+require_once 'ReturnOrderItem.php';
 abstract class Order extends Controller{
-    private $orderItems;
-    private $orderId;
-    private $customerId;
-    private $createDate;
-    private $status;
-    private $amount;
-    private $customerName;
+    protected $orderItems;
+    protected $orderId;
+    protected $customerId;
+    protected $createDate;
+    protected $status;
+    protected $amount;
+    protected $review;
+    protected $customerName;
+    protected $closedDate;
 
-    function __construct($orderId){
+    function __construct(){
         parent::__construct();
-        $this->orderId = $orderId;
-        //load the model 
-        $this->loadModel("Order");
-        //get adn assign details
-        $orderDetails= $this->model->getOrderDetails($this->orderId)[0];
-        $this->customerId = $orderDetails[0];
-        $this->amount = $orderDetails[1];
-        $this->status = $orderDetails[2];
-        $this->createDate = $orderDetails[3];
-        //get the customer name
-        $this->customerName = $this->model->getCustomerDetails($this->getCustomerId())[0][0];
-
+        //var_dump($this);
+        $this->customerName = $this->model->getCustomerDetails($this->customerId)[0][0];
         $this->setOrderItems();
         
     }
@@ -30,11 +23,16 @@ abstract class Order extends Controller{
     function setOrderItems(){
         $oItemsArr = $this->model->getOrderItems($this->orderId);
         // var_dump($oItemsArr);
-        $count=0;
+        $this->orderItems = array();
+        
         foreach($oItemsArr as $item){
-            $this->orderItems[$count++]=new OrderItem($item['OrderItemID']);
+            if($this->model instanceof BuyOrder_Model){
+                array_push($this->orderItems,new OrderItem($item['OrderItemID']));
+            }
+            else if($this->model instanceof ReturnOrder_Model){
+                array_push($this->orderItems,new ReturnOrderItem($item['returnitemID']));
+            }
         }
-        // var_dump($this->orderItems);
     }
 
 
