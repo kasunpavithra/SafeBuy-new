@@ -19,7 +19,7 @@ class Login extends Controller
             if ($islogin) {
                 $_SESSION['username'] = $username;
                 $_SESSION['userID'] = $islogin;
-                header("Location:../customerhome/");
+                header("Location:../customer/con1/" . $islogin . "/Dashboard");
             } else {
                 header("Location:../login/");
             }

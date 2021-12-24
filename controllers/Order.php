@@ -1,44 +1,96 @@
 <?php
-//the previous implementation of the order class
-// class Order extends Controller
-// {
-//     private $orders;
-//     function __construct()
-//     {
-//         parent::__construct();
-//         $this->loadModel("Order");
-//         $this->orders = $this->model->getOrders();
-//     }
-//     function index()
-//     {
-//         $this->view->users = $this->model->getData();
-//         $this->view->render('Test');
-//     }
+require_once 'OrderItem.php';
+require_once 'ReturnOrderItem.php';
+abstract class Order extends Controller{
+    protected $orderItems;
+    protected $orderId;
+    protected $customerId;
+    protected $createDate;
+    protected $status;
+    protected $amount;
+    protected $review;
+    protected $customerName;
+    protected $closedDate;
 
-//     function getOrders()
-//     {
-//         return $this->orders;
-//     }
-
-class Order{
-    private $items;
-    private $orderId;
-    private $customerId;
-    private $createDate;
-    private $status;
-    private $amount;
-
-    function __construct($orderDetails){
-        $this->orderId =$orderDetails[0];
-        $this->customerId =$orderDetails[1];
-        $this->createDate =$orderDetails[2];
-        $this->status =$orderDetails[3];
-        $this->amount =$orderDetails[4];
-    }
-
-    function getItems(){
+    function __construct(){
+        parent::__construct();
+        //var_dump($this);
+        $this->customerName = $this->model->getCustomerDetails($this->customerId)[0][0];
+        $this->setOrderItems();
         
     }
+
+    function setOrderItems(){
+        $oItemsArr = $this->model->getOrderItems($this->orderId);
+        // var_dump($oItemsArr);
+        $this->orderItems = array();
+        
+        foreach($oItemsArr as $item){
+            if($this->model instanceof BuyOrder_Model){
+                array_push($this->orderItems,new OrderItem($item['OrderItemID']));
+            }
+            else if($this->model instanceof ReturnOrder_Model){
+                array_push($this->orderItems,new ReturnOrderItem($item['returnitemID']));
+            }
+        }
+    }
+
+
+    /**
+     * Get the value of orderItems
+     */ 
+    public function getOrderItems()
+    {
+        return $this->orderItems;
+    }
+
+    /**
+     * Get the value of orderId
+     */ 
+    public function getOrderId()
+    {
+        return $this->orderId;
+    }
+
+    /**
+     * Get the value of createDate
+     */ 
+    public function getCreateDate()
+    {
+        return $this->createDate;
+    }
+
+    /**
+     * Get the value of status
+     */ 
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Get the value of amount
+     */ 
+    public function getAmount()
+    {
+        return $this->amount;
+    }
+
+    /**
+     * Get the value of customerId
+     */ 
+    public function getCustomerId()
+    {
+        return $this->customerId;
+    }
+
+    /**
+     * Get the value of customerName
+     */ 
+    public function getCustomerName()
+    {
+        return $this->customerName;
+    }
 }
 
-}
+?>

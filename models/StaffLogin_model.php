@@ -20,7 +20,7 @@ class StaffLogin_Model extends Model{
         { 
          
            if($result[0]['Password']=== $password){
-              return $result[0]['Staff_id'];
+              return [$result[0]['Staff_id'],$result[0]['Type']];
             }
           
         }
