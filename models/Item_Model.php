@@ -10,5 +10,10 @@ class Item_Model extends Model
         $itemDetails =  $this->db->runQuery("SELECT * FROM item WHERE itemID=$itemId");
         return $itemDetails;
     }
+    function getCategoryName($categoryId)
+    {
+        // print_r($this->db->runQuery("SELECT * FROM CATEGORY"));
+        return $this->db->runQuery("SELECT category_name FROM CATEGORY where CategoryId='".$categoryId."'");
+    }
 }
 ?>

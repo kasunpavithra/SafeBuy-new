@@ -35,8 +35,8 @@ abstract class ShopStaff extends Person
         $this->profile_Pic = $details["Profile_pic"];
         $this->type = $details["Type"];
         $this->status = $details["status"];
-        echo $this->userName;
-        echo $this->mobile_no;
+        // echo $this->userName;
+        // echo $this->mobile_no;
     }
     function logout()
     {

@@ -30,6 +30,13 @@ class Customer_Model extends Model
     {
         return $this->db->insertQuery($sql);
     }
+    function getPassword($userID)
+    {
+        $sql = "select Password from customer where Customer_id= '" . $_SESSION['userID'] . "'";
+        $row = $this->db->runQuery($sql);
+        // print_r($row);
+        return $row[0]["Password"];
+    }
     function saveInfo($sql)
     {
         return $this->db->runQuery($sql);

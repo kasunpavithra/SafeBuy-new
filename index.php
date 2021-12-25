@@ -5,7 +5,8 @@ require('libs/Controller.php');
 require('libs/Model.php');
 require('libs/View.php');
 require('libs/Database.php');
-$app = new App();
+// $app = new App();
+$app = App :: getInstance();
 
 
 ?>

@@ -2,8 +2,11 @@
 include_once('Person.php');
 require_once("shop.php");
 require_once("Order.php");
+require_once("Menu.php");
+require_once("OrderStatusCustomer.php");
 class Customer extends Person
 {
+    
     private $customer_id;
     private $name;
     private $street;
@@ -15,8 +18,9 @@ class Customer extends Person
     private $username;
     private $email;
     private $profile_pic;
-
-    private $orders;
+    
+    private $buyorders = array();
+    private $returnorders = array();
     private $shop;
     function __construct($id)
     {
@@ -43,6 +47,30 @@ class Customer extends Person
         // $this->orders=
         echo $this->username;
         echo $this->mobile_no;
+    }
+    function getOrders()
+    {
+        $this->setShop(new Shop());
+        $orderLog = $this->shop->getOrderLog();
+        $buyorders = $orderLog->getBuyOrders();
+        foreach ($buyorders as $key => $value) {
+            if ($value->getCustomerId() == $this->customer_id) {
+                array_push($this->buyorders, $buyorders[$key]);
+                // echo $value->getCustomerName();
+                // echo "<br>";
+            };
+        }
+        $returnorders = $orderLog->getReturnOrders();
+        foreach ($returnorders as $key => $value) {
+            if ($value->getCustomerId() == $this->customer_id) {
+                array_push($this->returnorders, $returnorders[$key]);
+                // echo $value->getCustomerName();
+                // echo "<br>";
+            };
+        }
+    }
+    function OrderStatusCustomer(){
+        (new OrderStatusCustomer())->index();
     }
     function customerProfile()
     {
@@ -114,7 +142,7 @@ class Customer extends Person
         if (isset($_POST["saveEmail"])) {
             $email = "'" . $_POST["email"] . "'";
 
-            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            if (/*filter_var($email, FILTER_VALIDATE_EMAIL)*/true) {
                 $sql = "UPDATE CUSTOMER SET email=$email where Customer_id='" . $_SESSION['userID'] . "'";
                 echo $sql;
                 if ($this->model->saveEmail($sql)) {
@@ -149,11 +177,31 @@ class Customer extends Person
             header("Location: ../../login/");
             die();
         }
-        $this->setShop(new Shop());
-        $this->view->categories = $this->getCategories();
-        foreach ($this->view->categories as $key => $value) {
-            $this->view->categories[$key]["items"] = $this->getItems($this->view->categories[$key][0]);
+        $menu = new Menu();
+        $categories=array();
+        $items = $menu->getItems();
+         foreach ($items as $key => $value) {
+            if(array_key_exists($value->getCategoryName(), $categories)){
+                    array_push($categories[$value->getCategoryName()],$value);
+            }
+            else{
+                $categories[$value->getCategoryName()]=array($value);
+            }
+
+             
         }
+        
+        // (new Menu())->getItems();
+        // $items= $menu->getItems();
+        // print_r($items);
+        // foreach ($items as $key => $value) {
+        //     echo $value;
+        // }
+        // $this->setShop(new Shop());
+        $this->view->categories = $categories;
+        // foreach ($this->view->categories as $key => $value) {
+        //     $this->view->categories[$key]["items"] = $this->getItems($this->view->categories[$key][0]);
+        // }
         $this->view->render('CustomerHome');
     }
     function logout()

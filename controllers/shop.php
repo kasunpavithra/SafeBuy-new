@@ -18,7 +18,7 @@ class Shop extends Controller
         $this->loadModel("Shop");
         $this->setShopStaffList();
         $this->setStaff($this->shopStaffList);
-        // $this->setOrderLog(new OrderLog());
+        $this->setOrderLog(new OrderLog());
         $this->setMenu(new Menu());
     }
     function index()
