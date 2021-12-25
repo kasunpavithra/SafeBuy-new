@@ -12,17 +12,18 @@ class OrderLog extends Controller{
         parent::__construct();
         $this->loadModel("OrderLog");
         //create order objects here
-        $orderArr = $this->model->getorders();
-        
+        $orderArr = $this->model->getOrders();
+        $rOrderArr = $this->model->getReturnOrders();
+
         $this->buyOrders = array();
         $this->returnOrders = array();
 
         foreach($orderArr as $order){
-            if($order['Type']=='0'){
-                array_push($this->buyOrders, new BuyOrder($order[0]));
-            }else if($order['Type']=='1'){
-                array_push($this->returnOrders,new ReturnOrder($order[0]));
-            }
+            array_push($this->buyOrders, new BuyOrder($order['orderID']));
+            
+        }
+        foreach($rOrderArr as $rOrder){
+            array_push($this->returnOrders,new ReturnOrder($rOrder['returnorderID']));
         }
     }
     function staffView(){

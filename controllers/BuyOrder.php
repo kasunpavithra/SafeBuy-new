@@ -36,7 +36,6 @@ class BuyOrder extends Order
   }
   function staffView()
   {
-    var_dump($this);
     $this->view->order = $this;
     $this->view->render('OrderDetailsStaff');
   }
