@@ -3,9 +3,13 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link rel="stylesheet" href="../public/CSS/shopManagerHome.css">
+    <link rel="stylesheet" href="../public/CSS/login.css">
     <title>Document</title>
 </head>
 
@@ -40,7 +44,7 @@
         <label for="quantity">Quantity</label>
         <input type="number" name="quantity" id="quantity">
         <br>
-        <input type="submit" value="Add an Item" name="addItemBtn">
+        <input class="addItem" type="submit" value="Add an Item" name="addItemBtn">
     </form>
 </body>
 

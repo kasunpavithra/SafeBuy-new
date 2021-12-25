@@ -8,19 +8,21 @@ class StaffLogin extends Login
     }
     function index()
     {
-        $this->view->users = $this->model->getData();
+        // $this->view->users = $this->model->getData();
         $this->view->render('staffLogin');
     }
     function loginProfile()
     {
+        echo("asdasd");
         if (isset($_POST["submitLogin"])) {
             $username = $_POST['username'];
             $password = $_POST['password'];
             $islogin = $this->model->isLogin($username, $password);
-
+            
             if ($islogin[0]) {
                 $_SESSION['staffusername'] = $username;
                 $_SESSION['staffuserID'] = $islogin[0];
+                
                 switch ($islogin[1]) {
                     case 0:
                         header("Location:../ShopManager/con1/" . $islogin[0] . "/Dashboard");
