@@ -2,21 +2,51 @@
 session_start();
 class App
 {
+    // private $_url = null;
+    // private $_controller = null;
+
+
+    // function __construct()
+    // {
+    //     $this->_getURL();
+    //     if (empty($this->_url[0])) {
+    //         $this->_loadDefaultController();
+    //         return false;
+    //     }
+    
+    //     if ($this->__loadController()) {
+    //         $this->_loadControllerMethod();
+    //     }
+    // }  
+    /* Add singleton logic for app.php*/
     private $_url = null;
     private $_controller = null;
+    private static $App ;
 
-
-    function __construct()
+    private function __construct()
     {
-        $this->_getURL();
-        if (empty($this->_url[0])) {
-            $this->_loadDefaultController();
+        
+    }
+    public static function getInstance()
+    {
+        // echo("asdasd");
+        if (self::$App==null){
+            self::$App= new App();
+        }
+
+        self::$App->_getURL();
+        
+        if (empty(self::$App->_url[0])) {
+            self::$App->_loadDefaultController();
             return false;
         }
-        if ($this->__loadController()) {
-            $this->_loadControllerMethod();
+        if (self::$App->__loadController()) {
+            self::$App->_loadControllerMethod();
         }
+        return self::$App;
+
     }
+
     private function _getURL()
     {
         $url = isset($_GET['url']) ? $_GET['url'] : null;

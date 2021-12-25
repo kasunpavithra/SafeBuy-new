@@ -29,15 +29,15 @@
     <h1>Hello <?php echo $_SESSION['username'] ?></h1>
     <a href="logout/">Log out</a>
     <a href="customerProfile/">Customer Profile</a>
-    <a href="OrderStatusCustomer.php">Orders</a>
+    <a href="OrderStatusCustomer">Orders</a>
     <script>
         function getQuantity(id) {
-            
-            if(document.getElementById("quant" + id).value==""){
+
+            if (document.getElementById("quant" + id).value == "") {
                 alert("Please input the number of quantity");
                 return false;
             }
-            document.cookie=("quant" + id+"="+document.getElementById("quant" + id).value);
+            document.cookie = ("quant" + id + "=" + document.getElementById("quant" + id).value);
             console.log(document.cookie);
             return true;
         }
@@ -46,34 +46,35 @@
     <div class="container">
 
         <?php
-        foreach ($this->categories as $category) {
-            $items = $category["items"];
+
+        foreach ($this->categories as $categoryName => $items) {
         ?>
-
-
-
             <div class="card-body">
-                <h5 class="card-title"><?php echo $category["category_name"] ?></h5>
-                <p class="card-text"><?php echo $category["Description"] ?></p>
+                <h5 class="card-title"><?php echo $categoryName; ?></h5>
+                <p class="card-text"><?php echo $items[0]->getDescription(); ?></p>
             </div>
             <div class="row" style="width: 100%;">
-                <?php foreach ($items as $key => $value) { ?>
-                    <script>document.cookie="quant<?php echo $value["itemID"] ?>=0"</script>
+                <?php foreach ($items as $key => $item) {
+                    echo $item->getDiscount();
+                ?>
+                    <script>
+                        document.cookie = "quant<?php echo $item->getItemId(); ?>=0"
+                    </script>
                     <div class="col" style="border: 1px solid black;">
 
-                        <form name="myForm" action="addItem/?ItemID=<?php echo $value['itemID'] ?>&quantity=<?php echo $_COOKIE["quant".$value['itemID']] ?>" method="POST" onsubmit="getQuantity(<?php echo $value['itemID'] ?>)">
-                            <img style="width: 20%;  ;margin: 20px; margin-left: auto; margin-right: auto; display: block;" src="data:image/jpeg;charset=utf8;base64,<?php echo base64_encode($value["itemImage"]); ?>" />
-                            <h3><?php echo ("Rs : " . $value['price']); ?></h3>
-                            <h3><?php echo ($value['description']); ?></h3>
-                            <h3><?php echo ("Discount Rs : " . $value['discount']); ?></h3>
-                            <h3><?php echo ("Ratings : " . $value['rating']); ?></h3>
-                            <h3><?php echo ("Review : " . $value['review']); ?></h3>
+                        <form name="myForm" action="addItem/?ItemID=<?php echo $item->getItemId(); ?>&quantity=<?php echo $_COOKIE["quant" . $item->getItemId()] ?>" method="POST" onsubmit="getQuantity(<?php echo $item->getItemId(); ?>)">
+                            <img style="width: 20%;  ;margin: 20px; margin-left: auto; margin-right: auto; display: block;" src="data:image/jpeg;charset=utf8;base64,<?php echo base64_encode($item->getImage()); ?>" />
+                            <h3><?php echo ("Rs : " . $item->getPrice()); ?></h3>
+                            <h3><?php echo $item->getDescription(); ?></h3>
+                            <h3><?php echo "Discount Rs : " . $item->getDiscount(); ?></h3>
+                            <h3><?php echo "Ratings : " . $item->getRating(); ?></h3>
+                            <h3><?php echo "Review : " . $item->getReview(); ?></h3>
                             <script>
-                                var i = '<?= $value["itemID"] ?>';
+                                var i = '<?= $item->getItemId(); ?>';
                             </script>
-                            <input id=<?php echo "quant" . $value["itemID"] ?> type="number" placeholder="Quantity" name="fname" require>
+                            <input id=<?php echo "quant" . $item->getItemId(); ?> type="number" placeholder="Quantity" name="fname" require>
 
-                            <?php $status = $value['status'];
+                            <?php $status = $item->getStatus();
 
                             $state = "";
                             if ($status == 0) {
@@ -89,8 +90,6 @@
                             <h3><?php echo ("Status of the item : " . $state); ?></h3>
                             <button class="btn btn-primary" type="submit" name="add">Add Item to Cart</button>
 
-                            <!-- <input class="btn btn-primary" type="submit" name="addItem" value="Add to Cart"> -->
-                            <!-- <button class="btn btn-primary" type="submit" name="addItem">Add to cart</button> -->
                         </form>
 
                     </div>

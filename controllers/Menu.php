@@ -20,6 +20,20 @@ class Menu extends Controller{
         echo "Hi? this is the menu";
         //add the presentation logic here
     }
+
+    /**
+     * Get the value of items
+     */ 
+    public function getItems()
+    {
+        return $this->items;
+    }
+    
+    public function __toString()
+    {
+       return "This is menu";
+    }
+
 }
 
 ?>
