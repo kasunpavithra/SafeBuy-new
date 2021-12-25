@@ -8,7 +8,7 @@ class OrderStatusCustomer extends Controller
     {
         parent::__construct();
         
-        //$this->loadModel("OrderStatusCustomer");
+        $this->loadModel("OrderStatusCustomer");
     }
 
     function index()
@@ -16,7 +16,7 @@ class OrderStatusCustomer extends Controller
         $order_Id= 1;
         $order_info = $this->model->getOrderInfo($order_Id);
         if($order_info){
-            $this->view->stat_no=$order_info[0]["order_status"];
+            $this->view->stat_no=$order_info[0]["status"];
             $this->view->order_Id=$order_info[0]["orderID"];
             $this->view->render('OrderStatusCustomer');
         }
