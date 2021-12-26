@@ -21,21 +21,21 @@ class ReturnOrder_Model extends Model
         $orderItems = $this->db->runQuery("SELECT returnitemID FROM returnitem WHERE returnOrderID=$returnOrderId");
         return $orderItems;
     }
-    // function incrementStatus($order_id)
-    // {
-    //     $new_status = $this->db->runQuery("SELECT Customer_id, amount,status,create_date FROM orders WHERE orderID=$order_id")[0]["status"] + 1;
-    //     $this->db->runQuery("UPDATE orders SET status=$new_status WHERE orderID=$order_id");
-    // }
-    // function approveOrder($order_id)
-    // {
-    //     $this->db->runQuery("UPDATE orders SET status=1 WHERE orderID=$order_id");
-    // }
-    // function declineOrder($order_id)
-    // {
-    //     $this->db->runQuery("UPDATE orders SET status=6 WHERE orderID=$order_id");
-    // }
-    // function closeOrder($order_id)
-    // {
-    //     $this->db->runQuery("UPDATE orders SET status=5 WHERE orderID=$order_id");
-    // }
+    function incrementStatus($order_id)
+    {
+        $new_status = $this->db->runQuery("SELECT status FROM returnorder WHERE returnorderID=$order_id")[0]["status"] + 1;
+        $this->db->runQuery("UPDATE returnorder SET status=$new_status WHERE returnorderID=$order_id");
+    }
+    function approveOrder($order_id)
+    {
+        $this->db->runQuery("UPDATE returnorder SET status=1 WHERE returnorderID=$order_id");
+    }
+    function declineOrder($order_id)
+    {
+        $this->db->runQuery("UPDATE returnorder SET status=4 WHERE returnorderID=$order_id");
+    }
+    function closeOrder($order_id)
+    {
+        $this->db->runQuery("UPDATE returnorder SET status=3 WHERE returnorderID=$order_id");
+    }
 }

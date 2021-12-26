@@ -26,7 +26,7 @@ class StaffLogin extends Login
                         header("Location:../ShopManager/con1/" . $islogin[0] . "/Dashboard");
                         break;
                     case 1:
-                        header("Location:../GeneralStaff/con1/" . $islogin[0] . "/Dashboard");
+                        header("Location:../GeneralStaff/con1/" . $islogin[0] . "/Dashboard/-1"); //-1 for all buy orders
 
                         break;
                     case 2:

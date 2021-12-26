@@ -36,12 +36,14 @@ class BuyOrder extends Order
   }
   function staffView()
   {
+    $this->checkIsStaff();
     $this->view->order = $this;
     $this->view->render('OrderDetailsStaff');
   }
 
   function updateStatus()
   {
+    $this->checkIsStaff();
     $order_id = $this->getOrderId();
     if (array_key_exists('updatestat', $_POST)) {
       $this->model->incrementStatus($order_id);
