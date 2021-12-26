@@ -6,7 +6,7 @@ abstract class Person extends Controller
         parent::__construct();
     }
 
-    abstract function dashboard();
+    //abstract function dashboard();
 
     function index()
     {

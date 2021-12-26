@@ -35,6 +35,7 @@ abstract class Order extends Controller{
         }
     }
 
+    abstract function staffView();
 
     /**
      * Get the value of orderItems

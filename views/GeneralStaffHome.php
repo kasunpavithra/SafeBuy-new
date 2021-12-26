@@ -1,196 +1,117 @@
-
 <!doctype html>
 <html lang="en">
 
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- All CSS -->
-  <link rel="stylesheet" href="../../../public/CSS/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="../../../public/CSS/bootstrap.min.css">
   <link rel="stylesheet" href="../../../public/CSS/themify-icons.css">
   <link rel="stylesheet" href="../../../public/CSS/owl.carousel.min.css">
-  <link rel="stylesheet" href="../../../public/CSS/home_staff.css">
+  <link rel="stylesheet" href="../../../public/CSS/home_staff.css"> -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+
   <meta name="robots" content="noindex, nofollow" />
-  <title>Hello, world!</title>
+  <title>Staff View of Order History</title>
 </head>
 
 <body>
-
-
-  <!-- Header strat -->
-  <header class="header">
-    <div class="top-header">
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <span>Phone: +01 256 25 235</span>
-            <span>email: info@eiser.com</span>
-          </div>
-          <div class="col text-right">
-            <span>gift card</span>
-            <span>track order</span>
-            <div class="lang d-inline-flex">
-              <span>language </span>
-              <ul class="lang-dropdown">
-                <li>Freance</li>
-                <li>Spanis</li>
-              </ul>
-            </div>
-          </div>
+  <div class="container-fluid pt-5">
+    <div class="row justify-content-end">
+      <div class="col-sm-3">
+        <div class="dropdown">
+          <button id="dd1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+            Filter Orders<i class="fa fa-filter"></i>
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <h5 class="dropdown-header text-danger">Buy Orders</h5>
+            </li>
+            <li><a class="dropdown-item" href="-1">All</a></li>
+            <li><a class="dropdown-item" href="0">Being Approved</a></li>
+            <li><a class="dropdown-item" href="1">Ready to ship</a></li>
+            <li><a class="dropdown-item" href="2">Invoiced</a></li>
+            <li><a class="dropdown-item" href="3">Shipped</a></li>
+            <li><a class="dropdown-item" href="4">Delivered</a></li>
+            <li><a class="dropdown-item" href="5">Closed</a></li>
+            <li><a class="dropdown-item" href="6">Cancelled</a></li>
+            <li>
+              <h5 class="dropdown-header text-danger">Return Orders</h5>
+            </li>
+            <li><a class="dropdown-item" href="12">All</a></li>
+            <li><a class="dropdown-item" href="7">Being Approved</a></li>
+            <li><a class="dropdown-item" href="8">Being Shipped</a></li>
+            <li><a class="dropdown-item" href="9">Recieved</a></li>
+            <li><a class="dropdown-item" href="10">closed</a></li>
+            <li><a class="dropdown-item" href="11">Cancelled</a></li>
+            
+          </ul>
         </div>
       </div>
     </div>
-    <div class="container">
-      <nav class="navbar">
-        <!-- Site logo -->
-        <a href="home-01.html" class="logo">
-          <!-- <img src="images/logo.png" alt=""> -->
-        </a>
-        <a href="javascript:void(0);" id="mobile-menu-toggler">
-          <i class="ti-align-justify"></i>
-        </a>
-        <ul class="navbar-nav">
-          <li class="current-menu-item has-menu-child">
-            <a href="#">Categories</a>
-            <ul class="sub-menu">
-              <li><a href="home-03.html">Add new category</a></li>
-              <li><a href="home-01.html">Electronics</a></li>
-              <li><a href="home-02.html">Groceries</a></li>
-              <li><a href="home-03.html">Clothes</a></li>
 
-            </ul>
-          </li>
-          <li>
-            <a href="#">Deals</a>
-            <ul class="sub-menu">
-              <li><a href="home-03.html">Add new Deal</a></li>
-              <li><a href="home-01.html">Electronics</a></li>
-              <li><a href="home-02.html">Groceries</a></li>
-              <li><a href="home-03.html">Clothes</a></li>
-
-            </ul>
-          </li>
-          <li><a href="#">Recent</a></li>
-          <li><a href="#">Contact us </a></li>
-          <li><a href="#">My Profile</a></li>
-          <li><a href="#"><input type="text" placeholder="Search.." class="navbar-search"></a></li>
-        </ul>
-
-        <div class="d-inline-flex align-items-center">
-          <a href="#" class="search-icon icon">
-            <!-- <img src="images/icons/search.png" alt=""> -->
-            <i class="ti-search"></i>
-          </a>
-
-        </div>
-      </nav>
-    </div>
-  </header>
-  <!-- Header ends -->
-  <!--order details started-->
-  <?php
-    foreach ($this->orderLog->getBuyOrders() as $odr){
-        echo
-  '<div class="row">
+    <!--order details started-->
+    <?php
+    foreach ($this->orderArr as $odr) {
+      echo
+      '<div class="row">
     <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail" /></div>
-    <div class="col-md-11">
+    <div class="col-md-6">
       <div class="row">
         <div class="col-md-12">
-          <div class="col-md-12"><label class="label label-danger">'. BuyOrder::STATES[$odr->getStatus()]. '</label></div>
+          <div class="col-md-12"><label class="label label-danger">';
+      if ($odr instanceof BuyOrder) {
+        echo BuyOrder::STATES[$odr->getStatus()];
+      } else {
+        echo ReturnOrder::STATES[$odr->getStatus()];
+      }
+      echo '</label></div>
           <span><strong>Order ID</strong></span> <span class="label label-info">group name</span><br />
-          cost: $'. $odr->getAmount(). '<br />
+          cost: $' . $odr->getAmount() . '<br />
           <!-- add code to disable the accept reject buttons once the order is accepted
                       -->
           
         </div>
-        <div class="col-md-12">order made on:'. $odr->getCreateDate() . ' by <a href="#">'.$odr->getCustomerName().'</a></div>
+        <div class="col-md-12">order made on:' . $odr->getCreateDate() . ' by <a href="#">' . $odr->getCustomerName() . '</a></div>
       </div>
     </div>
+    <div class="col-md-2">
+        <a href="../../../../';
+      if ($odr instanceof BuyOrder) {
+        echo "BuyOrder";
+      } else {
+        echo "ReturnOrder";
+      }
+      echo '/con1/' . $odr->getOrderId() . '/staffView" class="btn btn-primary">View</a>
+      </div>
   </div>';
-    }//you need to modify here to add customer name
-  ?>
-  <!--order details end-->
+    } //you need to modify here to add customer name
+    ?>
+    <!--order details end-->
 
 
+    <!-- Footer strat -->
+    <div class="fixed-bottom">
+      <footer class="footer ">
+        <div class="container foo-top">
+          <div class="row">
 
-  <div class="container bootdey">
-    <div class="panel panel-default panel-order">
-      <div class="panel-heading">
-        <strong>Order items</strong>
-        <div class="btn-group pull-right">
-          <div class="btn-group">
-            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">Filter history <i class="fa fa-filter"></i></button>
-            <ul class="dropdown-menu dropdown-menu-right">
-              <li><a href="#">Approved orders</a></li>
-              <li><a href="#">Pending orders</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="panel-footer">Put here some note for example: bootdey si a gallery of free bootstrap snippets bootdeys</div>
+            <div class="container">
+              <p class="copyright">Copyright © 2019 <a href="#">themeies.com</a>. All rights reserved.</p>
+            </div>
+      </footer>
     </div>
+    <!-- Footer end -->
+
   </div>
-
-  <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown button
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
-</div>
-
-
-  <!-- Footer strat -->
-  <footer class="footer">
-    <!-- <div class="container foo-top">
-        <div class="row">
-
-      <div class="container"> -->
-    <p class="copyright">Copyright © 2019 <a href="#">themeies.com</a>. All rights reserved.</p>
-    </div>
-  </footer>
-  <!-- Footer end -->
 
   <!-- JS -->
   <script>
-    if (window.history.replaceState) {
-      window.history.replaceState(null, null, window.location.href);
-    }
-    approve_btn = document.getElementById("appr");
-    decline_btn = document.getElementById("cnl");
-    update_btn = document.getElementById("upt");
-    close_btn = document.getElementById("cls");
-    var status_value = '<?= $this->orderDetails["status"] ?>';
-    if (status_value == 0) {
-      update_btn.style.visibility = 'hidden';
-      close_btn.style.visibility = 'hidden';
-    } else if (status_value > 0 && status_value < 5) {
-      approve_btn.style.width = "0px";
-      approve_btn.style.visibility = 'hidden';
-      decline_btn.style.visibility = 'hidden';
-      decline_btn.style.width = "0px";
-      close_btn.style.visibility = 'hidden';
-    } else if (status_value == 5) {
-      approve_btn.style.visibility = 'hidden';
-      decline_btn.style.visibility = 'hidden';
-      update_btn.style.visibility = 'hidden';
-      close_btn.style.visibility = 'hidden';
-    } else if (status_value == 6) {
-      approve_btn.style.visibility = 'hidden';
-      approve_btn.style.width = "0px";
-      decline_btn.style.visibility = 'hidden';
-      decline_btn.style.width = "0px";
-      update_btn.style.visibility = 'hidden';
-      update_btn.style.width = "0px";
-      close_btn.style.visibility="hidden";
 
-    }
   </script>
 </body>
 
