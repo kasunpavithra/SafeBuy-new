@@ -13,7 +13,7 @@ class App
     //         $this->_loadDefaultController();
     //         return false;
     //     }
-    
+
     //     if ($this->__loadController()) {
     //         $this->_loadControllerMethod();
     //     }
@@ -21,21 +21,20 @@ class App
     /* Add singleton logic for app.php*/
     private $_url = null;
     private $_controller = null;
-    private static $App ;
+    private static $App;
 
     private function __construct()
     {
-        
     }
     public static function getInstance()
     {
         // echo("asdasd");
-        if (self::$App==null){
-            self::$App= new App();
+        if (self::$App == null) {
+            self::$App = new App();
         }
 
         self::$App->_getURL();
-        
+
         if (empty(self::$App->_url[0])) {
             self::$App->_loadDefaultController();
             return false;
@@ -44,7 +43,6 @@ class App
             self::$App->_loadControllerMethod();
         }
         return self::$App;
-
     }
 
     private function _getURL()
@@ -68,22 +66,23 @@ class App
             require $file;
 
             $urlLength = count($this->_url);
-            if($urlLength>1){
-                switch($this->_url[1]){
+            if ($urlLength > 1) {
+                switch ($this->_url[1]) {
                     case "con1":
                         $this->_controller = new $this->_url[0]($this->_url[2]);
-                        array_splice($this->_url,1,2);
+                        array_splice($this->_url, 1, 2);
                         break;
                     case "con2":
-                        $this->_controller = new $this->_url[0]($this->_url[2],$this->_url[3]);
-                        array_splice($this->_url,1,3);
+                        $this->_controller = new $this->_url[0]($this->_url[2], $this->_url[3]);
+                        array_splice($this->_url, 1, 3);
                         break;
                     default:
                         $this->_controller = new $this->_url[0];
                         break;
                 }
-            }else{
+            } else {
                 $this->_controller = new $this->_url[0];
+               
             }
 
             $this->_controller->loadModel($this->_url[0]);
@@ -121,7 +120,7 @@ class App
                 $this->_controller->{$this->_url[1]}($this->_url[2]);
                 break;
             case 2:
-                
+
                 $this->_controller->{$this->_url[1]}();
                 break;
             default:
