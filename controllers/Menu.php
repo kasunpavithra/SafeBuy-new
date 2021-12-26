@@ -16,6 +16,9 @@ class Menu extends Controller{
         // var_dump($this);
         
     }
+    function getCategoryDescriptionList(){
+       return $this->model->getCategoryDescription();
+    }
     function index(){
         echo "Hi? this is the menu";
         //add the presentation logic here

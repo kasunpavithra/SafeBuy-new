@@ -5,10 +5,14 @@ class Menu_Model extends Model
     {
         parent::__construct();
     }
-    
-    function getMenuDetails(){
+
+    function getMenuDetails()
+    {
         $menuDetails =  $this->db->runQuery("SELECT itemID FROM item");
         return $menuDetails;
     }
+    function getCategoryDescription()
+    {
+        return $this->db->runQuery("SELECT category_name,DESCRIPTION FROM CATEGORY");
+    }
 }
-?>

@@ -35,8 +35,8 @@ class CustomerHome_Model extends Model
     {
         $arrayOfItems = $this->db->runQuery("SELECT ITEM_ID,ORDERED FROM CART_ITEMSTEMP");
         foreach ($arrayOfItems as $key => $value) {
-            
-            if (($value)[0] == $itemID && ($value)[1]==0) {
+
+            if (($value)[0] == $itemID && ($value)[1] == 0) {
                 return true;
             }
         }
@@ -50,4 +50,5 @@ class CustomerHome_Model extends Model
         $query = "UPDATE CART_ITEMSTEMP SET QUANTITY='" . $newQuantity . "' WHERE ITEM_ID='" . $itemID . "'";
         return $this->db->insertQuery($query);
     }
+  
 }

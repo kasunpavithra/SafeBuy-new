@@ -9,6 +9,14 @@ class Customer_Model extends Model
     function index()
     {
     }
+    function rateItem($itemID, $rate)
+    {
+        return $this->db->insertQuery("UPDATE ORDERITEM SET RATING=$rate where OrderItemID=$itemID");
+    }
+    function reviewItem($itemID, $review)
+    {
+        return $this->db->insertQuery("UPDATE ORDERITEM SET REVIEW='$review' where OrderItemID=$itemID");
+    }
     function getDetails($id)
     {
         $sql = "SELECT * FROM CUSTOMER WHERE Customer_id='" . $id . "'";
@@ -54,7 +62,7 @@ class Customer_Model extends Model
     function addItemtoCart($itemID, $quantity)
     {
         $query = "INSERT INTO CART_ITEMSTEMP (CART_ID,ITEM_ID,QUANTITY,ORDERED) VALUES ('3','" . $itemID . "','" . $quantity . "','0')";
-        echo $query;
+
         return $this->db->insertQuery($query);
     }
 
@@ -72,9 +80,118 @@ class Customer_Model extends Model
 
     function UpdateItemtoCart($itemID, $quantity)
     {
-        $prevQuan = $this->db->runQuery("SELECT QUANTITY FROM CART_ITEMSTEMP WHERE ITEM_ID='" . $itemID . "'")[0][0];
-        $newQuantity = $quantity + $prevQuan;
-        $query = "UPDATE CART_ITEMSTEMP SET QUANTITY='" . $newQuantity . "' WHERE ITEM_ID='" . $itemID . "'";
+
+        $query = "UPDATE CART_ITEMSTEMP SET QUANTITY='" . $quantity . "' WHERE ITEM_ID='" . $itemID . "'";
         return $this->db->insertQuery($query);
+    }
+    function getCartItems($userID)
+    {
+        $cartIDs = $this->db->runQuery("SELECT CART_ID FROM CARTTEMP WHERE Customer_id= '" . $userID . "'");
+        $cartID = $cartIDs[0][0];
+        $cartItems = $this->db->runQuery("SELECT * FROM CART_ITEMSTEMP WHERE Cart_id= '" . $cartID . "' AND ORDERED='0'");
+        foreach ($cartItems as $key => $value) {
+
+            $cartItems[$key]["itemDetails"] = $this->db->runQuery("SELECT * FROM ITEM WHERE itemID='" . $value["item_id"] . "'");
+        }
+        return $cartItems;
+    }
+    function deleteItemCart($itemCartID)
+    {
+        $sql = "DELETE FROM CART_ITEMSTEMP WHERE cart_item_id= '" . $itemCartID . "'";
+        return $this->db->insertQuery($sql);
+    }
+    // function createOrder($userID, $amount, $paymentMethod)
+    // {
+    //     if ($paymentMethod == "cashOn") {
+    //         $paymentMethod = 0;
+    //     } else {
+    //         $paymentMethod = 1;
+    //     }
+    //     $userID = "'$userID'";
+    //     $amount = "'$amount'";
+    //     $paymentMethod = "'$paymentMethod'";
+
+    //     $sql = "INSERT INTO ORDERS (Customer_id,amount,payment_method) values ($userID,$amount,$paymentMethod)";
+    //     return $this->db->insertQuery($sql);
+    // }
+
+    function getLastOrderID($userID)
+    {
+        $userID = "'$userID'";
+        $sql = "SELECT orderID from orders where Customer_id=$userID";
+        $listOfIds = $this->db->runQuery($sql);
+        $lastOrderID = end($listOfIds)[0];
+        return $lastOrderID;
+    }
+
+    function addOrderItems($orderID, $cartItems)
+    {
+        $orderID = "'$orderID'";
+        foreach ($cartItems as $key => $value) {
+            // print_r($value);
+            $itemsDetails = $value['itemDetails'][0];
+            $itemID = "'" . $itemsDetails['itemID'] . "'";
+            $quantity = "'" . $value["quantity"] . "'";
+            $price = "'" . $itemsDetails["price"] . "'";
+            $discount = "'" . $itemsDetails["discount"] . "'";
+            $sql = "INSERT INTO ORDERITEM (OrderID,ItemID,quantity,price,discount) VALUES  ($orderID,$itemID,$quantity,$price,$discount)";
+            $preQuantity = $itemsDetails["quantity"];
+            $consumedQuantity = $value["quantity"];
+            $newQuantity = "'" . ($preQuantity - $consumedQuantity) . "'";
+            $this->db->insertQuery($sql);
+            $this->updateItemDetail($itemID, $newQuantity);
+            $cartItemID = "'" . $value["cart_item_id"] . "'";
+            $this->markAsOrdered($cartItemID);
+        }
+    }
+
+    function updateItemDetail($itemID, $newQuantity)
+    {
+        $sql = "UPDATE ITEM set quantity=$newQuantity where itemID=$itemID";
+        $this->db->runQuery($sql);
+    }
+    function markAsOrdered($cartItemID)
+    {
+        $sql = "UPDATE CART_ITEMSTEMP SET ORDERED=1 WHERE CART_ITEM_ID=$cartItemID";
+        $this->db->insertQuery($sql);
+    }
+    function setCart($id)
+    {
+        $sql = "SELECT CART_ID from carttemp where customer_id='" . $id . "'";
+        return $this->db->runQuery($sql)[0][0];
+    }
+    function createCart($id)
+    {
+        $sql = "INSERT INTO carttemp (customer_id) values ($id)";
+        return $this->db->insertQuery($sql);
+    }
+    function deleteCartItem($itemID)
+    {
+        return $this->db->insertQuery("DELETE FROM CART_ITEMSTEMP WHERE CART_ITEM_ID=$itemID");
+    }
+    function updateCartItemAsOrdered($cart_id)
+    {
+        return $this->db->insertQuery("UPDATE CART_ITEMSTEMP SET ORDERED=1 WHERE (cart_id=3 AND ordered=0)");
+    }
+    function createOrder($customer_id, $amount, $paymentMethod)
+    {
+        if ($paymentMethod == "cashOn") {
+            $paymentMethod = 0;
+        } else {
+            $paymentMethod = 1;
+        }
+        return $this->db->insertQuery("INSERT INTO ORDERS (Customer_id,amount,payment_method) values ($customer_id,$amount,$paymentMethod)");
+    }
+    function updateItem($itemID,  $quantity)
+    {
+        return $this->db->insertQuery("UPDATE ITEM SET QUANTITY=$quantity where itemID=$itemID");
+    }
+    function  getOrderID($customer_id)
+    {
+        return $this->db->runQuery("SELECT orderID FROM ORDERS where Customer_id=$customer_id");
+    }
+    function addOrderItem($orderId, $Item_id, $quantity, $price, $discount)
+    {
+        return $this->db->insertQuery("INSERT INTO ORDERITEM (orderID,itemID,quantity,price,discount) values ($orderId,$Item_id,$quantity,$price,$discount)");
     }
 }

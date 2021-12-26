@@ -4,9 +4,10 @@ require_once("shop.php");
 require_once("Order.php");
 require_once("Menu.php");
 require_once("OrderStatusCustomer.php");
+require_once("Cart.php");
 class Customer extends Person
 {
-    
+
     private $customer_id;
     private $name;
     private $street;
@@ -18,7 +19,7 @@ class Customer extends Person
     private $username;
     private $email;
     private $profile_pic;
-    
+    private $cart;
     private $buyorders = array();
     private $returnorders = array();
     private $shop;
@@ -43,10 +44,125 @@ class Customer extends Person
         $this->username = $details["Username"];
         $this->email = $details["Email"];
         $this->profile_pic = $details["Profile_pic"];
+        $this->cart = new Cart($this->setCart($id)[0][0]);
+    }
+    function deleteItem()
+    {
+        if (isset($_POST["deleteBtn"])) {
+            $itemID = $_POST["itemID"];
+            $isdelete = $this->model->deleteCartItem($itemID);
+            if ($isdelete) {
+                header("Location:PayCart");
+            }
+        }
+    }
+    function updateRatingsViews()
+    {
+        $itemID = $_POST["orderItemID"];
+        $rate = $review = NULL;
+        if (isset($_POST["submitrateview"])) {
+            if (isset($_POST["rate"])) {
+                $rate = $_POST["rate"];
+            }
+            if (isset($_POST["review"])) {
+                $review = $_POST["review"];
+            }
+        }
+        if ($rate != NULL) {
+            $this->model->rateItem($itemID, $rate);
+        }
+        if ($review != NULL) {
+            $this->model->reviewItem($itemID, $review);
+        }
+        header("Location:orderHistory");
+    }
+    function itemDetails()
+    {
+        $orderID = $_GET["orderID"];
+        $order = NULL;
+        $this->setShop(new Shop());
+        $orderLog = $this->shop->getOrderLog();
+        $buyorders = $orderLog->getBuyOrders();
+        foreach ($buyorders as $key => $value) {
+            if ($value->getCustomerId() == $this->customer_id) {
+                array_push($this->buyorders, $buyorders[$key]);
+            };
+        }
+        $returnorders = $orderLog->getReturnOrders();
+        foreach ($returnorders as $key => $value) {
+            if ($value->getCustomerId() == $this->customer_id) {
+                array_push($this->returnorders, $returnorders[$key]);
+            };
+        }
+        foreach ($buyorders as $buyorder) {
+            if ($buyorder->getOrderId() == $orderID) {
+                $order = $buyorder;
+                break;
+            }
+        }
+        $this->view->order = $order;
+        $this->view->render("OrderDetail");
+    }
+    function orderHistory()
+    {
+        $this->setShop(new Shop());
+        $orderLog = $this->shop->getOrderLog();
+        $buyorders = $orderLog->getBuyOrders();
+        foreach ($buyorders as $key => $value) {
+            if ($value->getCustomerId() == $this->customer_id) {
+                array_push($this->buyorders, $buyorders[$key]);
+                // echo $value->getCustomerName();
+                // echo "<br>";
+            };
+        }
+        $returnorders = $orderLog->getReturnOrders();
+        foreach ($returnorders as $key => $value) {
+            if ($value->getCustomerId() == $this->customer_id) {
+                array_push($this->returnorders, $returnorders[$key]);
+                // echo $value->getCustomerName();
+                // echo "<br>";
+            };
+        }
+        $this->view->buyOrders = $buyorders;
+        $this->view->returnOrders = $returnorders;
+        $this->view->render("orderHistory");
+    }
+    function placeOrder()
+    {
+        if (isset($_POST["placeOrder"])) {
+            $amount = $_POST["amount"];
+            $paymentMethod = $_POST["paymentmethod"];
 
-        // $this->orders=
-        echo $this->username;
-        echo $this->mobile_no;
+            $ischanged = $this->model->updateCartItemAsOrdered($this->cart->getCartID());
+            if ($ischanged) {
+                $isCreated = $this->model->createOrder($this->customer_id, $amount, $paymentMethod);
+                $orderIDArray = $this->model->getOrderID($this->customer_id);
+                $orderId = end($orderIDArray)[0];
+
+                if ($isCreated) {
+                    $cartItems = $this->cart->getCartItems();
+                    foreach ($cartItems as $cartItem) {
+                        $this->model->updateItem($cartItem->getItem_id(),  $cartItem->getAvQuantity() - $cartItem->getQuantity());
+                        $this->model->addOrderItem($orderId, $cartItem->getItem_id(), $cartItem->getQuantity(), $cartItem->getPrice(), $cartItem->getDiscount());
+                    }
+                }
+            }
+        }
+        header("Location:Dashboard");
+    }
+    function payCart()
+    {
+        $this->view->cart = $this->cart->getCartItems();
+        $this->view->render("CartPayment");
+    }
+    function setCart($id)
+    {
+        $cart =  $this->model->setCart($id);
+        if (empty($cart)) {
+            $this->model->createCart($id);
+            $cart = $this->model->setCart($id);
+        }
+        return $cart;
     }
     function getOrders()
     {
@@ -69,12 +185,14 @@ class Customer extends Person
             };
         }
     }
-    function OrderStatusCustomer(){
+    function OrderStatusCustomer()
+    {
         (new OrderStatusCustomer())->index();
     }
     function customerProfile()
     {
         $this->view->row = $this->getDataRow();
+        $this->view->cartItems = $this->model->getCartItems($_SESSION['userID']);
         $this->view->render("customerProfile");
     }
     function getDataRow()
@@ -178,29 +296,44 @@ class Customer extends Person
             die();
         }
         $menu = new Menu();
-        $categories=array();
+        $categories = array();
         $items = $menu->getItems();
-         foreach ($items as $key => $value) {
-            if(array_key_exists($value->getCategoryName(), $categories)){
-                    array_push($categories[$value->getCategoryName()],$value);
+        foreach ($items as $key => $value) {
+            if (array_key_exists($value->getCategoryName(), $categories)) {
+                array_push($categories[$value->getCategoryName()], $value);
+            } else {
+                $categories[$value->getCategoryName()] = array($value);
             }
-            else{
-                $categories[$value->getCategoryName()]=array($value);
-            }
-
-             
         }
-        
-        // (new Menu())->getItems();
-        // $items= $menu->getItems();
-        // print_r($items);
-        // foreach ($items as $key => $value) {
-        //     echo $value;
+        $descriptionList = $menu->getCategoryDescriptionList();
+        $descList = array();
+        foreach ($descriptionList as $key => $value) {
+            $descList[$value[0]] = array();
+            array_push($descList[$value[0]], $value[1]);
+        }
+        // print_r($descList);
+        // $numOfDesc = 0;
+        // foreach ($categories as $key => $value) {
+
+        //     $categories[$key]["catdescription"] = $descriptionList[$numOfDesc++];
+        //     // print_r($categories[$key]);
+        //     // echo "<br>";
+        //     foreach ($value as $item) {
+        //     //   echo $item->getDiscount();
+        //     //   echo "<br>";
+        //     }
         // }
-        // $this->setShop(new Shop());
+        $this->view->descriptionList = $descList;
         $this->view->categories = $categories;
-        // foreach ($this->view->categories as $key => $value) {
-        //     $this->view->categories[$key]["items"] = $this->getItems($this->view->categories[$key][0]);
+        // 
+        // foreach ($descriptionList as $key => $value) {
+        //     $categories[$key]["description"] = $value[0];
+        // }
+
+        // $this->view->categories = $categories;
+        // foreach ($this->view->categories as $value) {
+        //     print_r($value);
+        //     echo "<br>";
         // }
         $this->view->render('CustomerHome');
     }
@@ -211,7 +344,28 @@ class Customer extends Person
         }
         header("Location: ../../../../login/");
     }
-
+    function addCartItem()
+    {
+        if (isset($_POST["add"])) {
+            $itemID = $_POST["itemID"];
+            $quantity = $_POST["quantity"];
+            $cartItems = $this->cart->getCartItems();
+            foreach ($cartItems as $cartItem) {
+                if ($cartItem->getItem_id() == $itemID) {
+                    $isadded = $this->model->UpdateItemtoCart($itemID, $quantity + $cartItem->getQuantity());
+                    if ($isadded) {
+                        header("Location: Dashboard");
+                        return;
+                    }
+                }
+            }
+            $isadded = $this->model->addItemtoCart($itemID, $quantity);
+            if ($isadded) {
+                header("Location: Dashboard");
+                return;
+            }
+        }
+    }
     /**
      * Get the value of customer_id
      */
