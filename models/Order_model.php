@@ -7,7 +7,7 @@ class Order_Model extends Model
     }
 
     function getOrderDetails($orderId){
-        $orderDetails =  $this->db->runQuery("SELECT Customer_id, amount,status,create_date FROM orders WHERE orderID=$orderId");
+        $orderDetails =  $this->db->runQuery("SELECT Customer_id, amount,status,create_date,rating FROM orders WHERE orderID=$orderId");
         return $orderDetails;
     }
     function getCustomerDetails($customerId){

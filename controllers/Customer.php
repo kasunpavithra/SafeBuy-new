@@ -56,6 +56,15 @@ class Customer extends Person
             }
         }
     }
+    function updateShopRatingViews()
+    {
+        if (isset($_POST["submitOrderRatings"])) {
+            $orderID = $_POST["orderID"];
+            $rate = $_POST["rate"];
+            $this->model->rateOrder($orderID, $rate);
+        }
+        header("Location:orderHistory");
+    }
     function updateRatingsViews()
     {
         $itemID = $_POST["orderItemID"];
@@ -75,6 +84,27 @@ class Customer extends Person
             $this->model->reviewItem($itemID, $review);
         }
         header("Location:orderHistory");
+    }
+    function OrderStatus()
+    {
+        $this->view->order_Id = $_GET["orderID"];
+        $order = new BuyOrder($_GET["orderID"]);
+        $this->view->stat_no  = $order->getStatus();
+        $this->view->render("OrderStatusCustomer");
+    }
+    function categoryDetail()
+    {
+        $categoryID = $_GET["categoryID"];
+        $menu = new Menu();
+        $items = $menu->getItems();
+        $categoryItems = array();
+        foreach ($items as  $item) {
+            if ($item->getCategoryID() == $categoryID) {
+                array_push($categoryItems, $item);
+            }
+        }
+        $this->view->categoryItems = $categoryItems;
+        $this->view->render("CategoryItems");
     }
     function itemDetails()
     {
@@ -123,9 +153,22 @@ class Customer extends Person
                 // echo "<br>";
             };
         }
-        $this->view->buyOrders = $buyorders;
-        $this->view->returnOrders = $returnorders;
+        $this->view->buyOrders = $this->buyorders;
+        $this->view->returnOrders = $this->returnorders;
         $this->view->render("orderHistory");
+    }
+    function item()
+    {
+        $itemID = $_GET["itemID"];
+        $menu = new Menu();
+        $items = $menu->getItems();
+        foreach ($items as $key => $item) {
+            if ($item->getItemId() == $itemID) {
+                $this->view->item = $item;
+                $this->view->render("Item");
+                break;
+            }
+        }
     }
     function placeOrder()
     {
@@ -142,7 +185,7 @@ class Customer extends Person
                 if ($isCreated) {
                     $cartItems = $this->cart->getCartItems();
                     foreach ($cartItems as $cartItem) {
-                        $this->model->updateItem($cartItem->getItem_id(),  $cartItem->getAvQuantity() - $cartItem->getQuantity());
+                        $this->model->updateItem($cartItem->getItem_id(),  $cartItem->getAvQuantity() - $cartItem->getQuantity(), $cartItem->getSoldQuantity() + $cartItem->getQuantity());
                         $this->model->addOrderItem($orderId, $cartItem->getItem_id(), $cartItem->getQuantity(), $cartItem->getPrice(), $cartItem->getDiscount());
                     }
                 }
@@ -158,6 +201,7 @@ class Customer extends Person
     function setCart($id)
     {
         $cart =  $this->model->setCart($id);
+
         if (empty($cart)) {
             $this->model->createCart($id);
             $cart = $this->model->setCart($id);
@@ -305,6 +349,9 @@ class Customer extends Person
                 $categories[$value->getCategoryName()] = array($value);
             }
         }
+        foreach ($categories as $key => $items) {
+            usort($categories[$key], fn ($a, $b) => $a->getSoldQuantity() < $b->getSoldQuantity());
+        }
         $descriptionList = $menu->getCategoryDescriptionList();
         $descList = array();
         foreach ($descriptionList as $key => $value) {
@@ -359,7 +406,7 @@ class Customer extends Person
                     }
                 }
             }
-            $isadded = $this->model->addItemtoCart($itemID, $quantity);
+            $isadded = $this->model->addItemtoCart($itemID, $quantity, $this->cart);
             if ($isadded) {
                 header("Location: Dashboard");
                 return;

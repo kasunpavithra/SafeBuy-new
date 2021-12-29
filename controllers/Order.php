@@ -8,6 +8,7 @@ abstract class Order extends Controller{
     private $status;
     private $amount;
     private $customerName;
+    private $rating;
 
     function __construct($orderId){
         parent::__construct();
@@ -20,9 +21,10 @@ abstract class Order extends Controller{
         $this->amount = $orderDetails[1];
         $this->status = $orderDetails[2];
         $this->createDate = $orderDetails[3];
+        $this->rating =$orderDetails[4];
         //get the customer name
         $this->customerName = $this->model->getCustomerDetails($this->getCustomerId())[0][0];
-
+       
         $this->setOrderItems();
         
     }
@@ -93,6 +95,13 @@ abstract class Order extends Controller{
     {
         return $this->customerName;
     }
-}
 
-?>
+    /**
+     * Get the value of rating
+     */ 
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+}

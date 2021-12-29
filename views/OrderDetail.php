@@ -13,8 +13,26 @@
     <?php echo "Order ID : " . $order->getorderID(); ?>
     <br>
     <?php
-    $items = $order->getOrderItems();
-    foreach ($items as $item) {
+    $items = $order->getOrderItems(); ?>
+    <div>
+        <form action="updateShopRatingViews" method="post">
+            <?php if ($order->getRating() == 0) { ?>
+                <label for="rate">Rate Now : (1-5) </label>
+                <input type="number" name="rate" min="1" max="5" required>
+
+                <input type="hidden" name="orderID" value="<?php echo  $order->getOrderId(); ?>">
+                <input type="submit" name="submitOrderRatings" value="Save">
+
+            <?php
+
+            } else {
+
+                echo "You already rated the order..";
+            }
+            ?>
+        </form>
+    </div>
+    <?php foreach ($items as $item) {
         $canSubmit = true;
     ?>
         <div style="margin-bottom: 40px;">
