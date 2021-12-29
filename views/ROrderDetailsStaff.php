@@ -8,10 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- All CSS -->
-  <link rel="stylesheet" href="../public/CSS/bootstrap.min.css">
-  <link rel="stylesheet" href="../public/CSS/themify-icons.css">
-  <link rel="stylesheet" href="../public/CSS/owl.carousel.min.css">
-  <link rel="stylesheet" href="../public/CSS/home_staff.css">
+  <link rel="stylesheet" href="../../../public/CSS/bootstrap.min.css">
+  <link rel="stylesheet" href="../../../public/CSS/themify-icons.css">
+  <link rel="stylesheet" href="../../../public/CSS/owl.carousel.min.css">
+  <link rel="stylesheet" href="../../../public/CSS/home_staff.css">
   <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
   <meta name="robots" content="noindex, nofollow" />
   <title>Hello, world!</title>
@@ -91,30 +91,30 @@
   </header>
   <!-- Header ends -->
   <!--order details started-->
-  <?php
-    foreach ($this->orderLog->getBuyOrders() as $odr){
-        echo
-  '<div class="row">
+  <div class="row">
     <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail" /></div>
     <div class="col-md-11">
       <div class="row">
         <div class="col-md-12">
-          <div class="col-md-12"><label class="label label-danger">'. BuyOrder::STATES[$odr->getStatus()]. '</label></div>
+          <div class="col-md-12"><label class="label label-danger"> <?php echo ReturnOrder::STATES[$this->order->getStatus()]; ?></label></div>
           <span><strong>Order ID</strong></span> <span class="label label-info">group name</span><br />
-          cost: $'. $odr->getAmount(). '<br />
+          cost: $<?php echo $this->order->getamount() ?> <br />
           <!-- add code to disable the accept reject buttons once the order is accepted
                       -->
-          
+          <form method="post" <?php echo 'action="../../../ReturnOrder/con1/'.$this->order->getOrderId().'/updateStatus"'?>>
+            <input name="approve" id="appr" type="submit" data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" title="View" value="Approve">
+            <input name="cancel" id="cnl" type="submit" data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" title="Danger" value="Decline">
+            <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" title="Danger" value="<?php
+                                                                                                                                                            echo ReturnOrder::STATES_PRESENT[$this->order->getStatus() + 1]; ?>">
+            <input name="close" id="cls" type="submit" data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" title="Danger" value="Close">
+
+          </form>
         </div>
-        <div class="col-md-12">order made on:'. $odr->getCreateDate() . ' by <a href="#">'.$odr->getCustomerName().'</a></div>
+        <div class="col-md-12">order made on: <?php echo $this->order->getCreateDate() ?> by <a href="#"><?php echo $this->order->getCustomerName() ?> </a></div>
       </div>
     </div>
-  </div>';
-    }//you need to modify here to add customer name
-  ?>
+  </div>
   <!--order details end-->
-
-
 
   <div class="container bootdey">
     <div class="panel panel-default panel-order">
@@ -133,17 +133,6 @@
       <div class="panel-footer">Put here some note for example: bootdey si a gallery of free bootstrap snippets bootdeys</div>
     </div>
   </div>
-
-  <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown button
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-  </div>
-</div>
 
 
   <!-- Footer strat -->
@@ -166,22 +155,22 @@
     decline_btn = document.getElementById("cnl");
     update_btn = document.getElementById("upt");
     close_btn = document.getElementById("cls");
-    var status_value = '<?= $this->orderDetails["status"] ?>';
+    var status_value = '<?= $this->order->getStatus() ?>';
     if (status_value == 0) {
       update_btn.style.visibility = 'hidden';
       close_btn.style.visibility = 'hidden';
-    } else if (status_value > 0 && status_value < 5) {
+    } else if (status_value > 0 && status_value < 3) {
       approve_btn.style.width = "0px";
       approve_btn.style.visibility = 'hidden';
       decline_btn.style.visibility = 'hidden';
       decline_btn.style.width = "0px";
       close_btn.style.visibility = 'hidden';
-    } else if (status_value == 5) {
+    } else if (status_value == 3) {
       approve_btn.style.visibility = 'hidden';
       decline_btn.style.visibility = 'hidden';
       update_btn.style.visibility = 'hidden';
       close_btn.style.visibility = 'hidden';
-    } else if (status_value == 6) {
+    } else if (status_value == 4) {
       approve_btn.style.visibility = 'hidden';
       approve_btn.style.width = "0px";
       decline_btn.style.visibility = 'hidden';

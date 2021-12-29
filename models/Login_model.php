@@ -9,7 +9,8 @@ class Login_Model extends Model{
   
     }
     function getData(){
-      return $this->db->runQuery("SELECT * from users");
+      // return $this->db->runQuery("SELECT * from users");
+      return false;
     }
     function islogin($username,$password){
       if(!empty($username) && !empty($password) )
