@@ -33,12 +33,6 @@ class ReturnOrder extends Order
         var_dump($this);
         //view logic here
     }
-    function staffView()
-    {
-        $this->checkIsStaff();
-        $this->view->order = $this;
-        $this->view->render('ROrderDetailsStaff');
-    }
     function updateStatus()
     {
         $this->checkIsStaff();

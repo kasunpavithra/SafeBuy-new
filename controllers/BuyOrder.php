@@ -34,12 +34,7 @@ class BuyOrder extends Order
     //call parent 
     parent::__construct($orderId);
   }
-  function staffView()
-  {
-    $this->checkIsStaff();
-    $this->view->order = $this;
-    $this->view->render('OrderDetailsStaff');
-  }
+
 
   function updateStatus()
   {
@@ -58,6 +53,5 @@ class BuyOrder extends Order
       $this->model->closeOrder($order_id);
     }
 
-    header('Location: ../../../BuyOrder/con1/' . $order_id . '/staffView');
   }
 }

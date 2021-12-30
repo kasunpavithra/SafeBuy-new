@@ -8,10 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- All CSS -->
-  <link rel="stylesheet" href="../../../public/CSS/bootstrap.min.css">
-  <link rel="stylesheet" href="../../../public/CSS/themify-icons.css">
-  <link rel="stylesheet" href="../../../public/CSS/owl.carousel.min.css">
-  <link rel="stylesheet" href="../../../public/CSS/home_staff.css">
+  <link rel="stylesheet" href="../../../../public/CSS/bootstrap.min.css">
+  <link rel="stylesheet" href="../../../../public/CSS/themify-icons.css">
+  <link rel="stylesheet" href="../../../../public/CSS/owl.carousel.min.css">
+  <link rel="stylesheet" href="../../../../public/CSS/home_staff.css">
   <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
   <meta name="robots" content="noindex, nofollow" />
   <title>Hello, world!</title>
@@ -101,7 +101,7 @@
           cost: $<?php echo $this->order->getamount() ?> <br />
           <!-- add code to disable the accept reject buttons once the order is accepted
                       -->
-          <form method="post" <?php echo 'action="../../../ReturnOrder/con1/'.$this->order->getOrderId().'/updateStatus"'?>>
+          <form method="post" <?php echo 'action="../updateStatus/'.$this->order->getOrderId().'/1"'?>>
             <input name="approve" id="appr" type="submit" data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" title="View" value="Approve">
             <input name="cancel" id="cnl" type="submit" data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" title="Danger" value="Decline">
             <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" title="Danger" value="<?php
