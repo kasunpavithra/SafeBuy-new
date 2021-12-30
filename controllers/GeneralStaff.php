@@ -24,7 +24,7 @@ class GeneralStaff extends ShopStaff
                     array_push($this->view->orderArr, $order);
                 }
             }
-            $this->view->title = BuyOrder::STATES[$filter]." Buy Orders";
+            $this->view->title = BuyOrder::STATES[$filter] . " Buy Orders";
         } else if ($filter >= 7 && $filter <= 11) {
             $orders = $this->orderLog->getReturnOrders();
             $this->view->orderArr = array();
@@ -33,7 +33,7 @@ class GeneralStaff extends ShopStaff
                     array_push($this->view->orderArr, $order);
                 }
             }
-            $this->view->title = ReturnOrder::STATES[$filter-7]." Return Orders";
+            $this->view->title = ReturnOrder::STATES[$filter - 7] . " Return Orders";
         } else if ($filter == 12) {
             $this->view->orderArr = $this->orderLog->getReturnOrders();
             $this->view->title = "All Return Orders";
@@ -94,22 +94,28 @@ class GeneralStaff extends ShopStaff
             header("Location: ../../viewReturnOrder/" . $orderId);
     }
 
-    public function cusOtherOrders($customerId){
+    public function cusOtherOrders($customerId)
+    {
         $OBuyOrders = array();
-        $OReturnOrders =array();
-        foreach($this->orderLog->getBuyOrders() as $odr){
-            if ($odr->getCustomerId() == $customerId){
-                array_push($OBuyOrders,$odr);
+        $OReturnOrders = array();
+        foreach ($this->orderLog->getBuyOrders() as $odr) {
+            if ($odr->getCustomerId() == $customerId) {
+                array_push($OBuyOrders, $odr);
             }
         }
-        foreach($this->orderLog->getReturnOrders() as $odr){
-            if ($odr->getCustomerId() == $customerId){
-                array_push($OReturnOrders,$odr);
+        foreach ($this->orderLog->getReturnOrders() as $odr) {
+            if ($odr->getCustomerId() == $customerId) {
+                array_push($OReturnOrders, $odr);
             }
         }
         $this->view->orderArr = $OBuyOrders;
         $this->view->ROrderArr = $OReturnOrders;
-        $this->view->render('GeneralStaffHome');
-        
+
+        if (!empty($OBuyOrders))
+            $this->view->title = $OBuyOrders[0]->getCustomerName() . "'s Buy Orders";
+        if(!empty($OReturnOrders))
+        $this->view->title2 = $OReturnOrders[0]->getCustomerName() . "'s Return Orders";
+        $this->view->title =
+            $this->view->render('GeneralStaffHome');
     }
 }

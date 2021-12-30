@@ -97,10 +97,10 @@
   </div>';
     }
 
-    if (isset($this->ROrderArr)) {
+    if (isset($this->ROrderArr) && !empty($this->ROrderArr)) {
       echo '<div class="row">
-              <div class="col-md-2">
-                <h2>#Title</h2>
+              <div class="col-md-6">
+                <h2>'.$this->title2.'</h2>
               </div>
             </div>';
       foreach ($this->ROrderArr as $odr) {
