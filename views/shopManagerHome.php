@@ -27,7 +27,11 @@
         width: 100px;
     }
 
-    h2.orders{
+    #chatBtn {
+        width: 100px;
+    }
+
+    h2.orders {
         text-align: center;
     }
 
@@ -119,43 +123,75 @@
         cursor: pointer;
     }
 
+    /* The Close Button */
+    .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .chatClose {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .chatClose:hover,
+    .chatClose:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
     table {
         table-layout: auto;
         /* width: 50%;   */
     }
-    td{
+
+    td {
         margin-left: 5px;
         padding-left: 10px;
     }
-    td.a{
-        
+
+    td.a {
+
         width: 100%;
         text-align: left;
         padding-left: 40px;
     }
-    td.c{
+
+    td.c {
         width: fit-content;
     }
 
-    td.d{
+    td.d {
         padding-left: 20px;
         width: 150px;
         text-align: center;
     }
-    
-    td.e{
-        
+
+    td.e {
+
         width: 100%;
         text-align: right;
         padding-right: 10px;
     }
-    
+
     /* td.d{
         margin-left: 5px;
         padding-left: 5px;
     } */
-    #categoryBtn{
-        width:100px;
+    #categoryBtn {
+        width: 100px;
     }
 
 
@@ -170,27 +206,38 @@
     */
     .main {
         margin: 5px 10px 5px 10px;
-}
-.containerOrders{
-    background-color: #ffffffdc;
-  backdrop-filter: blur(10px);
-  width: 100%;
-  height:auto;
-  /* margin: 7em auto; */
-  
-  border-radius: 1.5em;
-  box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
-}
+    }
+
+    .containerOrders {
+        background-color: #ffffffdc;
+        backdrop-filter: blur(10px);
+        width: 100%;
+        height: auto;
+        /* margin: 7em auto; */
+
+        border-radius: 1.5em;
+        box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+    }
 
 
-form.form1 {
-    /* padding-top: 200px; */
-    padding-left: 10px;
-    /* width: 100%; */
-  /* height:auto; */
-}
+    form.form1 {
+        /* padding-top: 200px; */
+        padding-left: 10px;
+        /* width: 100%; */
+        /* height:auto; */
+    }
 
+    p.sender {
+        text-align: left;
+    }
 
+    .chatbox {
+        padding-top: 50px;
+    }
+
+    #chatboxpadding {
+        padding-top: 5px;
+    }
 </style>
 
 <body>
@@ -198,6 +245,53 @@ form.form1 {
         <tr>
             <td class="a">
                 <h2>Manager </h2>
+            </td>
+            <!-- <td><button id="chatBtn"  class="btn btn-primary dropdown-toggle"type="button" >Chat
+                </button>
+                <div id="myChatModal" class="modal">
+
+                    
+                    <div class="modal-content">
+                        <span class="chatClose">&times;</span>
+
+                        <form action="addItem" method="post">
+                            <br><p>HIIIIIIIIIi</p>
+                        </form>
+
+                    </div>
+
+                </div>
+                <script>
+                    
+                    // Get the modal
+                    var chatModal = document.getElementById("myChatModal");
+
+                    // Get the button that opens the modal
+                    var chatBtn = document.getElementById("chatBtn");
+
+                    // Get the <span> element that closes the modal
+                    var chatSpan = document.getElementsByClassName("chatClose")[0];
+
+                    // When the user clicks the button, open the modal 
+                    chatBtn.onclick = function() {
+                        chatModal.style.display = "block";
+                    }
+
+                    // When the user clicks on <span> (x), close the modal
+                    chatSpan.onclick = function() {
+                        chatModal.style.display = "none";
+                    }
+
+                    // When the user clicks anywhere outside of the modal, close it
+                    window.onclick = function(event) {
+                        if (event.target == chatModal) {
+                            chatModal.style.display = "none";
+                        }
+                    }
+                </script> -->
+
+
+
             </td>
             <td>
                 <div class="container">
@@ -477,7 +571,7 @@ form.form1 {
                 <div class="container">
 
                     <div class="dropdown">
-                        <button id="categoryBtn"class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Categories
+                        <button id="categoryBtn" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Categories
                             <span class="caret"></span></button>
                         <ul class="dropdown-menu">
                             <!-- <li><a href="#">HTML</a></li>
@@ -506,57 +600,83 @@ form.form1 {
             <td class="e"><a href="../logout/">
                     <h4>LogOut</h4>
                 </a></td>
-            
+
         </tr>
-        </table>
-            <div class="main">
-                <div class="containerOrders"><form class="form1" method="post" action="loginProfile">
-                    <h2 class="orders">Orders</h2>
-        <br><br><br><br><br>
-        <br><br><br><br><br>
-        <br><br><br><br><br>
-    </form></div>
-    
-    
+    </table>
+    <div class="main">
+        <div class="containerOrders">
+            <form class="form1" method="post" action="loginProfile">
+                <h2 class="orders">Orders</h2>
+                <div class="chatBtn" style="text-align:right; padding:5px">
+                    <button id="chatBtn" class="btn btn-primary dropdown-toggle" type="button">Chat
+                    </button>
+                    <div id="myChatModal" class="modal">
 
-  </div>
-        
+                        <!-- Modal content -->
+                        <div class="modal-content" id="chatboxpadding">
+                            <span class="chatClose">&times;</span>
 
-    
+                            <form action="addItem" method="post">
+                                <div class="chatbox">
+                                    <p class="sender">Sender HIIII</p>
+                                    <p class="reciever">Reciever HIIII</p>
+                                    <div class="panel-footer">
+                                        <div class="input-group">
+                                            <input id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary btn-sm" id="btn-chat">Send</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+                    <script>
+                        // Get the modal
+                        var chatModal = document.getElementById("myChatModal");
+
+                        // Get the button that opens the modal
+                        var chatBtn = document.getElementById("chatBtn");
+
+                        // Get the <span> element that closes the modal
+                        var chatSpan = document.getElementsByClassName("chatClose")[0];
+
+                        // When the user clicks the button, open the modal 
+                        chatBtn.onclick = function() {
+                            chatModal.style.display = "block";
+                        }
+
+                        // When the user clicks on <span> (x), close the modal
+                        chatSpan.onclick = function() {
+                            chatModal.style.display = "none";
+                        }
+
+                        // When the user clicks anywhere outside of the modal, close it
+                        window.onclick = function(event) {
+                            if (event.target == chatModal) {
+                                chatModal.style.display = "none";
+                            }
+                        }
+                    </script>
+                </div>
+                <br><br><br><br><br>
+                <br><br><br><br><br>
+                <br><br><br><br><br>
+            </form>
+        </div>
 
 
-    <!-- <?php
 
-            foreach ($categories as $cat) { ?>
-        <form action="categoryItems" method="get">
-            <input type="submit" name="category" value="<?php echo $cat;  ?>">
-        </form>
-    <?php }
+    </div>
 
-    ?> -->
-    <!-- <br>
-    <br><br>
-    <form action="addItem" method="post">
-        <label for="categories">Categories</label>
-        <select name="categories" id="categories">
-            <?php
-            foreach ($categories as $key => $value) { ?>
-                <option value="<?php echo $value ?>"><?php echo $value ?></option>
-            <?php }
 
-            ?>
-        </select>
-        <label for="category">Category Name</label>
-        <input type="text" name="category" id="category">
-        <br>
-        <label for="item">Item Name</label>
-        <input type="text" name="item" id="item">
-        <br>
-        <label for="quantity">Quantity</label>
-        <input type="number" name="quantity" id="quantity">
-        <br>
-        <input class="addItem" type="submit" value="Add an Item" name="addItemBtn">
-    </form> -->
+
+
+
+
 
 </body>
 
