@@ -24,84 +24,68 @@ class GeneralStaff extends ShopStaff
                     array_push($this->view->orderArr, $order);
                 }
             }
-        } else if($filter >= 7 && $filter <= 11){
+        } else if ($filter >= 7 && $filter <= 11) {
             $orders = $this->orderLog->getReturnOrders();
             $this->view->orderArr = array();
             foreach ($orders as $order) {
-                if ($order->getStatus() == $filter-7) {
+                if ($order->getStatus() == $filter - 7) {
                     array_push($this->view->orderArr, $order);
                 }
             }
-        }else if($filter == 12){
+        } else if ($filter == 12) {
             $this->view->orderArr = $this->orderLog->getReturnOrders();
-        }else{
+        } else {
             $this->view->orderArr = $this->orderLog->getBuyOrders();
         }
-        /*
-        switch ($filter) {
-            case "BeingApproved":
-                foreach ($orders as $order) {
-                    if ($order->getStatus() == 0) {
-                        array_push($this->view->orderArr, $order);
-                    }
-                }
-                $this->view->filter = "Being Approved";
-                break;
-            case "ReadyToShip":
-                foreach ($orders as $order) {
-                    if ($order->getStatus() == 1) {
-                        array_push($this->view->orderArr, $order);
-                    }
-                }
-                $this->view->filter = "Being Approved";
-                break;
-            case "Invoiced":
-                foreach ($orders as $order) {
-                    if ($order->getStatus() == 2) {
-                        array_push($this->view->orderArr, $order);
-                    }
-                }
-                $this->view->filter = "Being Approved";
-                break;
-            case "Shipped":
-                foreach ($orders as $order) {
-                    if ($order->getStatus() == 3) {
-                        array_push($this->view->orderArr, $order);
-                    }
-                }
-                $this->view->filter = "Being Approved";
-                break;
-            case "Delivered":
-                foreach ($orders as $order) {
-                    if ($order->getStatus() == 4) {
-                        array_push($this->view->orderArr, $order);
-                    }
-                }
-                $this->view->filter = "Being Approved";
-                break;
-            case "Closed":
-                foreach ($orders as $order) {
-                    if ($order->getStatus() == 5) {
-                        array_push($this->view->orderArr, $order);
-                    }
-                }
-                $this->view->filter = "Being Approved";
-                break;
-            case "Cancelled":
-                foreach ($orders as $order) {
-                    if ($order->getStatus() == 6) {
-                        array_push($this->view->orderArr, $order);
-                    }
-                }
-                $this->view->filter = "Being Approved";
-                break;
-
-            default:
-                $this->view->orderArr = $this->orderLog->getBuyOrders();
-                $this->view->filter = "Being Approved";
-                break;
-        }
-        */
         $this->view->render('GeneralStaffHome');
+    }
+
+
+    /*this funtion sets the view of BuyOrder for given 
+    order Id*/
+    function viewBuyOrder($orderId)
+    {
+        $order = $this->findOrder($orderId, 0);
+        $this->view->order = $order;
+        $this->view->render('OrderDetailsStaff');
+    }
+
+
+    /*this funtion sets the view of ReturnOrder for given 
+    order Id*/
+    function viewReturnOrder($orderId)
+    {
+        $order = $this->findOrder($orderId, 1);
+        $this->view->order = $order;
+        $this->view->render('ROrderDetailsStaff');
+    }
+
+
+    /*this funtion finds orders from the arraylist from order id
+    $type =0 returns buy order and $type = 1 returns the relavant 
+    return order*/
+    private function findOrder($orderId, $type)
+    {
+        $orderArr = null;
+        if ($type == 0) $orderArr = $this->orderLog->getBuyOrders();
+        else $orderArr =  $this->orderLog->getReturnOrders();
+        foreach ($orderArr as $ord) {
+            if ($ord->getOrderId() == $orderId) {
+                return $ord;
+            }
+        }
+        return null;
+    }
+    /*this funtion updates the status of order relavant to the
+    order id. type=0 updates the relavant BuyOrder and type =1
+    updates relavant ReturnOrder */
+    public function updateStatus($orderId, $type)
+    {
+        $order = $this->findOrder($orderId, $type);
+        $order->updateStatus();
+        if ($type == 0)
+            header("Location: ../../viewBuyOrder/" . $orderId);
+        else
+            header("Location: ../../viewReturnOrder/" . $orderId);
     }
 }

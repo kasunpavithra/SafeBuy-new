@@ -80,13 +80,13 @@
       </div>
     </div>
     <div class="col-md-2">
-        <a href="../../../../';
+        <a href="../';
       if ($odr instanceof BuyOrder) {
-        echo "BuyOrder";
+        echo "viewBuyOrder/";
       } else {
-        echo "ReturnOrder";
+        echo "viewReturnOrder/";
       }
-      echo '/con1/' . $odr->getOrderId() . '/staffView" class="btn btn-primary">View</a>
+      echo  $odr->getOrderId() . '" class="btn btn-primary">View</a>
       </div>
   </div>';
     } //you need to modify here to add customer name
