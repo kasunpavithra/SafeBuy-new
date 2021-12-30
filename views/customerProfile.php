@@ -186,6 +186,12 @@ nav {
     vertical-align: top;
     margin-left: -25px;
 }
+h2.logo{
+    text-align: left;
+}
+h4.logo{
+    text-align: right;
+}
 </style>
     <title>Customer Account</title>
 </head>
@@ -211,12 +217,14 @@ nav {
 <body>
     <div>
         <div class="titleClass">
+        
             <h1 id="title">Customer Profile</h1>
         </div>
-        <div style="text-align: right; background-color: grey; padding-right: 15px; ;"><a href="../Dashboard">
-                <h2>MainPage</h2>
+        <div style=" background-color: grey; padding-right: 15px; ;"><a href="../Dashboard">
+        <img src="../public/Images/Invoice.jpg" alt="Logo" >
+                <h2 class="Logo">SafeBuy</h2>
             </a><a href="../logout/">
-                <h4>LogOut</h4>
+                <h4 class="logout">LogOut</h4>
             </a></div>
     </div>
 
