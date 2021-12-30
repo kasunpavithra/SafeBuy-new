@@ -21,6 +21,7 @@
 
 <body>
   <div class="container-fluid pt-5">
+    <?php if(isset($this->filter)) echo '
     <div class="row justify-content-end">
       <div class="col-sm-3">
         <div class="dropdown">
@@ -48,13 +49,18 @@
             <li><a class="dropdown-item" href="9">Recieved</a></li>
             <li><a class="dropdown-item" href="10">closed</a></li>
             <li><a class="dropdown-item" href="11">Cancelled</a></li>
-            
+
           </ul>
         </div>
       </div>
-    </div>
+    </div>'; ?>
 
     <!--order details started-->
+    <div class="row">
+      <div class="col-md-5">
+        <h2><?php if(isset($this->title)) echo $this->title;?></h2>
+      </div>
+    </div>
     <?php
     foreach ($this->orderArr as $odr) {
       echo
@@ -89,9 +95,50 @@
       echo  $odr->getOrderId() . '" class="btn btn-primary">View</a>
       </div>
   </div>';
-    } //you need to modify here to add customer name
+    }
+
+    if (isset($this->ROrderArr) && !empty($this->ROrderArr)) {
+      echo '<div class="row">
+              <div class="col-md-6">
+                <h2>'.$this->title2.'</h2>
+              </div>
+            </div>';
+      foreach ($this->ROrderArr as $odr) {
+        echo
+        '<div class="row">
+            <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail" /></div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="col-md-12"><label class="label label-danger">';
+        if ($odr instanceof BuyOrder) {
+          echo BuyOrder::STATES[$odr->getStatus()];
+        } else {
+          echo ReturnOrder::STATES[$odr->getStatus()];
+        }
+        echo '</label></div>
+                  <span><strong>Order ID</strong></span> <span class="label label-info">group name</span><br />
+                  cost: $' . $odr->getAmount() . '<br />
+                  <!-- add code to disable the accept reject buttons once the order is accepted
+                              -->
+                  
+                </div>
+                <div class="col-md-12">order made on:' . $odr->getCreateDate() . ' by <a href="#">' . $odr->getCustomerName() . '</a></div>
+              </div>
+            </div>
+            <div class="col-md-2">
+                <a href="../';
+        if ($odr instanceof BuyOrder) {
+          echo "viewBuyOrder/";
+        } else {
+          echo "viewReturnOrder/";
+        }
+        echo  $odr->getOrderId() . '" class="btn btn-primary">View</a>
+              </div>
+          </div>';
+      }
+    }
     ?>
-    <!--order details end-->
 
 
     <!-- Footer strat -->
