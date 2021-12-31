@@ -275,7 +275,6 @@
             if (html) {
                 document.getElementById("orderreview2").readOnly = true;
                 document.getElementById("shopReviewBtn2").style.visibility = "hidden";
-
             }
         });
 
