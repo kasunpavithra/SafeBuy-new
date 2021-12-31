@@ -72,4 +72,20 @@ class OrderItem extends Item{
      */ 
 
 
+
+    /**
+     * Get the value of soldPrice
+     */ 
+    public function getSoldPrice()
+    {
+        return $this->soldPrice;
+    }
+
+    /**
+     * Get the value of soldDiscount
+     */ 
+    public function getSoldDiscount()
+    {
+        return $this->soldDiscount;
+    }
 }

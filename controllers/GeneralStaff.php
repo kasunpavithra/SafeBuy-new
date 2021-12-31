@@ -93,7 +93,8 @@ class GeneralStaff extends ShopStaff
         else
             header("Location: ../../viewReturnOrder/" . $orderId);
     }
-
+    /*This funtion is resposible for selecting all orders of given customer id.
+    then it prints them. */
     public function cusOtherOrders($customerId)
     {
         $OBuyOrders = array();

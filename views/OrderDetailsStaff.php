@@ -117,6 +117,30 @@
   <!--order details end-->
 
   <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-6">
+      <table class="table table-striped">
+        <tr>
+          <th>Item Id</th>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Price(Rs)</th>
+          <th>Discount(%)</th>
+        </tr>
+        <?php
+          foreach($this->order->getOrderItems() as $item){
+            echo '<td>'.$item->getItemId().'</td>
+                  <td>'.$item->getName().'</td>
+                  <td>'.$item->getQuantity().'</td>
+                  <td>'.$item->getSoldPrice().'</td>
+                  <td>'.$item->getSoldDiscount().'</td>';
+          }
+        ?>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-md-2"></div> <?php echo
     '<a href="../cusOtherOrders/'.$this->order->getCustomerId().'">See customers previous orders</a>'; ?>
   </div>
