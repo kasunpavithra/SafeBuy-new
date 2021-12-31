@@ -98,6 +98,7 @@ $descriptionList = $this->descriptionList;
                             if ($count++ == 5) {
                                 break;
                             }; ?>
+                            
                             <div class="col" style="border: 1px solid black;">
                                 <form action="addCartItem" method="POST">
                                     <img style="width: 20%;  ;margin: 20px; margin-left: auto; margin-right: auto; display: block;" src="data:image/jpeg;charset=utf8;base64,<?php echo base64_encode($item->getImage()); ?>" />

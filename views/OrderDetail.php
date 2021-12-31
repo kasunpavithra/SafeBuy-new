@@ -163,6 +163,7 @@
 
 
                         </form>
+
                     </div>
 
                 </div>
@@ -173,8 +174,29 @@
     <?php
     }
     ?>
-    <?php foreach ($items as $item) { ?>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#id<?php echo $item->getOrderItemId(); ?>" data-whatever="@mdo">Rate the Item</button>
+    <?php foreach ($items as $item) {
+
+        if ($order->getStatus() != 5) { ?>
+
+            <?php
+            if ($item instanceof OrderItem) { ?>
+                <div class="container p-3 my-3 bg-primary text-white">
+                    <h1><?php echo $item->getName() ?></h1>
+                    <p>Quantity : <?php echo $item->getQuantity() ?></p>
+
+                </div>
+        <?php
+            }
+            continue;
+        };
+
+        ?>
+        <div class="container p-3 my-3 bg-dark text-white" data-toggle="modal" data-target="#id<?php echo $item->getOrderItemId(); ?>" data-whatever="@mdo">
+            <h1><?php echo $item->getName() ?></h1>
+            <p>Quantity : <?php echo $item->getQuantity() ?></p>
+            <?php echo $order->getClosedDate()[0]; ?>
+        </div>
+        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#id<?php echo $item->getOrderItemId(); ?>" data-whatever="@mdo">Rate the Item</button> -->
         <script>
             document.getElementById("reviewForm<?php echo $item->getOrderItemId(); ?>").style.visibility = "hidden";
             $("#myForm<?php echo $item->getOrderItemId(); ?>").submit(function(event) {

@@ -2,6 +2,7 @@
 require_once 'OrderItem.php';
 require_once 'ReturnOrderItem.php';
 abstract class Order extends Controller{
+
     protected $orderItems;
     protected $orderId;
     protected $customerId;
@@ -38,7 +39,7 @@ abstract class Order extends Controller{
 
     /**
      * Get the value of orderItems
-     */ 
+     */
     public function getOrderItems()
     {
         return $this->orderItems;
@@ -46,7 +47,7 @@ abstract class Order extends Controller{
 
     /**
      * Get the value of orderId
-     */ 
+     */
     public function getOrderId()
     {
         return $this->orderId;
@@ -54,7 +55,7 @@ abstract class Order extends Controller{
 
     /**
      * Get the value of createDate
-     */ 
+     */
     public function getCreateDate()
     {
         return $this->createDate;
@@ -62,7 +63,7 @@ abstract class Order extends Controller{
 
     /**
      * Get the value of status
-     */ 
+     */
     public function getStatus()
     {
         return $this->status;
@@ -70,7 +71,7 @@ abstract class Order extends Controller{
 
     /**
      * Get the value of amount
-     */ 
+     */
     public function getAmount()
     {
         return $this->amount;
@@ -78,7 +79,7 @@ abstract class Order extends Controller{
 
     /**
      * Get the value of customerId
-     */ 
+     */
     public function getCustomerId()
     {
         return $this->customerId;
@@ -86,7 +87,7 @@ abstract class Order extends Controller{
 
     /**
      * Get the value of customerName
-     */ 
+     */
     public function getCustomerName()
     {
         return $this->customerName;
@@ -94,7 +95,7 @@ abstract class Order extends Controller{
 
     /**
      * Get the value of closedDate
-     */ 
+     */
     public function getClosedDate()
     {
         return $this->closedDate;
@@ -102,7 +103,7 @@ abstract class Order extends Controller{
 
     /**
      * Get the value of review
-     */ 
+     */
     public function getReview()
     {
         return $this->review;
