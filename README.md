@@ -1,2 +1,0 @@
-# SafeBuy-new
-E-Commerce
