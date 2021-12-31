@@ -52,4 +52,12 @@ class ReturnOrder extends Order
 
         header('Location: ../../../ReturnOrder/con1/' . $order_id . '/staffView');
     }
+
+    /**
+     * Get the value of buyOrderId
+     */ 
+    public function getBuyOrderId()
+    {
+        return $this->buyOrderId;
+    }
 }

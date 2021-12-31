@@ -91,6 +91,22 @@ abstract class Order extends Controller{
     {
         return $this->customerName;
     }
+
+    /**
+     * Get the value of closedDate
+     */ 
+    public function getClosedDate()
+    {
+        return $this->closedDate;
+    }
+
+    /**
+     * Get the value of review
+     */ 
+    public function getReview()
+    {
+        return $this->review;
+    }
 }
 
 ?>
