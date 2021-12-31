@@ -17,6 +17,10 @@ class Customer_Model extends Model
     {
         return $this->db->insertQuery("UPDATE ORDERITEM SET RATING=$rate where OrderItemID=$itemID");
     }
+    function reviewOrder($orderID, $review)
+    {
+        return $this->db->insertQuery("UPDATE ORDERS SET REVIEW='$review' where orderID=$orderID");
+    }
     function reviewItem($itemID, $review)
     {
         return $this->db->insertQuery("UPDATE ORDERITEM SET REVIEW='$review' where OrderItemID=$itemID");

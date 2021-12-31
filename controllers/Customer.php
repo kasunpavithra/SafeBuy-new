@@ -106,6 +106,50 @@ class Customer extends Person
         $this->view->categoryItems = $categoryItems;
         $this->view->render("CategoryItems");
     }
+    function rateItem()
+    {
+        $itemID = $_POST["itemID"];
+        $rate = $_POST["Itemrate"];
+
+        if ($rate != NULL) {
+            $success =  $this->model->rateItem($itemID, $rate);
+            if ($success) {
+                echo true;
+            }
+        }
+    }
+    function reviewShop()
+    {
+        $orderID = $_POST["orderID"];
+        $review = $_POST["orderreview"];
+     
+        $success = $this->model->reviewOrder($orderID, $review);
+        if ($success) {
+            echo true;
+        }
+    }
+    function rateShop()
+    {
+
+        $orderID = $_POST["orderID"];
+        $rate = $_POST["orderrate"];
+        $success = $this->model->rateOrder($orderID, $rate);
+        if ($success) {
+            echo true;
+        }
+    }
+    function reviewItem()
+    {
+        $itemID = $_POST["itemID"];
+        $review = $_POST["itemReview"];
+
+        if ($review != NULL) {
+            $success =  $this->model->reviewItem($itemID, $review);
+            if ($success) {
+                echo true;
+            }
+        }
+    }
     function itemDetails()
     {
         $orderID = $_GET["orderID"];

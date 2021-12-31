@@ -67,9 +67,5 @@ class OrderItem extends Item{
         return $this->quantity;
     }
 
-    /**
-     * Get the value of quantity
-     */ 
-
-
+  
 }
