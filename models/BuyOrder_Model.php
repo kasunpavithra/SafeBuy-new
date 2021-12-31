@@ -6,9 +6,8 @@ class BuyOrder_Model extends Model
         parent::__construct();
     }
 
-    function getOrderDetails($orderId)
-    {
-        $orderDetails =  $this->db->runQuery("SELECT * FROM orders WHERE orderID=$orderId");
+    function getOrderDetails($orderId){
+        $orderDetails =  $this->db->runQuery("SELECT Customer_id, amount,status,create_date,rating FROM orders WHERE orderID=$orderId");
         return $orderDetails;
     }
     function getCustomerDetails($customerId)

@@ -14,10 +14,12 @@ class Item extends Controller
     private $status;
     private $createdAt;
     private $categoryName;
+    private $soldQuantity;
+    private $ratingList = array();
     function __construct($itemId)
     {
         parent::__construct();
-        
+
         $this->itemId = $itemId;
 
         //load the model
@@ -29,13 +31,15 @@ class Item extends Controller
         $this->categoryId = $itemDetails[2];
         $this->price = $itemDetails[3];
         $this->avQuantity = $itemDetails[4];
-        $this->description = $itemDetails[5];
-        $this->discount = $itemDetails[6];
-        $this->image = $itemDetails[7];
-        $this->rating = $itemDetails[8];
-        $this->review = $itemDetails[9];
-        $this->status = $itemDetails[10];
-        $this->createdAt = $itemDetails[11];
+        $this->soldQuantity = $itemDetails[5];
+        $this->description = $itemDetails[6];
+        $this->discount = $itemDetails[7];
+        $this->image = $itemDetails[8];
+        $this->rating = $itemDetails[9];
+        $this->review = $itemDetails[10];
+        $this->status = $itemDetails[11];
+        $this->createdAt = $itemDetails[12];
+        $this->ratingList = $this->model->getRatingList($itemId);
         $this->categoryName = $this->model->getCategoryName($this->categoryId)[0][0];
         // var_dump($this);
     }
@@ -144,5 +148,25 @@ class Item extends Controller
     public function getAvQuantity()
     {
         return $this->avQuantity;
+    }
+
+    /**
+     * Get the value of soldQuantity
+     */
+    public function getSoldQuantity()
+    {
+        return $this->soldQuantity;
+    }
+
+    /**
+     * Get the value of soldQuantity
+     */
+
+    /**
+     * Get the value of ratingList
+     */ 
+    public function getRatingList()
+    {
+        return $this->ratingList;
     }
 }
