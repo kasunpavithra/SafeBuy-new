@@ -54,5 +54,21 @@ class BuyOrder extends Order
     }
 
   }
+
+  /**
+   * Get the value of paymentMethod
+   */ 
+  public function getPaymentMethod()
+  {
+    return $this->paymentMethod;
+  }
+
+  /**
+   * Get the value of rating
+   */ 
+  public function getRating()
+  {
+    return $this->rating;
+  }
 }
 //
