@@ -28,6 +28,7 @@ class Customer extends Person
         parent::__construct();
         $this->setDetails($id);
     }
+    //
     function setDetails($id)
     {
         $this->loadModel("Customer");
