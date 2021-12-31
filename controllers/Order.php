@@ -1,5 +1,6 @@
 <?php
 require_once 'OrderItem.php';
+require_once 'ReturnOrderItem.php';
 abstract class Order extends Controller{
     private $orderItems;
     private $orderId;
@@ -10,7 +11,7 @@ abstract class Order extends Controller{
     private $customerName;
     private $rating;
 
-    function __construct($orderId){
+    function __construct(){
         parent::__construct();
         $this->orderId = $orderId;
         //load the model 
@@ -32,13 +33,19 @@ abstract class Order extends Controller{
     function setOrderItems(){
         $oItemsArr = $this->model->getOrderItems($this->orderId);
         // var_dump($oItemsArr);
-        $count=0;
+        $this->orderItems = array();
+        
         foreach($oItemsArr as $item){
-            $this->orderItems[$count++]=new OrderItem($item['OrderItemID']);
+            if($this->model instanceof BuyOrder_Model){
+                array_push($this->orderItems,new OrderItem($item['OrderItemID']));
+            }
+            else if($this->model instanceof ReturnOrder_Model){
+                array_push($this->orderItems,new ReturnOrderItem($item['returnitemID']));
+            }
         }
-        // var_dump($this->orderItems);
     }
 
+    abstract function staffView();
 
     /**
      * Get the value of orderItems

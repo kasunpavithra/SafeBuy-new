@@ -9,9 +9,9 @@ class Menu extends Controller{
         $this->loadModel("Menu");
         $itemsArr = $this->model->getMenuDetails();
         //var_dump($itemsArr);
-        $count=0;
+        $this->items=array();
         foreach($itemsArr as $item){
-            $this->items[$count++]=new Item($item['itemID']);
+           array_push($this->items, new Item($item['itemID']));
         }
         // var_dump($this);
         
