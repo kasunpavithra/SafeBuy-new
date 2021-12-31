@@ -59,11 +59,11 @@ $descriptionList = $this->descriptionList;
     </nav>
     <!-- Navbar -->
 
-    <h1>Hello <?php echo $_SESSION['username'] ?></h1>
+    <h1>Hello Customer</h1>
 
     <a href="orderHistory">View Order History</a>
-    <a href="logout/">Log out</a>
-    <a href="customerProfile/">Customer Profile</a>
+    
+    
     <a href="OrderStatusCustomer">Orders</a>
     <a href="PayCart">Pay Cart</a>
     <select name="dropDownList" id="dropdowncategory">
@@ -97,7 +97,10 @@ $descriptionList = $this->descriptionList;
                         <?php foreach ($items as $key => $item) {
                             if ($count++ == 5) {
                                 break;
-                            }; ?>
+                            };
+
+                        ?>
+
                             <div class="col" style="border: 1px solid black;">
                                 <form action="addCartItem" method="POST">
                                     <img style="width: 20%;  ;margin: 20px; margin-left: auto; margin-right: auto; display: block;" src="data:image/jpeg;charset=utf8;base64,<?php echo base64_encode($item->getImage()); ?>" />
@@ -126,10 +129,10 @@ $descriptionList = $this->descriptionList;
                                     <button class="btn btn-primary" type="submit" name="add">Add Item to Cart</button>
 
                                 </form>
-                                <form action="item" method="GET">
+                                <form action="item" method="POST">
                                     <input type="hidden" name="itemID" value="<?php echo $item->getItemID(); ?>">
 
-                                    <button class="btn btn-primary" type="submit" name="">See More</button>
+                                    <button class="btn btn-primary" type="submit" name="itemInfo">See More</button>
 
                                 </form>
 

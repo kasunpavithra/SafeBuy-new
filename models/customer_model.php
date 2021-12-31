@@ -9,9 +9,17 @@ class Customer_Model extends Model
     function index()
     {
     }
+    function rateOrder($orderID, $rate)
+    {
+        return $this->db->insertQuery("UPDATE ORDERS SET RATING=$rate where orderID=$orderID");
+    }
     function rateItem($itemID, $rate)
     {
         return $this->db->insertQuery("UPDATE ORDERITEM SET RATING=$rate where OrderItemID=$itemID");
+    }
+    function reviewOrder($orderID, $review)
+    {
+        return $this->db->insertQuery("UPDATE ORDERS SET REVIEW='$review' where orderID=$orderID");
     }
     function reviewItem($itemID, $review)
     {
@@ -59,9 +67,10 @@ class Customer_Model extends Model
         // print_r($this->db->runQuery("SELECT * FROM CATEGORY"));
         return $this->db->runQuery("SELECT * FROM ITEM WHERE CATEGORY_ID='" . $categoryID . "'");
     }
-    function addItemtoCart($itemID, $quantity)
+    function addItemtoCart($itemID, $quantity, $cart)
     {
-        $query = "INSERT INTO CART_ITEMSTEMP (CART_ID,ITEM_ID,QUANTITY,ORDERED) VALUES ('3','" . $itemID . "','" . $quantity . "','0')";
+        $cartID = $cart->getCartID();
+        $query = "INSERT INTO CART_ITEMSTEMP (CART_ID,ITEM_ID,QUANTITY,ORDERED) VALUES ('" . $cartID . "','" . $itemID . "','" . $quantity . "','0')";
 
         return $this->db->insertQuery($query);
     }
@@ -81,7 +90,7 @@ class Customer_Model extends Model
     function UpdateItemtoCart($itemID, $quantity)
     {
 
-        $query = "UPDATE CART_ITEMSTEMP SET QUANTITY='" . $quantity . "' WHERE ITEM_ID='" . $itemID . "'";
+        $query = "UPDATE CART_ITEMSTEMP SET QUANTITY='" . $quantity . " WHERE ITEM_ID='" . $itemID . "'";
         return $this->db->insertQuery($query);
     }
     function getCartItems($userID)
@@ -158,7 +167,12 @@ class Customer_Model extends Model
     function setCart($id)
     {
         $sql = "SELECT CART_ID from carttemp where customer_id='" . $id . "'";
-        return $this->db->runQuery($sql)[0][0];
+        $crt = $this->db->runQuery($sql);
+        if (empty($crt)) {
+            return array();
+        }
+
+        return $crt[0][0];
     }
     function createCart($id)
     {
@@ -169,9 +183,9 @@ class Customer_Model extends Model
     {
         return $this->db->insertQuery("DELETE FROM CART_ITEMSTEMP WHERE CART_ITEM_ID=$itemID");
     }
-    function updateCartItemAsOrdered($cart_id)
+    function updateCartItemAsOrdered($cartID)
     {
-        return $this->db->insertQuery("UPDATE CART_ITEMSTEMP SET ORDERED=1 WHERE (cart_id=3 AND ordered=0)");
+        return $this->db->insertQuery("UPDATE CART_ITEMSTEMP SET ORDERED=1 WHERE (cart_id=$cartID AND ordered=0)");
     }
     function createOrder($customer_id, $amount, $paymentMethod)
     {
@@ -182,9 +196,9 @@ class Customer_Model extends Model
         }
         return $this->db->insertQuery("INSERT INTO ORDERS (Customer_id,amount,payment_method) values ($customer_id,$amount,$paymentMethod)");
     }
-    function updateItem($itemID,  $quantity)
+    function updateItem($itemID,  $quantity, $newSoldQuantity)
     {
-        return $this->db->insertQuery("UPDATE ITEM SET QUANTITY=$quantity where itemID=$itemID");
+        return $this->db->insertQuery("UPDATE ITEM SET QUANTITY=$quantity ,SOLDQUANTITY='" . $newSoldQuantity . "' where itemID=$itemID");
     }
     function  getOrderID($customer_id)
     {
