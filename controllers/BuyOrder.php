@@ -32,7 +32,7 @@ class BuyOrder extends Order
     $this->review = $orderDetails["review"];
 
     //call parent 
-    parent::__construct($orderId);
+    parent::__construct();
   }
 
 
@@ -55,3 +55,4 @@ class BuyOrder extends Order
 
   }
 }
+//

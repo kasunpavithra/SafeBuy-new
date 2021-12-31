@@ -2,30 +2,20 @@
 require_once 'OrderItem.php';
 require_once 'ReturnOrderItem.php';
 abstract class Order extends Controller{
-    private $orderItems;
-    private $orderId;
-    private $customerId;
-    private $createDate;
-    private $status;
-    private $amount;
-    private $customerName;
-    private $rating;
+    protected $orderItems;
+    protected $orderId;
+    protected $customerId;
+    protected $createDate;
+    protected $status;
+    protected $amount;
+    protected $review;
+    protected $customerName;
+    protected $closedDate;
 
     function __construct(){
         parent::__construct();
-        $this->orderId = $orderId;
-        //load the model 
-        $this->loadModel("Order");
-        //get adn assign details
-        $orderDetails= $this->model->getOrderDetails($this->orderId)[0];
-        $this->customerId = $orderDetails[0];
-        $this->amount = $orderDetails[1];
-        $this->status = $orderDetails[2];
-        $this->createDate = $orderDetails[3];
-        $this->rating =$orderDetails[4];
-        //get the customer name
-        $this->customerName = $this->model->getCustomerDetails($this->getCustomerId())[0][0];
-       
+        //var_dump($this);
+        $this->customerName = $this->model->getCustomerDetails($this->customerId)[0][0];
         $this->setOrderItems();
         
     }
@@ -101,13 +91,6 @@ abstract class Order extends Controller{
     {
         return $this->customerName;
     }
-
-    /**
-     * Get the value of rating
-     */ 
-    public function getRating()
-    {
-        return $this->rating;
-    }
-
 }
+
+?>
