@@ -13,6 +13,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <body>
     <?php echo "Order ID : " . $order->getorderID(); ?>
@@ -181,8 +183,8 @@
             <?php
             if ($item instanceof OrderItem) { ?>
                 <div class="container p-3 my-3 bg-primary text-white">
-                    <h1><?php echo $item->getName() ?></h1>
-                    <p>Quantity : <?php echo $item->getQuantity() ?></p>
+                    <h1><?php echo $item->getName(); ?></h1>
+                    <p>Quantity : <?php echo $item->getQuantity(); ?></p>
 
                 </div>
         <?php
@@ -194,7 +196,94 @@
         <div class="container p-3 my-3 bg-dark text-white" data-toggle="modal" data-target="#id<?php echo $item->getOrderItemId(); ?>" data-whatever="@mdo">
             <h1><?php echo $item->getName() ?></h1>
             <p>Quantity : <?php echo $item->getQuantity() ?></p>
-            <?php echo $order->getClosedDate()[0]; ?>
+            <!-- <?php echo $order->getClosedDate()[0]; ?> -->
+            <?php $dates = 4;
+            $canReturn = $dates < 7;
+            ?>
+
+            <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample<?php echo $item->getOrderItemId(); ?>" role="button" aria-controls="offcanvasExample<?php echo $item->getOrderItemId(); ?>">
+                Return the item
+            </a>
+
+        </div>
+
+
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample<?php echo $item->getOrderItemId(); ?>" aria-labelledby="offcanvasExampleLabel<?php echo $item->getOrderItemId(); ?>">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasExampleLabel<?php echo $item->getOrderItemId(); ?>">Hello <?php echo  $_SESSION["username"]; ?></h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <?php if (!$canReturn) { ?>
+                    <div class="alert alert-success" role="alert">
+                        <h4 class="alert-heading">Sorry!</h4>
+                        <p>We have given you only 7 days to return the item.</p>
+                        <hr>
+                        <p class="mb-0">Please put your rate and review.Thank you.</p>
+                    </div>
+                <?php   } else {
+                ?>
+                    <form id="returnItem<?php echo $item->getOrderItemId(); ?>" action="" method="post">
+                        <div class="form-outline">
+                            <input type="number" id="form12<?php echo $item->getOrderItemId(); ?>" name="quantity" class="form-control" min="1" max="<?php echo $item->getQuantity(); ?>" required>
+                            <label class="form-label" for="form12<?php echo $item->getOrderItemId(); ?>">Return Quantity</label>
+                        </div>
+
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Leave the reason here" name="reason" id="floatingTextarea2<?php echo $item->getOrderItemId(); ?>" style="height: 100px" required></textarea>
+                            <label for="floatingTextarea2<?php echo $item->getOrderItemId(); ?>">Reason for returning</label>
+                        </div>
+                        <div class="container p-3 my-3 bg-dark text-white">
+                            <input type="hidden" name="orderID" value="<?php echo $order->getOrderId(); ?>">
+                            <input type="hidden" name="itemName" value="<?php echo $item->getName(); ?>">
+                            <input type="hidden" name="price" value="<?php echo $item->getPrice(); ?>">
+                            <input type="hidden" name="orderItemID" value="<?php echo $item->getOrderItemId(); ?>">
+                            <input class="btn btn-primary" type="submit" id="addBtn<?php echo $item->getOrderItemId(); ?>" name="addReturnItem" value="Add to return Order">
+                        </div>
+
+                    </form>
+                    <script>
+                        $("#returnItem<?php echo $item->getOrderItemId(); ?>").submit(function(event) {
+                            document.getElementById("form12<?php echo $item->getOrderItemId(); ?>").readOnly = true;
+                            document.getElementById("floatingTextarea2<?php echo $item->getOrderItemId(); ?>").readOnly = true;
+                            document.getElementById("addBtn<?php echo $item->getOrderItemId(); ?>").style.visibility = "hidden";
+
+                            event.preventDefault();
+                            var formValues = $(this).serialize().split("&");
+                            console.log(formValues);
+                            var obj = {};
+                            for (var key in formValues) {
+                                obj[formValues[key].split("=")[0]] = formValues[key].split("=")[1];
+                            }
+
+                            var table = document.getElementById("returnTable");
+
+                            // Create an empty <tr> element and add it to the 1st position of the table:
+                            var row = table.insertRow(1);
+
+                            // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+                            var cell1 = row.insertCell(0);
+                            var cell2 = row.insertCell(1);
+                            var cell3 = row.insertCell(2);
+                            var cell4 = row.insertCell(3);
+
+                            // Add some text to the new cells:
+                            cell1.innerHTML = obj["itemName"];
+
+                            cell2.innerHTML = obj["quantity"];
+                            cell3.innerHTML = obj["reason"];
+                            cell4.innerHTML = obj["price"] * obj["quantity"];
+                            setReturnItemDetails(obj);
+                           // console.log(getReturnItemsDetails());
+
+                        })
+                    </script>
+
+                <?php } ?>
+
+
+
+            </div>
         </div>
         <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#id<?php echo $item->getOrderItemId(); ?>" data-whatever="@mdo">Rate the Item</button> -->
         <script>
@@ -246,8 +335,25 @@
 
 
     <?php  } ?>
+    <table class="table" id="returnTable">
+        <thead>
+            <tr>
 
+                <th scope="col">Return Item</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Reason</th>
+                <th scope="col">Price</th>
+            </tr>
+        </thead>
+        <tbody>
 
+        </tbody>
+    </table>
+
+    <form action="" method="post" id="returnOrderConfirm">
+        <input type="hidden" name="orderID" value="<?php echo $order->getOrderId(); ?>">
+        <input type="submit" value="Confirm Return Order" name="confirmBtn">
+    </form>
 
 </body>
 <script>
@@ -299,6 +405,38 @@
                 document.getElementById("shopReviewBtn2").style.visibility = "hidden";
             }
         });
+
+
+
+    });
+</script>
+<script>
+    let Objects = [];
+
+    function setReturnItemDetails(obj) {
+        Objects.push(obj);
+    }
+
+    function getReturnItemsDetails() {
+        return Objects;
+    }
+</script>
+<script>
+    $("#returnOrderConfirm").submit(function(event) {
+        event.preventDefault();
+        let formValues = getReturnItemsDetails();
+        console.log(formValues);
+        for (let i = 0; i < formValues.length; i++) {
+            let b = (formValues[i]);
+
+            $.post("returnOrderPlace", b, function(html) {
+                if (html) {
+                    alert(html);
+                }
+            });
+
+        }
+
 
 
 
