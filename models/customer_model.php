@@ -153,7 +153,21 @@ class Customer_Model extends Model
             $this->markAsOrdered($cartItemID);
         }
     }
-
+    function addReturnItem($returnOrderID, $quantity, $orderItemID, $reason)
+    {
+        $sql = "INSERT INTO RETURNITEM (RETURNORDERID,QUANTITY,ORDERITEMID,REVIEW) VALUES ($returnOrderID,$quantity,$orderItemID,'$reason')";
+        return $this->db->insertQuery($sql);
+    }
+    function createReturnOrder($customer_id, $price, $orderID)
+    {
+        $sql = "INSERT INTO RETURNORDER (CUSTOMER_ID,AMOUNT,BUYORDERID) VALUES ($customer_id,$price,$orderID)";
+        return $this->db->insertQuery($sql);
+    }
+    function returnOrderExists($orderID)
+    {
+        $sql = "SELECT RETURNORDERID FROM RETURNORDER WHERE BUYORDERID=$orderID";
+        return $this->db->runQuery($sql);
+    }
     function updateItemDetail($itemID, $newQuantity)
     {
         $sql = "UPDATE ITEM set quantity=$newQuantity where itemID=$itemID";

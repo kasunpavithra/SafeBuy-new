@@ -66,6 +66,30 @@ class Customer extends Person
         }
         header("Location:orderHistory");
     }
+    function returnOrderPlace()
+    {
+        $reason = $_POST["reason"];
+        $quantity = $_POST["quantity"];
+        $orderID = $_POST["orderID"];
+        $itemName = $_POST["itemName"];
+        $price = $_POST["price"];
+        $orderItemID = $_POST["orderItemID"];
+        $returnOrderID = NULL;
+        $returnOrderIn = $this->model->returnOrderExists($orderID);
+        if (empty($returnOrderIn)) {
+            $this->addReturnOrder($this->customer_id, $price, $orderID);
+        } else {
+            $returnOrderID = $returnOrderIn[0][0];
+        }
+        $isadded =  $this->model->addReturnItem($returnOrderID, $quantity, $orderItemID, $reason);
+        echo $isadded;
+        // echo $reason . " " . $quantity . " " . $orderID . " " . $itemName . " " . $price . " " . $this->customer_id." ".$orderItemID;
+        // echo $returnOrderID;
+    }
+    function addReturnOrder($customer_id, $price, $orderID)
+    {
+        $this->model->createReturnOrder($customer_id, $price, $orderID);
+    }
     function updateRatingsViews()
     {
         $itemID = $_POST["orderItemID"];
@@ -123,7 +147,7 @@ class Customer extends Person
     {
         $orderID = $_POST["orderID"];
         $review = $_POST["orderreview"];
-     
+
         $success = $this->model->reviewOrder($orderID, $review);
         if ($success) {
             echo true;
