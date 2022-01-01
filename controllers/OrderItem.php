@@ -88,4 +88,12 @@ class OrderItem extends Item{
     {
         return $this->soldDiscount;
     }
+
+    /**
+     * Get the value of orderId
+     */ 
+    public function getOrderId()
+    {
+        return $this->orderId;
+    }
 }

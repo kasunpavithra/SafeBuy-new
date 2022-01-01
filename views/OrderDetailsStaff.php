@@ -97,7 +97,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="col-md-12"><label class="label label-danger"> <?php echo BuyOrder::STATES[$this->order->getStatus()]; ?></label></div>
-          <span><strong>Order ID</strong></span> <span class="label label-info">group name</span><br />
+          <span><strong>Order ID: </strong></span> <span class="label label-info"><?php echo $this->order->getOrderId(); ?></span><br />
           cost: $<?php echo $this->order->getamount() ?> <br />
           <!-- add code to disable the accept reject buttons once the order is accepted
                       -->
@@ -129,11 +129,11 @@
         </tr>
         <?php
           foreach($this->order->getOrderItems() as $item){
-            echo '<td>'.$item->getItemId().'</td>
+            echo '<tr><td>'.$item->getItemId().'</td>
                   <td>'.$item->getName().'</td>
                   <td>'.$item->getQuantity().'</td>
                   <td>'.$item->getSoldPrice().'</td>
-                  <td>'.$item->getSoldDiscount().'</td>';
+                  <td>'.$item->getSoldDiscount().'</td></tr>';
           }
         ?>
       </table>
@@ -142,7 +142,7 @@
 
   <div class="row">
     <div class="col-md-2"></div> <?php echo
-    '<a href="../cusOtherOrders/'.$this->order->getCustomerId().'">See customers previous orders</a>'; ?>
+    '<a class="btn btn-success btn-xs glyphicon glyphicon-ok" href="../cusOtherOrders/'.$this->order->getCustomerId().'">See customers previous orders</a>'; ?>
   </div>
 
   <!-- Footer strat -->

@@ -169,4 +169,12 @@ class Item extends Controller
     {
         return $this->ratingList;
     }
+
+    /**
+     * Get the value of createdAt
+     */ 
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
 }
