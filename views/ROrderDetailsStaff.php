@@ -97,7 +97,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class="col-md-12"><label class="label label-danger"> <?php echo ReturnOrder::STATES[$this->order->getStatus()]; ?></label></div>
-          <span><strong>Order ID</strong></span> <span class="label label-info">group name</span><br />
+          <span><strong>Return Order ID: </strong></span> <span class="label label-info"><?php echo $this->order->getOrderId(); ?></span><br />
           cost: $<?php echo $this->order->getamount() ?> <br />
           <!-- add code to disable the accept reject buttons once the order is accepted
                       -->
@@ -116,22 +116,34 @@
   </div>
   <!--order details end-->
 
-  <div class="container bootdey">
-    <div class="panel panel-default panel-order">
-      <div class="panel-heading">
-        <strong>Order items</strong>
-        <div class="btn-group pull-right">
-          <div class="btn-group">
-            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">Filter history <i class="fa fa-filter"></i></button>
-            <ul class="dropdown-menu dropdown-menu-right">
-              <li><a href="#">Approved orders</a></li>
-              <li><a href="#">Pending orders</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="panel-footer">Put here some note for example: bootdey si a gallery of free bootstrap snippets bootdeys</div>
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-6">
+      <table class="table table-striped">
+        <tr>
+          <th>Item Id</th>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Price(Rs)</th>
+          <th>Discount(%)</th>
+        </tr>
+        <?php
+          foreach($this->order->getOrderItems() as $item){
+            echo '<tr><td>'.$item->getItemId().'</td>
+                  <td>'.$item->getName().'</td>
+                  <td>'.$item->getQuantity().'</td>
+                  <td>'.$item->getSoldPrice().'</td>
+                  <td>'.$item->getSoldDiscount().'</td></tr>';
+          }
+        ?>
+      </table>
     </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2"></div> <?php echo
+    '<a class="btn btn-success btn-xs glyphicon glyphicon-ok" href="../cusOtherOrders/'.$this->order->getCustomerId().'">See customers previous orders</a>
+    <a class="btn btn-info btn-xs glyphicon glyphicon-usd" href="../viewBuyOrder/'.$this->order->getBuyOrderId().'">See Relevant BuyOrder</a>'; ?>
   </div>
 
 

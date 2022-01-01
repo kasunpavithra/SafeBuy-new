@@ -76,7 +76,7 @@
         echo ReturnOrder::STATES[$odr->getStatus()];
       }
       echo '</label></div>
-          <span><strong>Order ID</strong></span> <span class="label label-info">group name</span><br />
+          <span><strong>Order ID: </strong></span> <span class="label label-info">'.$odr->getOrderId().'</span><br />
           cost: $' . $odr->getAmount() . '<br />
           <!-- add code to disable the accept reject buttons once the order is accepted
                       -->
@@ -117,7 +117,7 @@
           echo ReturnOrder::STATES[$odr->getStatus()];
         }
         echo '</label></div>
-                  <span><strong>Order ID</strong></span> <span class="label label-info">group name</span><br />
+                  <span class="danger"><strong>Return Order ID: </strong></span> <span class="label label-info">'.$odr->getOrderId().'</span><br />
                   cost: $' . $odr->getAmount() . '<br />
                   <!-- add code to disable the accept reject buttons once the order is accepted
                               -->
