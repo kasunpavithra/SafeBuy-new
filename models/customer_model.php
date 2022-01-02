@@ -153,9 +153,9 @@ class Customer_Model extends Model
             $this->markAsOrdered($cartItemID);
         }
     }
-    function addReturnItem($returnOrderID, $quantity, $orderItemID, $reason)
+    function addReturnItem($returnOrderID, $quantity,$reason,$orderItemID)
     {
-        $sql = "INSERT INTO RETURNITEM (RETURNORDERID,QUANTITY,ORDERITEMID,REVIEW) VALUES ($returnOrderID,$quantity,$orderItemID,'$reason')";
+        $sql = "INSERT INTO RETURNITEM (RETURNORDERID,QUANTITY,REVIEW,ORDERITEMID) VALUES ($returnOrderID,$quantity,'$reason',$orderItemID)";
         return $this->db->insertQuery($sql);
     }
     function createReturnOrder($customer_id, $price, $orderID)

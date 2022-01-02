@@ -7,7 +7,7 @@ class ReturnOrderItem_Model extends Model
     }
     
     function getOrderItemDetails($orderItemId){
-        $orderItemDetails =  $this->db->runQuery("SELECT * FROM returnitem WHERE returnOrderID=$orderItemId");
+        $orderItemDetails =  $this->db->runQuery("SELECT * FROM returnitem WHERE returnItemID=$orderItemId");
         return $orderItemDetails;
     }
 }

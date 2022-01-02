@@ -274,7 +274,7 @@
                             cell3.innerHTML = obj["reason"];
                             cell4.innerHTML = obj["price"] * obj["quantity"];
                             setReturnItemDetails(obj);
-                           // console.log(getReturnItemsDetails());
+                           console.log(getReturnItemsDetails());
 
                         })
                     </script>
