@@ -81,7 +81,7 @@ class Customer extends Person
         } else {
             $returnOrderID = $returnOrderIn[0][0];
         }
-        $isadded =  $this->model->addReturnItem($returnOrderID, $quantity, $orderItemID, $reason);
+        $isadded =  $this->model->addReturnItem($returnOrderID, $quantity, $reason, $orderItemID);
         echo $isadded;
         // echo $reason . " " . $quantity . " " . $orderID . " " . $itemName . " " . $price . " " . $this->customer_id." ".$orderItemID;
         // echo $returnOrderID;
