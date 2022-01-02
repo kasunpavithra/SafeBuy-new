@@ -1,4 +1,11 @@
-<?php $order = $this->order; ?>
+<?php $order = $this->order;
+$returnOrder = $this->returnOrder;
+// var_dump($returnOrder);
+// foreach ($returnOrder->getOrderItems() as $key => $value) {
+//     echo $value->getName();
+//     echo "<br>";
+// };
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -177,7 +184,7 @@
     }
     ?>
     <?php foreach ($items as $item) {
-
+        
         if ($order->getStatus() != 5) { ?>
 
             <?php
@@ -198,7 +205,8 @@
             <p>Quantity : <?php echo $item->getQuantity() ?></p>
             <!-- <?php echo $order->getClosedDate()[0]; ?> -->
             <?php $dates = 4;
-            $canReturn = $dates < 7;
+            $datesExceed = $dates > 7;
+            $isAlreadyReturn = ($returnOrder != NULL);
             ?>
 
             <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample<?php echo $item->getOrderItemId(); ?>" role="button" aria-controls="offcanvasExample<?php echo $item->getOrderItemId(); ?>">
@@ -214,7 +222,15 @@
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
-                <?php if (!$canReturn) { ?>
+                <?php
+                if ($isAlreadyReturn) { ?>
+                    <div class="alert alert-success" role="alert">
+                        <h4 class="alert-heading">Sorry!</h4>
+                        <p>You have already place your return Order.</p>
+                        <hr>
+                        <p class="mb-0">Please check the status!!! Thank you</p>
+                    </div>
+                <?php   } else if ($datesExceed) { ?>
                     <div class="alert alert-success" role="alert">
                         <h4 class="alert-heading">Sorry!</h4>
                         <p>We have given you only 7 days to return the item.</p>
@@ -274,7 +290,7 @@
                             cell3.innerHTML = obj["reason"];
                             cell4.innerHTML = obj["price"] * obj["quantity"];
                             setReturnItemDetails(obj);
-                           console.log(getReturnItemsDetails());
+                            console.log(getReturnItemsDetails());
 
                         })
                     </script>
@@ -335,26 +351,27 @@
 
 
     <?php  } ?>
-    <table class="table" id="returnTable">
-        <thead>
-            <tr>
+    <?php if ($order->getStatus() == 5 && !$datesExceed && !$isAlreadyReturn) { ?>
+        <table class="table" id="returnTable">
+            <thead>
+                <tr>
 
-                <th scope="col">Return Item</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Reason</th>
-                <th scope="col">Price</th>
-            </tr>
-        </thead>
-        <tbody>
+                    <th scope="col">Return Item</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Reason</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody>
 
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
-    <form action="" method="post" id="returnOrderConfirm">
-        <input type="hidden" name="orderID" value="<?php echo $order->getOrderId(); ?>">
-        <input type="submit" value="Confirm Return Order" name="confirmBtn">
-    </form>
-
+        <form action="placeReturnOrder" method="post" id="returnOrderConfirm">
+            <input type="hidden" name="orderID" value="<?php echo $order->getOrderId(); ?>">
+            <input type="submit" value="Confirm Return Order" name="confirmBtn" id="confirmReturnBtn">
+        </form>
+    <?php } ?>
 </body>
 <script>
     document.getElementById("shopReviewForm2").style.visibility = "hidden";
@@ -412,30 +429,37 @@
 </script>
 <script>
     let Objects = [];
+    let amount = 0;
 
     function setReturnItemDetails(obj) {
+
         Objects.push(obj);
+        amount += parseFloat(parseFloat(obj["price"]) * parseFloat(obj["quantity"]));
     }
 
     function getReturnItemsDetails() {
+        if (Objects.length > 0) {
+            Objects[0]["amount"] = amount;
+        }
         return Objects;
     }
 </script>
 <script>
     $("#returnOrderConfirm").submit(function(event) {
-        event.preventDefault();
+        // event.preventDefault();
         let formValues = getReturnItemsDetails();
         console.log(formValues);
+
         for (let i = 0; i < formValues.length; i++) {
             let b = (formValues[i]);
 
             $.post("returnOrderPlace", b, function(html) {
-                if (html) {
-                    alert(html);
-                }
+
             });
 
         }
+        // document.getElementById("confirmReturnBtn").style.visibility = "hidden";
+
 
 
 
