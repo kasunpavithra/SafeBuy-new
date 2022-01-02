@@ -66,6 +66,10 @@ class Customer extends Person
         }
         header("Location:orderHistory");
     }
+    function  placeReturnOrder()
+    {
+        header("Location:orderHistory");
+    }
     function returnOrderPlace()
     {
         $reason = $_POST["reason"];
@@ -73,13 +77,20 @@ class Customer extends Person
         $orderID = $_POST["orderID"];
         $itemName = $_POST["itemName"];
         $price = $_POST["price"];
+        $amount = NULL;
+        if (isset($_POST["amount"])) {
+            $amount = $_POST["amount"];
+        }
         $orderItemID = $_POST["orderItemID"];
         $returnOrderID = NULL;
         $returnOrderIn = $this->model->returnOrderExists($orderID);
         if (empty($returnOrderIn)) {
-            $this->addReturnOrder($this->customer_id, $price, $orderID);
+            $this->addReturnOrder($this->customer_id, $amount, $orderID);
         } else {
             $returnOrderID = $returnOrderIn[0][0];
+        }
+        if ($returnOrderID == NULL) {
+            $returnOrderID = $this->model->returnOrderExists($orderID)[0][0];
         }
         $isadded =  $this->model->addReturnItem($returnOrderID, $quantity, $reason, $orderItemID);
         echo $isadded;
@@ -115,6 +126,15 @@ class Customer extends Person
         $this->view->order_Id = $_GET["orderID"];
         $order = new BuyOrder($_GET["orderID"]);
         $this->view->stat_no  = $order->getStatus();
+        $this->view->type = "BuyOrder";
+        $this->view->render("OrderStatusCustomer");
+    }
+    function ReturnOrderStatus()
+    {
+        $this->view->order_Id = $_GET["orderID"];
+        $order = new ReturnOrder($_GET["orderID"]);
+        $this->view->stat_no  = $order->getStatus();
+        $this->view->type = "ReturnOrder";
         $this->view->render("OrderStatusCustomer");
     }
     function categoryDetail()
@@ -181,26 +201,34 @@ class Customer extends Person
         $order = NULL;
         $this->setShop(new Shop());
         $orderLog = $this->shop->getOrderLog();
-        $buyorders = $orderLog->getBuyOrders();
-        foreach ($buyorders as $key => $value) {
-            if ($value->getCustomerId() == $this->customer_id) {
-                array_push($this->buyorders, $buyorders[$key]);
-            };
-        }
+        // $buyorders = $orderLog->getBuyOrders();
+        // foreach ($buyorders as $key => $value) {
+        //     if ($value->getCustomerId() == $this->customer_id) {
+        //         array_push($this->buyorders, $buyorders[$key]);
+        //     };
+        // }
         $returnorders = $orderLog->getReturnOrders();
+        $returnOrder = NULL;
+
         foreach ($returnorders as $key => $value) {
-            if ($value->getCustomerId() == $this->customer_id) {
-                array_push($this->returnorders, $returnorders[$key]);
+            if ($value->getBuyOrderId() == $orderID) {
+                $returnOrder = $value;
+                break;
             };
         }
-        foreach ($buyorders as $buyorder) {
-            if ($buyorder->getOrderId() == $orderID) {
-                $order = $buyorder;
-                break;
-            }
-        }
-        $this->view->order = $order;
+        // foreach ($buyorders as $buyorder) {
+        //     if ($buyorder->getOrderId() == $orderID) {
+        //         $order = $buyorder;
+        //         break;
+        //     }
+        // }
+
+        $this->view->order = new BuyOrder($orderID);
+        $this->view->returnOrder = $returnOrder;
         $this->view->render("OrderDetail");
+    }
+    function ReturnitemDetails(){
+        $orderID = $_GET["orderID"];
     }
     function orderHistory()
     {
