@@ -33,7 +33,7 @@ class Customer extends Person
     {
         $messageList =  (ChatLog::getInstance($this->customer_id))->getMessageList();
         foreach ($messageList as $message) {
-            echo $message->getMessage()." ".$message->getStatus()." ".$message->getTime();
+            echo $message->getMessage() . " " . $message->getStatus() . " " . $message->getTime();
             echo "<br>";
         }
     }
@@ -507,8 +507,12 @@ class Customer extends Person
             $cartItems = $this->cart->getCartItems();
             foreach ($cartItems as $cartItem) {
                 if ($cartItem->getItem_id() == $itemID) {
+                    echo $cartItem->getItem_id();
+                    echo "<br>";
+                    echo $itemID;
                     $isadded = $this->model->UpdateItemtoCart($itemID, $quantity + $cartItem->getQuantity());
                     if ($isadded) {
+
                         header("Location: Dashboard");
                         return;
                     }

@@ -90,7 +90,7 @@ class Customer_Model extends Model
     function UpdateItemtoCart($itemID, $quantity)
     {
 
-        $query = "UPDATE CART_ITEMSTEMP SET QUANTITY='" . $quantity . " WHERE ITEM_ID='" . $itemID . "'";
+        $query = "UPDATE CART_ITEMSTEMP SET QUANTITY = $quantity WHERE ITEM_ID=$itemID";
         return $this->db->insertQuery($query);
     }
     function getCartItems($userID)
@@ -153,7 +153,7 @@ class Customer_Model extends Model
             $this->markAsOrdered($cartItemID);
         }
     }
-    function addReturnItem($returnOrderID, $quantity,$reason,$orderItemID)
+    function addReturnItem($returnOrderID, $quantity, $reason, $orderItemID)
     {
         $sql = "INSERT INTO RETURNITEM (RETURNORDERID,QUANTITY,REVIEW,ORDERITEMID) VALUES ($returnOrderID,$quantity,'$reason',$orderItemID)";
         return $this->db->insertQuery($sql);
