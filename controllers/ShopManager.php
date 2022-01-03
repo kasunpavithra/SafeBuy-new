@@ -11,7 +11,7 @@ class ShopManager extends ShopStaff
         $this->menu = new Menu();
     }
 
-
+    
     function index()
     {
     }
@@ -48,6 +48,7 @@ class ShopManager extends ShopStaff
         $this->view->categories = $categorySet;
         $this->view->render('shopManagerHome');
     }
+    
     function categoryItems()
     {
         if (isset($_GET["category"])) {
