@@ -5,6 +5,7 @@ require_once("Order.php");
 require_once("Menu.php");
 require_once("OrderStatusCustomer.php");
 require_once("Cart.php");
+require_once("chatLog.php");
 class Customer extends Person
 {
 
@@ -27,6 +28,14 @@ class Customer extends Person
     {
         parent::__construct();
         $this->setDetails($id);
+    }
+    function getChat()
+    {
+        $messageList =  (ChatLog::getInstance($this->customer_id))->getMessageList();
+        foreach ($messageList as $message) {
+            echo $message->getMessage()." ".$message->getStatus()." ".$message->getTime();
+            echo "<br>";
+        }
     }
     //
     function setDetails($id)
@@ -227,7 +236,9 @@ class Customer extends Person
         $this->view->returnOrder = $returnOrder;
         $this->view->render("OrderDetail");
     }
-    function ReturnitemDetails(){
+
+    function ReturnitemDetails()
+    {
         $orderID = $_GET["orderID"];
     }
     function orderHistory()
