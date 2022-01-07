@@ -11,7 +11,7 @@ class ShopManager extends ShopStaff
         $this->menu = new Menu();
     }
 
-    
+
     function index()
     {
     }
@@ -48,7 +48,7 @@ class ShopManager extends ShopStaff
         $this->view->categories = $categorySet;
         $this->view->render('shopManagerHome');
     }
-    
+
     function categoryItems()
     {
         if (isset($_GET["category"])) {
@@ -90,20 +90,19 @@ class ShopManager extends ShopStaff
             $categoryName = ($_POST["category"]);
             $itemName = $_POST["item"];
             $quantity = $_POST["quantity"];
-            if ($this->addCategory($categoryName)) {
-                
+            $description = $_POST["categoryDesc"];
+            if ($this->addCategory($categoryName, $description)) {
+
                 $categoryID = $this->getCategoryID($categoryName);
-                if($this->checkItemAvailable($itemName)){
-                    
-                }else{
-                $this->model->addItem($categoryID, $itemName, $quantity);
+                if ($this->checkItemAvailable($itemName)) {
+                } else {
+                    $this->model->addItem($categoryID, $itemName, $quantity);
                 }
             }
             header("Location: Dashboard");
-
         }
     }
-    function addCategory($categoryName)
+    function addCategory($categoryName, $description)
     {
 
         $categorySet = [];
@@ -116,27 +115,27 @@ class ShopManager extends ShopStaff
                 return true;
             }
         }
-        return $this->model->addCategory($categoryName);
+        return $this->model->addCategory($categoryName, $description);
     }
     function getCategoryID($categoryName)
     {
 
-        
+
         return  $this->model->getCategoryID($categoryName)[0][0];
     }
-    function checkItemAvailable($itemName){
-        
+    function checkItemAvailable($itemName)
+    {
+
         $allitems = $this->menu->getItems();
         foreach ($allitems as $key => $value) {
             if ($value->getName() == $itemName) {
-              return true;
+                return true;
             }
         }
         return false;
-     
     }
-    function sendNotification($msg){
+    function sendNotification($msg)
+    {
         $this->mediator->sendNotification($msg);
     }
-        
 }

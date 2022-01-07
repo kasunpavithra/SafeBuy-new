@@ -20,7 +20,7 @@ class Login_Model extends Model{
         if ($result)
         { 
          
-           if($result[0]['Password']=== $password){
+           if($result[0]['Password']=== $password && $result[0]["account_availability"]==0){
               return $result[0]['Customer_id'];
             }
           
@@ -30,5 +30,3 @@ class Login_Model extends Model{
     }
 
 }
-
-?>

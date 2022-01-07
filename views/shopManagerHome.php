@@ -309,8 +309,8 @@
                                         <span class="close1">&times;</span>
 
                                         <form action="addItem" method="post">
-                                            <label for="categories">Categories</label>
-                                            <select name="categories" id="categories">
+                                            <label for="category">Categories</label>
+                                            <select name="category" id="categories">
                                                 <?php
                                                 foreach ($categories as $key => $value) { ?>
                                                     <option value="<?php echo $value ?>"><?php echo $value ?></option>
@@ -318,8 +318,8 @@
 
                                                 ?>
                                             </select>
-                                            <label for="category">Category Name</label>
-                                            <input type="text" name="category" id="category">
+                                            <!-- <label for="category">Category Name</label>
+                                            <input type="text" name="category" id="category"> -->
                                             <br>
                                             <label for="item">Item Name</label>
                                             <input type="text" name="item" id="item">
@@ -387,7 +387,10 @@
             ?>
         </select> -->
                                             <label for="category">Category Name</label>
-                                            <input type="text" name="category" id="category">
+                                            <input type="text" name="category" id="category" required>
+                                            <br>
+                                            <label for="categoryDesc">Category description</label>
+                                            <input type="text" name="categoryDesc" id="categoryDesc" required>
                                             <br>
 
 
@@ -446,8 +449,8 @@
                                         <span class="close1">&times;</span>
 
                                         <form action="addItem" method="post">
-                                            <label for="categories">Categories</label>
-                                            <select name="categories" id="categories">
+                                            <label for="category">Categories</label>
+                                            <select name="category" id="categories">
                                                 <?php
                                                 foreach ($categories as $key => $value) { ?>
                                                     <option value="<?php echo $value ?>"><?php echo $value ?></option>

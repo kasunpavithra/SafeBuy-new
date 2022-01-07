@@ -19,12 +19,13 @@ class ShopManager_Model extends Model
   }
   function deleteItem($itemID)
   {
-    return $this->db->runQuery("DELETE FROM ITEM WHERE itemID='" . $itemID . "'");
+    // return $this->db->runQuery("DELETE FROM ITEM WHERE itemID='" . $itemID . "'");
+    return $this->db->insertQuery("UPDATE ITEM SET item_availability=1 where itemID=$itemID");
   }
 
-  function addCategory($categoryName)
+  function addCategory($categoryName, $description)
   {
-    return $this->db->insertQuery("INSERT INTO category (category_name) VALUES ('" . $categoryName . "')");
+    return $this->db->insertQuery("INSERT INTO category (category_name,description) VALUES ('" . $categoryName . "','$description')");
   }
   function getCategoryID($categoryName)
   {

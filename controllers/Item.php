@@ -15,6 +15,7 @@ class Item extends Controller
     private $createdAt;
     private $categoryName;
     private $soldQuantity;
+    private $availability;
     private $ratingList = array();
     function __construct($itemId)
     {
@@ -39,7 +40,9 @@ class Item extends Controller
         $this->review = $itemDetails[10];
         $this->status = $itemDetails[11];
         $this->createdAt = $itemDetails[12];
+        $this->availability = $itemDetails[13];
         $this->ratingList = $this->model->getRatingList($itemId);
+
         $this->categoryName = $this->model->getCategoryName($this->categoryId)[0][0];
         // var_dump($this);
     }
@@ -164,7 +167,7 @@ class Item extends Controller
 
     /**
      * Get the value of ratingList
-     */ 
+     */
     public function getRatingList()
     {
         return $this->ratingList;
@@ -172,9 +175,17 @@ class Item extends Controller
 
     /**
      * Get the value of createdAt
-     */ 
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Get the value of availability
+     */ 
+    public function getAvailability()
+    {
+        return $this->availability;
     }
 }

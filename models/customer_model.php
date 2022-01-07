@@ -9,6 +9,14 @@ class Customer_Model extends Model
     function index()
     {
     }
+    function setAsDeletedAccount($customer_id)
+    {
+        return $this->db->insertQuery("UPDATE customer SET ACCOUNT_AVAILABILITY=1 WHERE customer_id=$customer_id");
+    }
+    function addMessage($customer_id, $message)
+    {
+        return $this->db->insertQuery("INSERT INTO CHAT (CUSTOMER_ID,MESSAGE) VALUES ($customer_id,'$message')");
+    }
     function rateOrder($orderID, $rate)
     {
         return $this->db->insertQuery("UPDATE ORDERS SET RATING=$rate where orderID=$orderID");
@@ -221,5 +229,9 @@ class Customer_Model extends Model
     function addOrderItem($orderId, $Item_id, $quantity, $price, $discount)
     {
         return $this->db->insertQuery("INSERT INTO ORDERITEM (orderID,itemID,quantity,price,discount) values ($orderId,$Item_id,$quantity,$price,$discount)");
+    }
+    function setItemStatus($itemStatus, $itemID)
+    {
+        return $this->db->insertQuery("UPDATE ITEM SET STATUS=$itemStatus WHERE ITEMID=$itemID");
     }
 }
