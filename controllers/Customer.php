@@ -525,6 +525,11 @@ class Customer extends Person
             }
         }
     }
+
+    function recieveNotification($msg){
+        //prsentation logic here
+    }
+
     /**
      * Get the value of customer_id
      */
