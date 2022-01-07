@@ -32,12 +32,24 @@ class Customer extends Person
     function getChat()
     {
         $messageList =  (ChatLog::getInstance($this->customer_id))->getMessageList();
-        foreach ($messageList as $message) {
-            echo $message->getMessage() . " " . $message->getStatus() . " " . $message->getTime();
-            echo "<br>";
-        }
+        $this->view->messageList = $messageList;
+        $this->view->render("CustomerChat");
+        // foreach ($messageList as $message) {
+        //     echo $message->getMessage() . " " . $message->getStatus() . " " . $message->getTime();
+        //     echo "<br>";
+        // }
     }
     //
+
+    function customerSendMessage()
+    {
+        if (isset($_POST["sendBtn"])) {
+            $message = $_POST["message"];
+            if ($this->model->addMessage($this->customer_id, $message)) {
+                header("Location:getChat");
+            }
+        }
+    }
     function setDetails($id)
     {
         $this->loadModel("Customer");
@@ -294,7 +306,11 @@ class Customer extends Person
                     $cartItems = $this->cart->getCartItems();
                     foreach ($cartItems as $cartItem) {
                         $this->model->updateItem($cartItem->getItem_id(),  $cartItem->getAvQuantity() - $cartItem->getQuantity(), $cartItem->getSoldQuantity() + $cartItem->getQuantity());
+
                         $this->model->addOrderItem($orderId, $cartItem->getItem_id(), $cartItem->getQuantity(), $cartItem->getPrice(), $cartItem->getDiscount());
+                        if ($cartItem->getAvQuantity() == $cartItem->getQuantity()) {
+                            $this->model->setItemStatus(1, $cartItem->getItem_id());
+                        }
                     }
                 }
             }
@@ -451,6 +467,9 @@ class Customer extends Person
         $categories = array();
         $items = $menu->getItems();
         foreach ($items as $key => $value) {
+            if ($value->getAvailability() == 1) {
+                continue;
+            }
             if (array_key_exists($value->getCategoryName(), $categories)) {
                 array_push($categories[$value->getCategoryName()], $value);
             } else {
@@ -526,7 +545,8 @@ class Customer extends Person
         }
     }
 
-    function recieveNotification($msg){
+    function recieveNotification($msg)
+    {
         //prsentation logic here
     }
 
@@ -770,5 +790,13 @@ class Customer extends Person
         $this->shop = $shop;
 
         return $this;
+    }
+    function deleteAccount()
+    {
+        $delete =  $this->model->setAsDeletedAccount($this->customer_id);
+        if ($delete) {
+            session_destroy();
+            header("Location:../../../login/");
+        }
     }
 }

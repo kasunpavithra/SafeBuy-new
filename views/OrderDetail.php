@@ -185,7 +185,7 @@ $returnOrder = $this->returnOrder;
     ?>
     <?php foreach ($items as $item) {
         
-        if ($order->getStatus() != 5) { ?>
+        if ($order->getStatus() != 4) { ?>
 
             <?php
             if ($item instanceof OrderItem) { ?>
@@ -351,7 +351,7 @@ $returnOrder = $this->returnOrder;
 
 
     <?php  } ?>
-    <?php if ($order->getStatus() == 5 && !$datesExceed && !$isAlreadyReturn) { ?>
+    <?php if ($order->getStatus() == 4 && !$datesExceed && !$isAlreadyReturn) { ?>
         <table class="table" id="returnTable">
             <thead>
                 <tr>

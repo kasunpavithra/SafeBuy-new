@@ -66,6 +66,8 @@ $descriptionList = $this->descriptionList;
     <a href="customerProfile/">Customer Profile</a>
     <a href="OrderStatusCustomer">Orders</a>
     <a href="PayCart">Pay Cart</a>
+    <a href="getChat">Chat with your shop</a>
+    <a href="deleteAccount">Delete My Account</a>
     <select name="dropDownList" id="dropdowncategory">
         <option value="categoryHead">Select Category</option>
         <?php

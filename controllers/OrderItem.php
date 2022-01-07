@@ -1,14 +1,15 @@
 <?php
 require_once 'Item.php';
-class OrderItem extends Item{
+class OrderItem extends Item
+{
     private $orderItemId;
     private $orderId;
     private $quantity;
     private $soldPrice;
     private $soldDiscount;
-    private $oItemRating ;
+    private $oItemRating;
     private $oItemReview;
-    
+
 
 
     function __construct($orderItemId)
@@ -17,7 +18,6 @@ class OrderItem extends Item{
         //load temp model;
         $this->loadModel("OrderItem");
         $orderItemDe = $this->model->getOrderItemDetails($orderItemId)[0];
-
         $this->orderId = $orderItemDe[1];
         $this->quantity = $orderItemDe[3];
         $this->soldPrice = $orderItemDe[4];
@@ -37,7 +37,7 @@ class OrderItem extends Item{
 
     /**
      * Get the value of oItemRating
-     */ 
+     */
     public function getOItemRating()
     {
         return $this->oItemRating;
@@ -45,7 +45,7 @@ class OrderItem extends Item{
 
     /**
      * Get the value of oItemReview
-     */ 
+     */
     public function getOItemReview()
     {
         return $this->oItemReview;
@@ -53,7 +53,7 @@ class OrderItem extends Item{
 
     /**
      * Get the value of orderItemId
-     */ 
+     */
     public function getOrderItemId()
     {
         return $this->orderItemId;
@@ -61,7 +61,7 @@ class OrderItem extends Item{
 
     /**
      * Get the value of quantity
-     */ 
+     */
     public function getQuantity()
     {
         return $this->quantity;
@@ -69,13 +69,13 @@ class OrderItem extends Item{
 
     /**
      * Get the value of quantity
-     */ 
+     */
 
 
 
     /**
      * Get the value of soldPrice
-     */ 
+     */
     public function getSoldPrice()
     {
         return $this->soldPrice;
@@ -83,7 +83,7 @@ class OrderItem extends Item{
 
     /**
      * Get the value of soldDiscount
-     */ 
+     */
     public function getSoldDiscount()
     {
         return $this->soldDiscount;
@@ -91,7 +91,7 @@ class OrderItem extends Item{
 
     /**
      * Get the value of orderId
-     */ 
+     */
     public function getOrderId()
     {
         return $this->orderId;

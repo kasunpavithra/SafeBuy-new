@@ -1,4 +1,5 @@
 <html>
+
 <head>
   <!-- <link rel="stylesheet" href="../css/style.css"> -->
   <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
@@ -17,8 +18,9 @@
       <input class="submit" name="submitLogin" id="button" type="submit" value="Sign in">
       <!-- <a class="submit" align="center">Sign in</a> -->
       <p class="forgot" align="center"><a href="#" class="forgot">Forgot Password?</p>
-    </form>
 
+    </form>
+    <p class="forgot" align="center"><a href="../signup/" class="forgot">Sign Up Here</a></p>
   </div>
 
 </body>
