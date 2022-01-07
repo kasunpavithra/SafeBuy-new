@@ -4,10 +4,10 @@ require_once "Menu.php";
 class ShopManager extends ShopStaff
 {
     private $menu;
+    private $mediator;
     function __construct($id)
     {
         parent::__construct($id);
-
         $this->menu = new Menu();
     }
 
@@ -135,4 +135,8 @@ class ShopManager extends ShopStaff
         return false;
      
     }
+    function sendNotification($msg){
+        $this->mediator->sendNotification($msg);
+    }
+        
 }
