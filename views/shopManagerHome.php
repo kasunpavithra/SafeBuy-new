@@ -1,4 +1,19 @@
-<?php $categories = $this->categories; ?>
+<?php
+$categories = $this->categories;
+$items = $this->items;
+
+?>
+<script>
+    $itemList = [];
+    <?php
+    $x = 0;
+    foreach ($items as $key => $value) { ?>
+        $itemList[<?php echo $x++; ?>] = <?php echo ($value->getName()); ?>;
+
+    <?php }
+    ?>
+    console.log($itemList);
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <!-- <html> -->
@@ -11,9 +26,13 @@
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
     <link rel="stylesheet" href="../public/CSS/shopManagerHome.css">
     <link rel="stylesheet" href="../public/CSS/login.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
     <title>Document</title>
 </head>
 <style>
@@ -321,8 +340,10 @@
                                             <!-- <label for="category">Category Name</label>
                                             <input type="text" name="category" id="category"> -->
                                             <br>
-                                            <label for="item">Item Name</label>
-                                            <input type="text" name="item" id="item">
+                                            <div class="ui-widget">
+                                                <label for="item">Item Name</label>
+                                                <input type="text" name="item" id="item">
+                                            </div>
                                             <br>
                                             <label for="quantity">Quantity</label>
                                             <input type="number" name="quantity" id="quantity">
@@ -682,5 +703,36 @@
 
 
 </body>
+<script>
+    $(function() {
+        var availableTags = [
+            "ActionScript",
+            "AppleScript",
+            "Asp",
+            "BASIC",
+            "C",
+            "C++",
+            "Clojure",
+            "COBOL",
+            "ColdFusion",
+            "Erlang",
+            "Fortran",
+            "Groovy",
+            "Haskell",
+            "Java",
+            "JavaScript",
+            "Lisp",
+            "Perl",
+            "PHP",
+            "Python",
+            "Ruby",
+            "Scala",
+            "Scheme"
+        ];
+        $("#item").autocomplete({
+            source: availableTags
+        });
+    });
+</script>
 
 </html>

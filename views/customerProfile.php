@@ -419,7 +419,7 @@
                 <div class="card-header">Account</div>
                 <div class="row">
                     <div class="col-sm-4">
-                        <form action="../saveImage" method="POST" enctype="multipart/form-data">
+                        <form action="saveImage" method="POST" enctype="multipart/form-data">
 
                             <div class="card EmailNotifications">
                                 <div class="card-body">
@@ -441,17 +441,17 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header text-center">
-                                    <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+                                    <h4 class="modal-title w-100 font-weight-bold">Change your Email</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
+                                        <!-- <span aria-hidden="true">&times;</span> -->
                                     </button>
                                 </div>
-                                <form action="../saveEmail" method="POST">
+                                <form action="saveEmail" method="POST">
                                     <div class="modal-body mx-3">
                                         <div class="md-form mb-5">
-                                            <i class="fas fa-envelope prefix grey-text"></i>
+                                            <!-- <i class="fas fa-envelope prefix grey-text"></i> -->
                                             <input type="email" id="defaultForm-email" name="email" class="form-control validate" required>
-                                            <label data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
+                                            <label data-error="wrong" data-success="right" for="defaultForm-email"></label>
                                         </div>
                                     </div>
                                     <div class="modal-footer d-flex justify-content-center">
@@ -466,21 +466,21 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header text-center">
-                                    <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+                                    <h4 class="modal-title w-100 font-weight-bold">Change password</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="../savePassword" method="POST">
+                                <form action="savePassword" method="POST">
                                     <div class="modal-body mx-3">
                                         <div class="md-form mb-5">
-                                            <i class="fas fa-envelope prefix grey-text"></i>
+                                            <!-- <i class="fas fa-envelope prefix grey-text"></i> -->
                                             <input type="password" id="defaultForm-password" name="currentPassword" class="form-control validate" required>
                                             <label data-error="wrong" data-success="right" for="defaultForm-password">Current Password</label>
                                         </div>
 
                                         <div class="md-form mb-4">
-                                            <i class="fas fa-lock prefix grey-text"></i>
+                                            <!-- <i class="fas fa-lock prefix grey-text"></i> -->
                                             <input type="password" id="defaultForm-passwordNew" name="newPassword" class="form-control validate" required>
                                             <label data-error="wrong" data-success="right" for="defaultForm-passwordNew">New Password</label>
                                         </div>
@@ -529,11 +529,12 @@
                 <div class="card-header">My Shipping Address</div>
                 <div class="card-body">
 
-                    <form action="../saveInfo" method="POST">
+                    <form action="saveInfo" method="POST">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="name">Name</label>
-                                <input type="text" class="form-control" id="name" placeholder="Name" name="name" value="<?php echo $row['username'] ?>" required>
+                                
+                                <input type="text" class="form-control" id="name" placeholder="Name" name="name" value="<?php echo $row['name'] ?>" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="username">User Name</label>
@@ -944,7 +945,7 @@
 </script>
 <script>
     const selectDrop = document.querySelector('#district');
-    let jsVar = '<?= $row["District"] ?>';
+    let jsVar = '<?= $row["district"] ?>';
     console.log(<?php $row; ?>);
     console.log(jsVar);
     const districts = [jsVar, 'Colombo', 'Kandy', 'Galle', 'Ampara', 'Anuradhapura', 'Badulla', 'Batticaloa', 'Gampaha', 'Hambantota', 'Jaffna', 'Kalutara', 'Kegalle', 'Kilinochchi', 'Kurunegala', 'Mannar', 'Matale', 'Matara', 'Moneragala', 'Mullativu', 'Nuwara Eliya', 'Polonnaruwa', 'Puttalam', 'Ratnapura', 'Trincomalee', 'Vavuniya'];

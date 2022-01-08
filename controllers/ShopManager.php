@@ -54,7 +54,8 @@ class ShopManager extends ShopStaff
         //         $categorySet[$numberofCat++] = $item->getCategoryName();
         //     }
         // }
-
+        $items = $this->menu->getItems();
+        $this->view->items = $items;
         $this->view->categories = $categorySet;
         $this->view->render('shopManagerHome');
     }
@@ -82,29 +83,55 @@ class ShopManager extends ShopStaff
         if (isset($_POST["updateQuantity"])) {
             $quantity = $_POST["quantity"];
             $itemID = $_POST["itemID"];
-            $this->model->updateItemQuantity($itemID, $quantity);
-            header("Location:Dashboard");
+            // echo "<script>alert($quantity==0)</script>";
+            if ($quantity == NULL) {
+                echo "<script>alert('Please add the quanity')</script>";
+                echo "<script>location.href='Dashboard'</script>";
+            } else {
+                $this->model->updateItemQuantity($itemID, $quantity);
+            }
+            echo "<script>location.href='Dashboard'</script>";
         } else 
         if (isset($_POST["setItemName"])) {
             $name = $_POST["name"];
             $itemID = $_POST["itemID"];
-            $this->model->updateItemName($itemID, $name);
-            header("Location:Dashboard");
+            if ($name == '') {
+                echo "<script>alert('Please set name for Item')</script>";
+                echo "<script>location.href='Dashboard'</script>";
+            } else {
+                $this->model->updateItemName($itemID, $name);
+            }
+            echo "<script>location.href='Dashboard'</script>";
         } else if (isset($_POST["updateDescription"])) {
             $description = $_POST["description"];
             $itemID = $_POST["itemID"];
-            $this->model->updateItemDescription($itemID, $description);
-            header("Location:Dashboard");
+            if ($description == "") {
+                echo "<script>alert('Please set description')</script>";
+                echo "<script>location.href='Dashboard'</script>";
+            } else {
+                $this->model->updateItemDescription($itemID, $description);
+            }
+            echo "<script>location.href='Dashboard'</script>";
         } else if (isset($_POST["updateDiscount"])) {
             $discount = $_POST["discount"];
             $itemID = $_POST["itemID"];
-            $this->model->updateDiscount($itemID, $discount);
-            header("Location:Dashboard");
+            if ($discount == NULL) {
+                $discount = 0;
+                $this->model->updateDiscount($itemID, $discount);
+            } else {
+                $this->model->updateDiscount($itemID, $discount);
+            }
+            echo "<script>location.href='Dashboard'</script>";
         } else if (isset($_POST["updatePrice"])) {
             $price = $_POST["price"];
             $itemID = $_POST["itemID"];
-            $this->model->updatePrice($itemID, $price);
-            header("Location:Dashboard");
+            if ($price == 0 || $price==NULL) {
+                echo "<script>alert('You have not set price in this item')</script>";
+                echo "<script>location.href='Dashboard'</script>";
+            } else {
+                $this->model->updatePrice($itemID, $price);
+            }
+            echo "<script>location.href='Dashboard'</script>";
         } else if (isset($_POST["updateImage"])) {
             // $img = $_POST["image"];
             $itemID = $_POST["itemID"];
