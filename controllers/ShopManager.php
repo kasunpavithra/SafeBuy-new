@@ -83,28 +83,63 @@ class ShopManager extends ShopStaff
             $quantity = $_POST["quantity"];
             $itemID = $_POST["itemID"];
             $this->model->updateItemQuantity($itemID, $quantity);
+            header("Location:Dashboard");
         } else 
         if (isset($_POST["setItemName"])) {
             $name = $_POST["name"];
             $itemID = $_POST["itemID"];
             $this->model->updateItemName($itemID, $name);
+            header("Location:Dashboard");
         } else if (isset($_POST["updateDescription"])) {
             $description = $_POST["description"];
             $itemID = $_POST["itemID"];
             $this->model->updateItemDescription($itemID, $description);
+            header("Location:Dashboard");
         } else if (isset($_POST["updateDiscount"])) {
             $discount = $_POST["discount"];
             $itemID = $_POST["itemID"];
             $this->model->updateDiscount($itemID, $discount);
-        } else if(isset($_POST["updatePrice"])){
+            header("Location:Dashboard");
+        } else if (isset($_POST["updatePrice"])) {
             $price = $_POST["price"];
             $itemID = $_POST["itemID"];
             $this->model->updatePrice($itemID, $price);
-    
-        }
+            header("Location:Dashboard");
+        } else if (isset($_POST["updateImage"])) {
+            // $img = $_POST["image"];
+            $itemID = $_POST["itemID"];
+            if (!empty($_FILES["image"]["name"])) {
+                $fileName = basename($_FILES["image"]["name"]);
+                $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+                $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
+                $fileType;
+                if (in_array($fileType, $allowTypes)) {
+                    $image = $_FILES['image']['tmp_name'];
+                    $imgContent = "'" . addslashes(file_get_contents($image)) . "'";
 
-        header("Location:Dashboard");
+                    $insert = $this->model->saveItemImage($imgContent, $itemID);
+
+                    if ($insert) {
+                        header("Location:Dashboard");
+                    } else {
+                        echo "<script>alert('Please try again')</script>";
+                        echo "<script>location.href='Dashboard'</script>";
+                        //header("Location:Dashboard");
+                    }
+                } else {
+                    echo "<script>alert('Please upload an image file here')</script>";
+                    echo "<script>location.href='Dashboard'</script>";
+                    // header("Location:Dashboard");
+                }
+            } else {
+                echo "<script>alert('Please upload an image file here')</script>";
+                echo "<script>location.href='Dashboard'</script>";
+                // header("Location:Dashboard");
+            }
+        }
     }
+
+
     function deleteItem()
     {
         if (isset($_POST["deleteItem"])) {
