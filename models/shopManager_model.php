@@ -5,9 +5,28 @@ class ShopManager_Model extends Model
   {
     parent::__construct();
   }
-
+  function restockItem($itemID)
+  {
+    return $this->db->insertQuery("UPDATE ITEM SET item_availability=0 where itemID=$itemID");
+  }
   function printSomething()
   {
+  }
+  function updatePrice($itemID, $price)
+  {
+    return $this->db->runQuery("UPDATE ITEM SET price=$price WHERE itemID='" . $itemID . "'");
+  }
+  function updateDiscount($itemID, $discount)
+  {
+    return $this->db->runQuery("UPDATE ITEM SET discount=$discount WHERE itemID='" . $itemID . "'");
+  }
+  function updateItemDescription($itemID, $description)
+  {
+    return $this->db->runQuery("UPDATE ITEM SET description='$description' WHERE itemID='" . $itemID . "'");
+  }
+  function updateItemName($itemID, $itemName)
+  {
+    return $this->db->runQuery("UPDATE ITEM SET name='$itemName' WHERE itemID='" . $itemID . "'");
   }
   function getData()
   {
