@@ -1,6 +1,8 @@
 <?php
 require_once 'OrderItem.php';
 require_once 'ReturnOrderItem.php';
+require_once 'Customer.php';
+
 abstract class Order extends Controller{
 
     protected $orderItems;
@@ -12,6 +14,7 @@ abstract class Order extends Controller{
     protected $review;
     protected $customerName;
     protected $closedDate;
+    protected $customer;
 
     function __construct(){
         parent::__construct();
@@ -35,7 +38,12 @@ abstract class Order extends Controller{
             }
         }
     }
-
+    public function getCustomer(){
+        if(!isset($this->customer)){
+            $this->customer = new Customer($this->customerId);
+        }
+        return $this->customer;
+    }
 
     /**
      * Get the value of orderItems
