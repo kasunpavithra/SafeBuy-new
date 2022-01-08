@@ -62,7 +62,7 @@ $descriptionList = $this->descriptionList;
     <h1>Hello <?php echo $_SESSION['username'] ?></h1>
 
     <a href="orderHistory">View Order History</a>
-    <a href="logout/">Log out</a>
+    <a href="logout">Log out</a>
     <a href="customerProfile">Customer Profile</a>
     <a href="OrderStatusCustomer">Orders</a>
     <a href="PayCart">Pay Cart</a>

@@ -290,13 +290,13 @@
         <table class="titleTable">
             <tr>
                 <td class="logo">
-                    <a href="../Dashboard">
+                    <a href="Dashboard">
                         <!-- <img src="../public/Images/Invoice.jpg" alt="Logo" class="logo"> -->
                         <!-- <h2 class="Logo">SafeBuy</h2> -->SafeBuy
                     </a>
                 </td>
                 <td class="logout">
-                    <a href="../logout/">Log out
+                    <a href="logout">Log out
                         <!-- <h4 class="logout">LogOut</h4> -->
                     </a>
                 </td>
@@ -332,14 +332,14 @@
     </nav>
 
 
-    <div id="sample">
+    <!-- <div id="sample">
         <a class="list-group-item list-group-item-action active" href="#Overview">Overview</a>
         <a class="list-group-item list-group-item-action" href="#Orders">Orders</a>
         <a class="list-group-item list-group-item-action" href="#Setting">Setting</a>
         <a class="list-group-item list-group-item-action" href="#ShippingAddress">Shipping Address</a>
         <a class="list-group-item list-group-item-action" href="#MessageCenter">Message Center</a>
 
-    </div>
+    </div> -->
 
     <div class="row">
 
@@ -349,10 +349,10 @@
             </div>
             <div class="overviewGrp">
                 <a class="list-group-item list-group-item-action active" href="#Overview">Overview</a>
-                <a class="list-group-item list-group-item-action" href="#Orders">Orders</a>
-                <a class="list-group-item list-group-item-action" href="#Setting">Setting</a>
+                <a class="list-group-item list-group-item-action" href="orderHistory">Orders</a>
+                <!-- <a class="list-group-item list-group-item-action" href="#Setting">Setting</a> -->
                 <a class="list-group-item list-group-item-action" href="#ShippingAddress">Shipping Address</a>
-                <a class="list-group-item list-group-item-action" href="#MessageCenter">Message Center</a>
+                <a class="list-group-item list-group-item-action" href="getChat">Message Center</a>
             </div>
         </div>
 
@@ -533,7 +533,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="name">Name</label>
-                                
+
                                 <input type="text" class="form-control" id="name" placeholder="Name" name="name" value="<?php echo $row['name'] ?>" required>
                             </div>
                             <div class="form-group col-md-6">

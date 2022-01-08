@@ -524,7 +524,7 @@ class Customer extends Person
         if (isset($_SESSION['userID'])) {
             session_destroy();
         }
-        header("Location: ../../../../login/");
+        header("Location: ../../../login/");
     }
     function addCartItem()
     {

@@ -342,11 +342,11 @@ $items = $this->items;
                                             <br>
                                             <div class="ui-widget">
                                                 <label for="item">Item Name</label>
-                                                <input type="text" name="item" id="item">
+                                                <input type="text" name="item" id="item" required>
                                             </div>
                                             <br>
                                             <label for="quantity">Quantity</label>
-                                            <input type="number" name="quantity" id="quantity">
+                                            <input type="number" name="quantity" id="quantity" required>
                                             <br>
                                             <input class="addItem" type="submit" value="Add an Item" name="addItemBtn">
                                         </form>
@@ -621,7 +621,7 @@ $items = $this->items;
             <td class="d">
                 <h4> Profile </h4>
             </td>
-            <td class="e"><a href="../logout/">
+            <td class="e"><a href="logout">
                     <h4>LogOut</h4>
                 </a></td>
 
