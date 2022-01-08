@@ -101,6 +101,7 @@ class GeneralStaff extends ShopStaff
     then it prints them. */
     public function cusOtherOrders($customerId)
     {
+        $this->setCustomers();
         $this->setOrderLog();
         $OBuyOrders = array();
         $OReturnOrders = array();

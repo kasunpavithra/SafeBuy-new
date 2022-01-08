@@ -110,7 +110,7 @@
 
           </form>
         </div>
-        <div class="col-md-12">order made on: <?php echo $this->order->getCreateDate() ?> by <a href="#"><?php echo $this->order->getCustomerName() ?> </a></div>
+        <div class="col-md-12">order made on: <?php echo $this->order->getCreateDate() ?> by <?php echo '<a href="../chatView/'.$this->order->getCustomerId().'">'. $this->order->getCustomerName() ?> </a></div>
       </div>
     </div>
   </div>

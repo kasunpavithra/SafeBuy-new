@@ -34,7 +34,7 @@
           </button>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="-1">Home</a>
+          <a class="nav-link" href="../Dashboard/-1">Home</a>
         </li>
       </ul>
 
@@ -167,7 +167,7 @@
                       -->
           
         </div>
-        <div class="col-md-12">order made on:' . $odr->getCreateDate() . ' by <a href="#">' . $odr->getCustomerName() . '</a></div>
+        <div class="col-md-12">order made on:' . $odr->getCreateDate() . ' by <a href="../chatView/'.$odr->getCustomerId().'">' . $odr->getCustomerName() . '</a></div>
       </div>
     </div>
     <div class="col-md-2">
@@ -208,7 +208,7 @@
                               -->
                   
                 </div>
-                <div class="col-md-12">order made on:' . $odr->getCreateDate() . ' by <a href="#">' . $odr->getCustomerName() . '</a></div>
+                <div class="col-md-12">order made on:' . $odr->getCreateDate() . ' by <a href="../chatView/'.$odr->getCustomerId().'">' . $odr->getCustomerName() . '</a></div>
               </div>
             </div>
             <div class="col-md-2">
