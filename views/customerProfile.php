@@ -21,178 +21,233 @@
     <link rel="stylesheet" href="../public/CSS/notify.css">
     <!-- <link rel="stylesheet" href="../public/CSS/CreditCard.css"> -->
 
-<style>
-    #title {
-    margin: 0;
-    padding: 10px;
-}
+    <style>
+        #title {
+            margin-top: 5px;
+            margin: 0;
+            padding: 10px;
+        }
 
-body {
-    margin: 0;
-}
+        .titleContainer {
+            margin-top: 5px;
+            background-color: #FF9680;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            border-bottom: #FF9680;
+        }
 
-.titleClass {
-    background-color: grey;
-    top: 0;
-    text-align: center;
-    width: 100%;
-    z-index: 1;
-}
+        body {
+            margin: 0;
+        }
 
-#profile {
-    margin-top: 60px;
-    margin-left: 50px;
-    position: fixed;
-    z-index: 1;
-}
+        .titleClass {
 
-.info {
-    margin-left: 20%;
-}
+            top: 0;
+            text-align: center;
+            width: 100%;
+            z-index: 1;
+        }
 
-@media screen and (max-width: 700px) {
-    #profile {
-        display: none;
-    }
-    .info {
-        margin: 0 auto;
-    }
-}
+        #profile {
+            margin-top: 60px;
+            margin-left: 50px;
+            position: fixed;
+            z-index: 1;
+        }
 
-@media screen and (min-width: 700px) {
-    #sample {
-        display: none;
-    }
-}
+        .info {
+            margin-left: 20%;
+        }
 
-#sample {
-    text-align: center;
-}
+        @media screen and (max-width: 700px) {
+            #profile {
+                display: none;
+            }
 
-.btn btn-primary {
-    background-color: green;
-}
-</style>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200&display=swap');
-body {
-    background: #15940a;
-    color: black;
-}
+            .info {
+                margin: 0 auto;
+            }
+        }
 
-nav {
-    display: flex;
-    align-items: center;
-    background: #4ecc4a;
-    height: 60px;
-    position: relative;
-    border-bottom: 1px solid #495057
-}
+        @media screen and (min-width: 700px) {
+            #sample {
+                display: none;
+            }
+        }
 
-.icon {
-    cursor: pointer;
-    margin-right: 50px;
-    line-height: 60px
-}
+        #sample {
+            text-align: center;
+        }
 
-.icon span {
-    background: #f00;
-    padding: 7px;
-    border-radius: 50%;
-    color: #fff;
-    vertical-align: top;
-    margin-left: -25px
-}
+        .btn btn-primary {
+            background-color: green;
+        }
+    </style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200&display=swap');
 
-.icon img {
-    display: inline-block;
-    width: 40px;
-    margin-top: 4px
-}
+        body {
+            background: #F45B5B;
+            color: black;
+        }
 
-.icon:hover {
-    opacity: .7
-}
+        nav {
+            display: flex;
+            align-items: center;
+            background: #4ecc4a;
+            height: 60px;
+            position: relative;
+            border-bottom: 1px solid #495057
+        }
 
-.logo {
-    flex: 1;
-    margin-left: 50px;
-    color: #eee;
-    font-size: 25px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
-}
+        .icon {
+            cursor: pointer;
+            margin-right: 50px;
+            line-height: 60px
+        }
 
-.notifications {
-    z-index: 1;
-    width: 300px;
-    height: 0px;
-    opacity: 0;
-    position: absolute;
-    top: 63px;
-    right: 62px;
-    border-radius: 5px 0px 5px 5px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
-}
+        .icon span {
+            background: #f00;
+            padding: 7px;
+            border-radius: 50%;
+            color: #fff;
+            vertical-align: top;
+            margin-left: -25px
+        }
 
-.notifications h2 {
-    font-size: 14px;
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-    color: #999
-}
+        .icon img {
+            display: inline-block;
+            width: 40px;
+            margin-top: 4px
+        }
 
-.notifications h2 span {
-    color: #f00
-}
+        .icon:hover {
+            opacity: .7
+        }
 
-.notifications-item {
-    display: flex;
-    border-bottom: 1px solid #eee;
-    padding: 6px 9px;
-    margin-bottom: 0px;
-    cursor: pointer
-}
+        .logo {
+            flex: 1;
+            margin-left: 50px;
+            color: #eee;
+            font-size: 25px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+        }
 
-.notifications-item:hover {
-    background-color: #eee
-}
+        .notifications {
+            z-index: 1;
+            width: 300px;
+            height: 0px;
+            opacity: 0;
+            position: absolute;
+            top: 63px;
+            right: 62px;
+            border-radius: 5px 0px 5px 5px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+        }
 
-.notifications-item img {
-    display: block;
-    width: 50px;
-    height: 50px;
-    margin-right: 9px;
-    border-radius: 50%;
-    margin-top: 2px
-}
+        .notifications h2 {
+            font-size: 14px;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            color: #999
+        }
 
-.notifications-item .text h4 {
-    color: #777;
-    font-size: 16px;
-    margin-top: 3px
-}
+        .notifications h2 span {
+            color: #f00
+        }
 
-.notifications-item .text p {
-    color: #aaa;
-    font-size: 12px
-}
+        .notifications-item {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            padding: 6px 9px;
+            margin-bottom: 0px;
+            cursor: pointer
+        }
 
-.icon span {
-    background: #f00;
-    padding: 3px;
-    border-radius: 50%;
-    color: #fff;
-    vertical-align: top;
-    margin-left: -25px;
-}
-h2.logo{
-    text-align: left;
-}
-h4.logo{
-    text-align: right;
-}
-</style>
+        .notifications-item:hover {
+            background-color: #eee
+        }
+
+        .notifications-item img {
+            display: block;
+            width: 50px;
+            height: 50px;
+            margin-right: 9px;
+            border-radius: 50%;
+            margin-top: 2px
+        }
+
+        .notifications-item .text h4 {
+            color: #777;
+            font-size: 16px;
+            margin-top: 3px
+        }
+
+        .notifications-item .text p {
+            color: #aaa;
+            font-size: 12px
+        }
+
+        .icon span {
+            background: #f00;
+            padding: 3px;
+            border-radius: 50%;
+            color: #fff;
+            vertical-align: top;
+            margin-left: -25px;
+        }
+
+        h2.logo {
+            text-align: left;
+        }
+
+        h4.logo {
+            text-align: right;
+        }
+
+        h4.logout {
+            text-align: right;
+        }
+        table.titleTable{
+            width: 100%;
+            
+            line-height: 0%;
+        }
+        a:hover{
+            text-decoration: none;
+        }
+        td.logout{
+            padding-right: 15px;
+            text-align: right;
+            font-size: 20px;
+        }
+        td{
+            height: 50px;
+        }
+        td.logo{
+            /* white-space:pre ; */
+            width: 150px;
+            text-align: left;
+            font-size: 20px;
+            padding-left: 15PX;
+        }
+        img.logo{
+            width: 100px;
+            height: 100px;
+        }
+        .overviewGrp{
+            border-radius: 5px;
+        }
+        .UploadPicture{
+            width: 220px;
+            padding:5px;
+        }
+        .EmailNotifications{
+            height: 178px;
+        }
+        
+    </style>
     <title>Customer Account</title>
 </head>
 
@@ -215,17 +270,28 @@ h4.logo{
 </script>
 
 <body>
-    <div>
+    <div class="titleContainer">
         <div class="titleClass">
-        
-            <h1 id="title">Customer Profile</h1>
+
+            <h1 id="title">My Profile</h1>
         </div>
-        <div style=" background-color: grey; padding-right: 15px; ;"><a href="../Dashboard">
-        <img src="../public/Images/Invoice.jpg" alt="Logo" >
-                <h2 class="Logo">SafeBuy</h2>
-            </a><a href="../logout/">
-                <h4 class="logout">LogOut</h4>
-            </a></div>
+        <table class="titleTable">
+            <tr>
+                <td class="logo">
+                    <a href="../Dashboard">
+                            <!-- <img src="../public/Images/Invoice.jpg" alt="Logo" class="logo"> -->
+                            <!-- <h2 class="Logo">SafeBuy</h2> -->SafeBuy
+                            </a>
+                </td>
+                <td class="logout">
+                    <a href="../logout/">Log out
+                        <!-- <h4 class="logout">LogOut</h4> -->
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>\
+
     </div>
 
 
@@ -269,12 +335,13 @@ h4.logo{
             <div>
                 <img style="width: 50%;  ;margin: 20px; margin-left: auto; margin-right: auto; display: block;" src="data:image/jpeg;charset=utf8;base64,<?php echo base64_encode($row["profile_pic"]); ?>" />
             </div>
+            <div class="overviewGrp">
             <a class="list-group-item list-group-item-action active" href="#Overview">Overview</a>
             <a class="list-group-item list-group-item-action" href="#Orders">Orders</a>
             <a class="list-group-item list-group-item-action" href="#Setting">Setting</a>
             <a class="list-group-item list-group-item-action" href="#ShippingAddress">Shipping Address</a>
             <a class="list-group-item list-group-item-action" href="#MessageCenter">Message Center</a>
-
+            </div>
         </div>
 
         <div class="col-9 container info" style="margin-top: 20px;">
@@ -285,7 +352,7 @@ h4.logo{
                         <div class="col-sm-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Unpaid</h5>
+                                    <h5 class="card-title">My Cart</h5>
                                     <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Click Here</a>
                                     <br><br>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
@@ -297,7 +364,7 @@ h4.logo{
                         <div class="col-sm-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">shipped</h5>
+                                    <h5 class="card-title">Shipped</h5>
                                     <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Click Here</a>
                                     <br><br>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16">
@@ -309,7 +376,7 @@ h4.logo{
                         <div class="col-sm-6">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">To be shipped</h5>
+                                    <h5 class="card-title">To be Shipped</h5>
                                     <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Click Here</a>
                                     <br><br>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-save2" viewBox="0 0 16 16">
@@ -342,10 +409,10 @@ h4.logo{
                     <div class="col-sm-4">
                         <form action="../saveImage" method="POST" enctype="multipart/form-data">
 
-                            <div class="card">
+                            <div class="card EmailNotifications">
                                 <div class="card-body">
                                     <h5 class="card-title">Upload Picture</h5>
-                                    <a class="btn btn-primary">
+                                    <a class="btn btn-primary UploadPicture">
                                         <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
                                         <input type="file" name="image">
                                     </a> <br><br>
@@ -423,7 +490,7 @@ h4.logo{
                             <div class="card-body">
                                 <h5 class="card-title">Security Information</h5>
                                 <a href="" class="btn btn-primary btn-rounded mb-4" data-toggle="modal" data-target="#modalEmail">Change Email</a>
-                                <br><br>
+                                <br>
                                 <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalPassword">Change Password</a>
 
                             </div>
@@ -434,10 +501,10 @@ h4.logo{
 
 
                     <div class="col-sm-4">
-                        <div class="card">
-                            <div class="card-body">
+                        <div class="card EmailNotifications">
+                            <div class="card-body ">
                                 <h5 class="card-title">Activate email notifications</h5>
-                                <input type="checkbox" checked data-toggle="toggle" data-on="Email<br>Notifications<br>Enable" data-off="Email<br>Notifications<br>Disable">
+                                <input type="checkbox" checked data-toggle="toggle" data-on="Enabled" data-off="Disabled">
                             </div>
                         </div>
                     </div>
@@ -519,8 +586,8 @@ h4.logo{
             </div>
 
 
-            <div class="site-footer" data-spm-anchor-id="a2g0o.new_account_index.0.i4.9bae25b9Hzn7hf">
-                <div class="container clearfix">
+            <!-- <div class="site-footer" data-spm-anchor-id="a2g0o.new_account_index.0.i4.9bae25b9Hzn7hf">
+                 <div class="container clearfix">
                     <div class="sf-aliexpressInfo clearfix">
                         <div class="sf-siteIntro col-lg-30 col-md-30 col-sm-60">
                             <dl>
@@ -539,7 +606,7 @@ h4.logo{
                                 <dd>
                                     <a href="//ru.aliexpress.com">Russian</a>,
                                     <a href="//pt.aliexpress.com">Portuguese</a>,
-                                </dd>
+                                </dd> 
                             </dl>
                         </div>
                     </div>
@@ -571,7 +638,7 @@ h4.logo{
                             App Store
                         </a>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
 
