@@ -34,7 +34,7 @@
           </button>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="">Home</a>
+          <a class="nav-link" href="-1">Home</a>
         </li>
       </ul>
 
@@ -52,8 +52,15 @@
     <div class="offcanvas-body">
       <div class="row">
         <div class="col-sm-12 border">
-          <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#chatModal" style="width: 100%;">
-            <img src="../../../../public/Images/logo.png" style="width:40px;" class="rounded-pill"> Customer Name</button>
+          <?php
+            foreach($this->customers as $cus){
+              echo '<div class="row">
+              <div class="col-sm-12 border">
+              <a href="../chatView/'.$cus[0].'" class="btn btn-light" style="width: 100%;">
+              <img src="../../../../public/Images/logo.png" style="width:40px;" class="rounded-pill">'.$cus[0].': '.$cus[1].'</a></div>
+              </div>';
+            }
+          ?>
         </div>
       </div>
     </div>
@@ -62,18 +69,18 @@
   <!--message canvas end-->
 
   <!-- chat model start -->
-  <!-- The Modal -->
-  <div class="modal" id="chatModal">
+ 
+  <!-- <div class="modal" id="chatModal">
     <div class="modal-dialog">
       <div class="modal-content">
 
-        <!-- Modal Header -->
+        
         <div class="modal-header">
           <h4 class="modal-title">Customer Name</h4>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
 
-        <!-- Modal body -->
+        
         <div class="modal-body">
           <form action="" method="post" id="chat">
             <div class="col-sm-12">
@@ -93,8 +100,9 @@
 
       </div>
     </div>
-  </div>
-  <!-- chat model end -->
+  </div> -->
+  <!-- chat model start -->
+  
 
 
   <div class="container-fluid pt-5">
