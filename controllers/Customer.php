@@ -27,10 +27,14 @@ class Customer extends Person
     function __construct($id)
     {
         parent::__construct();
+
+        $this->setDetails($id);
+    }
+    function checkLogin()
+    {
         if (!isset($_SESSION["userID"])) {
             $this->logout();
         }
-        $this->setDetails($id);
     }
     function getChat()
     {
@@ -178,6 +182,8 @@ class Customer extends Person
     }
     function rateItem()
     {
+        $this->checkLogin();
+
         $itemID = $_POST["itemID"];
         $rate = $_POST["Itemrate"];
 
@@ -190,6 +196,8 @@ class Customer extends Person
     }
     function reviewShop()
     {
+        $this->checkLogin();
+
         $orderID = $_POST["orderID"];
         $review = $_POST["orderreview"];
 
@@ -323,6 +331,7 @@ class Customer extends Person
     }
     function payCart()
     {
+        $this->checkLogin();
         $this->view->cart = $this->cart->getCartItems();
         $this->view->render("CartPayment");
     }
@@ -484,9 +493,9 @@ class Customer extends Person
                 $categories[$value->getCategoryName()] = array($value);
             }
         }
-        foreach ($categories as $key => $items) {
-            usort($categories[$key], fn ($a, $b) => $a->getSoldQuantity() < $b->getSoldQuantity());
-        }
+        // foreach ($categories as $key => $items) {
+        //     usort($categories[$key], fn ($a, $b) => $a->getSoldQuantity() < $b->getSoldQuantity());
+        // }
         $descriptionList = $menu->getCategoryDescriptionList();
         $descList = array();
         foreach ($descriptionList as $key => $value) {

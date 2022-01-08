@@ -181,21 +181,31 @@ class ShopManager extends ShopStaff
             $categoryName = ($_POST["category"]);
             $itemName = $_POST["item"];
             $quantity = $_POST["quantity"];
-            $description = $_POST["categoryDesc"];
-            if ($this->addCategory($categoryName, $description)) {
+            // $description = $_POST["categoryDesc"];
+            // if ($this->addCategory($categoryName, $description)) {
 
-                $categoryID = $this->getCategoryID($categoryName);
-                if ($this->checkItemAvailable($itemName)) {
-                    $this->model->updateCatItemQuantity($itemName, $quantity);
-                } else {
-                    $this->model->addItem($categoryID, $itemName, $quantity);
-                }
+            $categoryID = $this->getCategoryID($categoryName);
+            $obj = $this->checkItemAvailable($itemName, $categoryID);
+            // print_r($obj);
+            if ($obj != NULL) {
+                echo "<script>alert('The item already exists')</script>";
+                echo "<script>location.href='Dashboard'</script>";
+                exit();
+                // if ($this->checkItemAvailable($itemName, $categoryID)) {
+                // $this->model->updateCatItemQuantity($obj->getItemID(), $quantity);
+            } else {
+                $this->model->addItem($categoryID, $itemName, $quantity);
+                echo "<script>location.href='Dashboard'</script>";
             }
-            header("Location:Dashboard");
         }
+        // header("Location:Dashboard");
     }
-    function addCategory($categoryName, $description)
+
+    function addCategory()
     {
+        // $categoryName, $description
+        $description = $_POST["categoryDesc"];
+        $categoryName = ($_POST["category"]);
 
         $categorySet = [];
         $numberofCat = 0;
@@ -204,27 +214,34 @@ class ShopManager extends ShopStaff
         //print_r($categories);
         foreach ($categories as $key => $value) {
             if (strtoupper($categoryName) == strtoupper($value[0])) {
-                return true;
+                echo "<script>alert('Category Already Exists')</script>";
+                echo "<script>location.href='Dashboard'</script>";
+                exit();
             }
         }
-        return $this->model->addCategory($categoryName, $description);
+
+        $isAdded =  $this->model->addCategory($categoryName, $description);
+        if ($isAdded) {
+            echo "<script>location.href='Dashboard'</script>";
+        }
     }
+
     function getCategoryID($categoryName)
     {
 
 
         return  $this->model->getCategoryID($categoryName)[0][0];
     }
-    function checkItemAvailable($itemName)
+    function checkItemAvailable($itemName, $categoryID)
     {
 
         $allitems = $this->menu->getItems();
         foreach ($allitems as $key => $value) {
-            if ($value->getName() == $itemName) {
-                return true;
+            if ($value->getName() == $itemName && $value->getCategoryID() == $categoryID) {
+                return $value;
             }
         }
-        return false;
+        return NULL;
     }
     function sendNotification($msg)
     {
