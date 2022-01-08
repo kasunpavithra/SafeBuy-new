@@ -816,4 +816,9 @@ class Customer extends Person
             header("Location:../../../login/");
         }
     }
+
+    public function getAddress(){
+        $address = $this->house_no . "," . $this->street . "," . $this->city . "," . $this->district;
+        return $address;
+    }
 }
