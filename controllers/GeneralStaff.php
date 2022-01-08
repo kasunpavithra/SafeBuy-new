@@ -1,15 +1,15 @@
 <?php
 include_once "shopStaff.php";
 require_once "OrderLog.php";
-require_once "shop.php";
+require_once "chatLog.php";
 
 class GeneralStaff extends ShopStaff
 {
     private $orderLog;
+    private $customers;
     function __construct($id)
     {
         parent::__construct($id);
-        $this->loadModel("GenaralStaff_Model");
     }
     function index()
     {
@@ -18,6 +18,7 @@ class GeneralStaff extends ShopStaff
     {
         $this->checkIsStaff();
         $this->setOrderLog();
+        $this->setCustomers();
         if ($filter >= 0 && $filter <= 6) {
             $orders = $this->orderLog->getBuyOrders();
             $this->view->orderArr = array();
@@ -130,8 +131,26 @@ class GeneralStaff extends ShopStaff
             $this->orderLog = new OrderLog();
         }
     }
-    function sendMessage(){
-        $msg = $_POST["send"];
-        $this->db->sendMessage(11,$msg,0);
+    function chatView($customerId){
+        $this->setCustomers();
+        $this->view->customerId = $customerId;
+        $this->view->chatLog = ChatLog::getInstance($customerId);
+        $this->view->render('GeneralStaffChat');
+        
+    }
+    private function setCustomers(){
+        if(!isset($this->customers)){
+            $this->customers =  $this->model->getCustomers();
+        }
+        $this->view->customers = $this->customers;
+    }
+
+    function sendMessage($customerId){
+        if(array_key_exists('msg',$_POST)){
+            //since this is staff side status=1
+            $msg = htmlspecialchars( $_POST['msg']);
+            $this->model->sendMessage($customerId,$msg,1);
+        }
+        header("Location: ../chatView/".$customerId);
     }
 }
