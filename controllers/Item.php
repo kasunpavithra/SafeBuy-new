@@ -183,9 +183,11 @@ class Item extends Controller
 
     /**
      * Get the value of availability
-     */ 
+     */
     public function getAvailability()
     {
         return $this->availability;
     }
+
+    
 }

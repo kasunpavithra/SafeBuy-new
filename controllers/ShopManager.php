@@ -15,6 +15,16 @@ class ShopManager extends ShopStaff
     function index()
     {
     }
+
+
+    function restockItem()
+    {
+        if (isset($_POST["restockItem"])) {
+            $itemID = $_POST["itemID"];
+            $this->model->restockItem($itemID);
+        }
+        header("Location:Dashboard");
+    }
     function dashboard()
     {
         if (!isset($_SESSION['staffuserID'])) {
@@ -73,8 +83,27 @@ class ShopManager extends ShopStaff
             $quantity = $_POST["quantity"];
             $itemID = $_POST["itemID"];
             $this->model->updateItemQuantity($itemID, $quantity);
+        } else 
+        if (isset($_POST["setItemName"])) {
+            $name = $_POST["name"];
+            $itemID = $_POST["itemID"];
+            $this->model->updateItemName($itemID, $name);
+        } else if (isset($_POST["updateDescription"])) {
+            $description = $_POST["description"];
+            $itemID = $_POST["itemID"];
+            $this->model->updateItemDescription($itemID, $description);
+        } else if (isset($_POST["updateDiscount"])) {
+            $discount = $_POST["discount"];
+            $itemID = $_POST["itemID"];
+            $this->model->updateDiscount($itemID, $discount);
+        } else if(isset($_POST["updatePrice"])){
+            $price = $_POST["price"];
+            $itemID = $_POST["itemID"];
+            $this->model->updatePrice($itemID, $price);
+    
         }
-        header("Location: Dashboard");
+
+        header("Location:Dashboard");
     }
     function deleteItem()
     {
@@ -82,7 +111,7 @@ class ShopManager extends ShopStaff
             $itemID = $_POST["itemID"];
             $this->model->deleteItem($itemID);
         }
-        header("Location: Dashboard");
+        header("Location:Dashboard");
     }
     function addItem()
     {
@@ -99,7 +128,7 @@ class ShopManager extends ShopStaff
                     $this->model->addItem($categoryID, $itemName, $quantity);
                 }
             }
-            header("Location: Dashboard");
+            header("Location:Dashboard");
         }
     }
     function addCategory($categoryName, $description)
