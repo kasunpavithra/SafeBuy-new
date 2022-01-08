@@ -56,7 +56,7 @@
             <input type="submit" value="Update discount" name="updateDiscount">
             <br><br>
             Price :
-            <input type="number" name="price" id="price" value="<?php echo $item->getPrice(); ?>">
+            <input type="number" name="price" id="price" value="<?php echo $item->getPrice(); ?>" min="0">
             <input type="hidden" name="itemID" value="<?php echo $item->getItemId(); ?>">
             <input type="submit" value="Update Price" name="updatePrice">
             <br><br>

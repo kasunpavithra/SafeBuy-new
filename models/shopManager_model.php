@@ -71,11 +71,11 @@ class ShopManager_Model extends Model
       return $IsaddItem;
     }
   }
-  function updateCatItemQuantity($itemName, $quantity)
+  function updateCatItemQuantity($itemID, $quantity)
   {
-    $quan = $this->db->runQuery("SELECT QUANTITY FROM ITEM WHERE NAME='$itemName'")[0][0];
+    $quan = $this->db->runQuery("SELECT QUANTITY FROM ITEM WHERE itemID=$itemID")[0][0];
     $quantity += $quan;
-    $isAdded = $this->db->insertQuery("UPDATE ITEM SET quantity=$quantity WHERE name='$itemName'");
+    $isAdded = $this->db->insertQuery("UPDATE ITEM SET quantity=$quantity WHERE itemID=$quantity");
     return $isAdded;
   }
   function getCategoryNames()

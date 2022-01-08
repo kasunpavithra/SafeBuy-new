@@ -397,7 +397,7 @@ $items = $this->items;
                                     <div class="modal-content">
                                         <span class="close">&times;</span>
 
-                                        <form action="addItem" method="post">
+                                        <form action="addCategory" method="post">
                                             <!-- <label for="categories">Categories</label>
         <select name="categories" id="categories">
             <?php

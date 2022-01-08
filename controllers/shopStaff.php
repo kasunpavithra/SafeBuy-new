@@ -16,9 +16,9 @@ abstract class ShopStaff extends Person
     function __construct($id)
     {
         parent::__construct();
-        if(!isset($_SESSION["staffuserID"])){
-            $this->logout();
-        }
+        // if(!isset($_SESSION["staffuserID"])){
+        //     $this->logout();
+        // }
         $this->setDetails($id);
     }
     function index()
