@@ -1,14 +1,16 @@
 <?php
 include_once "shopStaff.php";
 require_once "OrderLog.php";
+require_once "shop.php";
 
 class GeneralStaff extends ShopStaff
 {
     private $orderLog;
+    private $shop;
     function __construct($id)
     {
         parent::__construct($id);
-        $this->orderLog = new OrderLog();
+        // $this->orderLog = new OrderLog();
     }
     function index()
     {
@@ -16,6 +18,7 @@ class GeneralStaff extends ShopStaff
     function dashboard($filter)
     {
         $this->checkIsStaff();
+        $this->setOrderLog();
         if ($filter >= 0 && $filter <= 6) {
             $orders = $this->orderLog->getBuyOrders();
             $this->view->orderArr = array();
@@ -71,6 +74,7 @@ class GeneralStaff extends ShopStaff
     return order*/
     private function findOrder($orderId, $type)
     {
+        $this->setOrderLog();
         $orderArr = null;
         if ($type == 0) $orderArr = $this->orderLog->getBuyOrders();
         else $orderArr =  $this->orderLog->getReturnOrders();
@@ -97,6 +101,7 @@ class GeneralStaff extends ShopStaff
     then it prints them. */
     public function cusOtherOrders($customerId)
     {
+        $this->setOrderLog();
         $OBuyOrders = array();
         $OReturnOrders = array();
         foreach ($this->orderLog->getBuyOrders() as $odr) {
@@ -118,5 +123,12 @@ class GeneralStaff extends ShopStaff
         $this->view->title2 = $OReturnOrders[0]->getCustomerName() . "'s Return Orders";
         $this->view->title =
             $this->view->render('GeneralStaffHome');
+    }
+
+    /*this funtion sets orderLog*/
+    function setOrderLog(){
+        if(!isset($this->orderLog)){
+            $this->orderLog = new OrderLog();
+        }
     }
 }
