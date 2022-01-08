@@ -63,7 +63,7 @@ $descriptionList = $this->descriptionList;
 
     <a href="orderHistory">View Order History</a>
     <a href="logout/">Log out</a>
-    <a href="customerProfile/">Customer Profile</a>
+    <a href="customerProfile">Customer Profile</a>
     <a href="OrderStatusCustomer">Orders</a>
     <a href="PayCart">Pay Cart</a>
     <a href="getChat">Chat with your shop</a>

@@ -27,6 +27,9 @@ class Customer extends Person
     function __construct($id)
     {
         parent::__construct();
+        if (!isset($_SESSION["userID"])) {
+            $this->logout();
+        }
         $this->setDetails($id);
     }
     function getChat()
@@ -57,6 +60,7 @@ class Customer extends Person
 
         $this->customer_id = $details["Customer_id"];
         $this->name = $details["Name"];
+
         $this->street = $details["Street"];
         $this->house_no = $details["House_no"];
         $this->city = $details["City"];
@@ -359,6 +363,9 @@ class Customer extends Person
     }
     function customerProfile()
     {
+        if (!isset($_SESSION["userID"])) {
+            $this->logout();
+        }
         $this->view->row = $this->getDataRow();
         $this->view->cartItems = $this->model->getCartItems($_SESSION['userID']);
         $this->view->render("customerProfile");
@@ -367,7 +374,7 @@ class Customer extends Person
     {
         $row = array();
         $row["customer_id"] = $this->getCustomer_id();
-        $orw["name"] = $this->getName();
+        $row["name"] = $this->getName();
         $row["street"] = $this->getStreet();
         $row["house_no"] = $this->getHouse_no();
         $row["city"] = $this->getCity();
@@ -393,7 +400,7 @@ class Customer extends Person
 
             $sql = "UPDATE CUSTOMER SET Name=$name , Username=$userName , Street=$addr , House_no=$homeNum , Mobile_no=$mobNum , City=$city , District=$district ,Zip_code=$zip where Customer_id='" . $_SESSION['userID'] . "'";
             $result = $this->model->saveInfo($sql);
-            header("Location: customerProfile/");
+            header("Location: customerProfile");
             // $this->loadDefault();
         }
     }
@@ -411,7 +418,7 @@ class Customer extends Person
                     $insert = $this->model->saveImage("UPDATE CUSTOMER SET Profile_pic=$imgContent WHERE Customer_id='" . $_SESSION['userID'] . "'");
 
                     if ($insert) {
-                        header("Location: customerProfile/");
+                        header("Location: customerProfile");
                     } else {
                     }
                 } else {
@@ -432,7 +439,7 @@ class Customer extends Person
                 $sql = "UPDATE CUSTOMER SET email=$email where Customer_id='" . $_SESSION['userID'] . "'";
                 echo $sql;
                 if ($this->model->saveEmail($sql)) {
-                    header("Location: customerProfile/");
+                    header("Location: customerProfile");
                 } else {
                 }
             } else {
@@ -449,11 +456,12 @@ class Customer extends Person
         if ($_POST["currentPassword"] == $this->model->getPassword($_SESSION["userID"])) {
             $sql = "UPDATE CUSTOMER SET Password=$newPassword where Customer_id='" . $_SESSION['userID'] . "'";
             if ($this->model->savePassword($sql)) {
-                header("Location: customerProfile/");
+                header("Location: customerProfile");
             } else {
             }
         } else {
             echo "<script>alert('Please enter your correct password')</script>";
+            echo "<script>location.href='customerProfile'</script>";
         }
     }
     function dashboard()

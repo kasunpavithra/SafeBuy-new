@@ -40,6 +40,8 @@ class ShopManager_Model extends Model
   {
     if ($quantity > 0) {
       $sttusUpdated = $this->db->insertQuery("UPDATE ITEM SET status=0 WHERE itemID='" . $itemID . "'");
+    } else if ($quantity == 0) {
+      $sttusUpdated = $this->db->insertQuery("UPDATE ITEM SET status=1 WHERE itemID='" . $itemID . "'");
     }
     if ($sttusUpdated) {
       return $this->db->runQuery("UPDATE ITEM SET quantity=$quantity WHERE itemID='" . $itemID . "'");
