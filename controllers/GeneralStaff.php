@@ -6,11 +6,10 @@ require_once "shop.php";
 class GeneralStaff extends ShopStaff
 {
     private $orderLog;
-    private $shop;
     function __construct($id)
     {
         parent::__construct($id);
-        // $this->orderLog = new OrderLog();
+        $this->loadModel("GenaralStaff_Model");
     }
     function index()
     {
@@ -130,5 +129,9 @@ class GeneralStaff extends ShopStaff
         if(!isset($this->orderLog)){
             $this->orderLog = new OrderLog();
         }
+    }
+    function sendMessage(){
+        $msg = $_POST["send"];
+        $this->db->sendMessage(11,$msg,0);
     }
 }
