@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="../../../public/CSS/home_staff.css"> -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
 
   <meta name="robots" content="noindex, nofollow" />
@@ -20,8 +21,84 @@
 </head>
 
 <body>
+  <!-- navbar starts -->
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="../../../../public/Images/logo.png" alt="Avatar Logo" style="width:40px;" class="rounded-pill">
+      </a>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#msgOffcanvas">
+            Messages
+          </button>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="">Home</a>
+        </li>
+      </ul>
+
+    </div>
+  </nav>
+  <!-- navbar ends -->
+
+
+  <!-- message canvas start-->
+  <div class="offcanvas offcanvas-end" id="msgOffcanvas">
+    <div class="offcanvas-header">
+      <h1 class="offcanvas-title">Messages</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="row">
+        <div class="col-sm-12 border">
+          <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#chatModal" style="width: 100%;">
+            <img src="../../../../public/Images/logo.png" style="width:40px;" class="rounded-pill"> Customer Name</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--message canvas end-->
+
+  <!-- chat model start -->
+  <!-- The Modal -->
+  <div class="modal" id="chatModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Customer Name</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <form action="" method="post" id="chat">
+            <div class="col-sm-12">
+              <p class="text-end">Sender HIIII</p>
+              <p class="reciever">Reciever HIIII</p>
+              <div class="panel-footer">
+                <div class="input-group">
+                  <input id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />
+                  <span class="input-group-btn">
+                    <button type="submit"  class="btn btn-primary btn-sm" id="send">Send</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- chat model end -->
+
+
   <div class="container-fluid pt-5">
-    <?php if(isset($this->filter)) echo '
+    <?php if (isset($this->filter)) echo '
     <div class="row justify-content-end">
       <div class="col-sm-3">
         <div class="dropdown">
@@ -58,7 +135,7 @@
     <!--order details started-->
     <div class="row">
       <div class="col-md-5">
-        <h2><?php if(isset($this->title)) echo $this->title;?></h2>
+        <h2><?php if (isset($this->title)) echo $this->title; ?></h2>
       </div>
     </div>
     <?php
@@ -76,7 +153,7 @@
         echo ReturnOrder::STATES[$odr->getStatus()];
       }
       echo '</label></div>
-          <span><strong>Order ID: </strong></span> <span class="label label-info">'.$odr->getOrderId().'</span><br />
+          <span><strong>Order ID: </strong></span> <span class="label label-info">' . $odr->getOrderId() . '</span><br />
           cost: $' . $odr->getAmount() . '<br />
           <!-- add code to disable the accept reject buttons once the order is accepted
                       -->
@@ -100,7 +177,7 @@
     if (isset($this->ROrderArr) && !empty($this->ROrderArr)) {
       echo '<div class="row">
               <div class="col-md-6">
-                <h2>'.$this->title2.'</h2>
+                <h2>' . $this->title2 . '</h2>
               </div>
             </div>';
       foreach ($this->ROrderArr as $odr) {
@@ -117,7 +194,7 @@
           echo ReturnOrder::STATES[$odr->getStatus()];
         }
         echo '</label></div>
-                  <span class="danger"><strong>Return Order ID: </strong></span> <span class="label label-info">'.$odr->getOrderId().'</span><br />
+                  <span class="danger"><strong>Return Order ID: </strong></span> <span class="label label-info">' . $odr->getOrderId() . '</span><br />
                   cost: $' . $odr->getAmount() . '<br />
                   <!-- add code to disable the accept reject buttons once the order is accepted
                               -->
