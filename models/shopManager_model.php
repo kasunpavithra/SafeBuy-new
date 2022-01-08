@@ -63,7 +63,20 @@ class ShopManager_Model extends Model
   }
   function addItem($categoryID, $itemName, $quantity)
   {
-    return $this->db->insertQuery("INSERT INTO ITEM (name,category_id,quantity) values ('$itemName','$categoryID','$quantity')");
+
+    $IsaddItem = $this->db->insertQuery("INSERT INTO ITEM (name,category_id,quantity) values ('$itemName','$categoryID','$quantity')");
+    if ($quantity == 0 && $IsaddItem) {
+      return $this->db->insertQuery("UPDATE ITEM SET status=1 where name=$itemName");
+    } else {
+      return $IsaddItem;
+    }
+  }
+  function updateCatItemQuantity($itemName, $quantity)
+  {
+    $quan = $this->db->runQuery("SELECT QUANTITY FROM ITEM WHERE NAME='$itemName'")[0][0];
+    $quantity += $quan;
+    $isAdded = $this->db->insertQuery("UPDATE ITEM SET quantity=$quantity WHERE name='$itemName'");
+    return $isAdded;
   }
   function getCategoryNames()
   {

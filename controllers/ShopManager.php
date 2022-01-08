@@ -125,7 +125,7 @@ class ShopManager extends ShopStaff
         } else if (isset($_POST["updatePrice"])) {
             $price = $_POST["price"];
             $itemID = $_POST["itemID"];
-            if ($price == 0 || $price==NULL) {
+            if ($price == 0 || $price == NULL) {
                 echo "<script>alert('You have not set price in this item')</script>";
                 echo "<script>location.href='Dashboard'</script>";
             } else {
@@ -186,6 +186,7 @@ class ShopManager extends ShopStaff
 
                 $categoryID = $this->getCategoryID($categoryName);
                 if ($this->checkItemAvailable($itemName)) {
+                    $this->model->updateCatItemQuantity($itemName, $quantity);
                 } else {
                     $this->model->addItem($categoryID, $itemName, $quantity);
                 }

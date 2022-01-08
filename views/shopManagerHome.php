@@ -9,7 +9,7 @@ $items = $this->items;
     $x = 0;
     foreach ($items as $key => $value) { ?>
         $itemList[<?php echo $x++; ?>] = <?php echo ($value->getName()); ?>;
-
+        
     <?php }
     ?>
     console.log($itemList);
@@ -346,7 +346,7 @@ $items = $this->items;
                                             </div>
                                             <br>
                                             <label for="quantity">Quantity</label>
-                                            <input type="number" name="quantity" id="quantity" required>
+                                            <input type="number" name="quantity" id="quantity" min="1" required>
                                             <br>
                                             <input class="addItem" type="submit" value="Add an Item" name="addItemBtn">
                                         </form>
@@ -458,15 +458,15 @@ $items = $this->items;
                 <div class="container">
 
                     <div class="dropdown">
-                        <button id="addBtn" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">- Remove
-                            <span class="caret"></span></button>
+                        <!-- <button id="addBtn" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">- Remove
+                            <span class="caret"></span></button> -->
                         <ul class="dropdown-menu" id="addNewDropdown">
 
                             <li><button id="myBtn2">Item</button>
                                 <div id="myModal2" class="modal">
 
                                     <!-- Modal content -->
-                                    <div class="modal-content">
+                                    <!-- <div class="modal-content">
                                         <span class="close1">&times;</span>
 
                                         <form action="addItem" method="post">
@@ -491,7 +491,7 @@ $items = $this->items;
                                             <input class="addItem" type="submit" value="Add an Item" name="addItemBtn">
                                         </form>
 
-                                    </div>
+                                    </div> -->
 
                                 </div>
                                 <script>
