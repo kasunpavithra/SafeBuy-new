@@ -16,7 +16,9 @@ abstract class ShopStaff extends Person
     function __construct($id)
     {
         parent::__construct();
-
+        if(!isset($_SESSION["staffuserID"])){
+            $this->logout();
+        }
         $this->setDetails($id);
     }
     function index()
@@ -43,6 +45,6 @@ abstract class ShopStaff extends Person
         if (isset($_SESSION['staffuserID'])) {
             session_destroy();
         }
-        header("Location: ../../../../stafflogin/");
+        header("Location: ../../../stafflogin/");
     }
 }
