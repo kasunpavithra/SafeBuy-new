@@ -12,6 +12,10 @@ class ShopManager_Model extends Model
   function printSomething()
   {
   }
+  function saveItemImage($imgContent, $itemID)
+  {
+    return $this->db->insertQuery("UPDATE ITEM SET itemImage=$imgContent WHERE itemID='" . $itemID . "'");
+  }
   function updatePrice($itemID, $price)
   {
     return $this->db->runQuery("UPDATE ITEM SET price=$price WHERE itemID='" . $itemID . "'");
@@ -34,7 +38,12 @@ class ShopManager_Model extends Model
   }
   function updateItemQuantity($itemID, $quantity)
   {
-    return $this->db->runQuery("UPDATE ITEM SET quantity=$quantity WHERE itemID='" . $itemID . "'");
+    if ($quantity > 0) {
+      $sttusUpdated = $this->db->insertQuery("UPDATE ITEM SET status=0 WHERE itemID='" . $itemID . "'");
+    }
+    if ($sttusUpdated) {
+      return $this->db->runQuery("UPDATE ITEM SET quantity=$quantity WHERE itemID='" . $itemID . "'");
+    }
   }
   function deleteItem($itemID)
   {

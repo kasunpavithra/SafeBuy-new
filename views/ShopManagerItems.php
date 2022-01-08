@@ -34,7 +34,7 @@
         }
 
         ?>
-        <form action="saveItemDetail" method="post">
+        <form action="saveItemDetail" method="post" enctype="multipart/form-data">
             Item Name:
             <input type="text" name="name" id="name" value="<?php echo $item->getName(); ?>">
             <input type="hidden" name="itemID" value="<?php echo $item->getItemId(); ?>">
@@ -61,9 +61,11 @@
             <input type="submit" value="Update Price" name="updatePrice">
             <br><br>
             Image :
-            <input type="number" name="price" id="price" value="<?php echo $item->getPrice(); ?>">
+            <img style="width: 20%;  ;margin: 20px; margin-left: auto; margin-right: auto; display: block;" src="data:image/jpeg;charset=utf8;base64,<?php echo base64_encode($item->getImage()); ?>" />
+
+            <input type="file" name="image" id="image">
             <input type="hidden" name="itemID" value="<?php echo $item->getItemId(); ?>">
-            <input type="submit" value="Update Price" name="updatePrice">
+            <input type="submit" value="Update Image" name="updateImage">
             <br><br>
         </form>
         <br>
