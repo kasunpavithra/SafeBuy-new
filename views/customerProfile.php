@@ -209,44 +209,56 @@
         h4.logout {
             text-align: right;
         }
-        table.titleTable{
+
+        table.titleTable {
             width: 100%;
-            
+
             line-height: 0%;
         }
-        a:hover{
+
+        a:hover {
             text-decoration: none;
         }
-        td.logout{
+
+        td.logout {
             padding-right: 15px;
             text-align: right;
             font-size: 20px;
         }
-        td{
+
+        td {
             height: 50px;
         }
-        td.logo{
+
+        td.logo {
             /* white-space:pre ; */
             width: 150px;
             text-align: left;
             font-size: 20px;
             padding-left: 15PX;
         }
-        img.logo{
+
+        img.logo {
             width: 100px;
             height: 100px;
         }
-        .overviewGrp{
+
+        .overviewGrp {
             border-radius: 5px;
         }
-        .UploadPicture{
+
+        .UploadPicture {
             width: 220px;
-            padding:5px;
+            padding: 5px;
         }
-        .EmailNotifications{
+
+        .EmailNotifications {
             height: 178px;
         }
-        
+
+        /* div.text-center{
+            width: 944px;
+        } */
     </style>
     <title>Customer Account</title>
 </head>
@@ -279,9 +291,9 @@
             <tr>
                 <td class="logo">
                     <a href="../Dashboard">
-                            <!-- <img src="../public/Images/Invoice.jpg" alt="Logo" class="logo"> -->
-                            <!-- <h2 class="Logo">SafeBuy</h2> -->SafeBuy
-                            </a>
+                        <!-- <img src="../public/Images/Invoice.jpg" alt="Logo" class="logo"> -->
+                        <!-- <h2 class="Logo">SafeBuy</h2> -->SafeBuy
+                    </a>
                 </td>
                 <td class="logout">
                     <a href="../logout/">Log out
@@ -336,17 +348,17 @@
                 <img style="width: 50%;  ;margin: 20px; margin-left: auto; margin-right: auto; display: block;" src="data:image/jpeg;charset=utf8;base64,<?php echo base64_encode($row["profile_pic"]); ?>" />
             </div>
             <div class="overviewGrp">
-            <a class="list-group-item list-group-item-action active" href="#Overview">Overview</a>
-            <a class="list-group-item list-group-item-action" href="#Orders">Orders</a>
-            <a class="list-group-item list-group-item-action" href="#Setting">Setting</a>
-            <a class="list-group-item list-group-item-action" href="#ShippingAddress">Shipping Address</a>
-            <a class="list-group-item list-group-item-action" href="#MessageCenter">Message Center</a>
+                <a class="list-group-item list-group-item-action active" href="#Overview">Overview</a>
+                <a class="list-group-item list-group-item-action" href="#Orders">Orders</a>
+                <a class="list-group-item list-group-item-action" href="#Setting">Setting</a>
+                <a class="list-group-item list-group-item-action" href="#ShippingAddress">Shipping Address</a>
+                <a class="list-group-item list-group-item-action" href="#MessageCenter">Message Center</a>
             </div>
         </div>
 
         <div class="col-9 container info" style="margin-top: 20px;">
             <div class="card text-center" id="Overview">
-                <div class="card-header">My Order</div>
+                <!-- <div class="card-header">My Order</div>
                 <div class="card-body">
                     <div class="row" id="overviewElements">
                         <div class="col-sm-6">
@@ -399,7 +411,7 @@
                         </div>
                     </div>
 
-                </div>
+                </div> -->
             </div>
 
 
@@ -565,10 +577,10 @@
                         </div>
                         <div class="form-group">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck">
-                                <label class="form-check-label" for="gridCheck">
+                                <!-- <input class="form-check-input" type="checkbox" id="gridCheck"> -->
+                                <!-- <label class="form-check-label" for="gridCheck">
                                     Check me out
-                                </label>
+                                </label> -->
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary" id="save" name="save">Save</button>
@@ -578,12 +590,12 @@
 
 
 
-            <div class="card text-center" id="Wallet">
+            <!-- <div class="card text-center" id="Wallet">
                 <div class="card-header">Cards & Bank Accounts</div>
                 <div class="card-body">
 
                 </div>
-            </div>
+            </div> -->
 
 
             <!-- <div class="site-footer" data-spm-anchor-id="a2g0o.new_account_index.0.i4.9bae25b9Hzn7hf">
@@ -639,8 +651,8 @@
                         </a>
                     </div>
                 </div> -->
-            </div>
         </div>
+    </div>
 
 
     </div>
