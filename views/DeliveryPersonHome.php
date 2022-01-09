@@ -155,30 +155,7 @@
 
         <section class="page container">
             <div class="row">
-                <div class="span4">
-                    <div class="blockoff-right">
-                        <ul id="person-list" class="nav nav-list">
-                            <li class="nav-header">People</li>
-                            <li class="active">
-                                <a id="view-all" href="#">
-                                    <i class="icon-chevron-right pull-right"></i>
-                                    <b>View All</b>
-                                </a>
-                            </li>
-                            <?php foreach($this->invoiceOrders as $order){ ?>
-                                <li>
-                                    <a href="#<?php echo $order->getOrderId(); ?>">
-                                        <i class="icon-chevron-right pull-right"></i>
-                                        <?php echo $order->getCustomerName(); ?>
-                                    </a>
-                                </li>
-                                <?php } ?>
-                            
-                                
-                            
-                        </ul>
-                    </div>
-                </div>
+            
                 <div class="span12">
             <?php  
             foreach($this->invoiceOrders as $order){ ?> 
@@ -189,7 +166,7 @@
                     <h5><?php echo $order->getCustomerName(); ?></h5>
                 </div>
                 <div>
-                <form method="post" <?php echo 'action="updateStatus/'.$order->getOrderId().'"'?>>
+                <form method="post" <?php echo 'action="updateStatus/'.$order->getOrderId().'/0"'?>>
                     <?php if($order->getStatus()==2){ ?>
                     <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" title="Danger" value="Accept">
                     <?php } ?>
@@ -208,7 +185,8 @@
                         <th>Telephone No</th>
                         <th>Address</th>
                         <th>Items</th>
-                        <th>Amount</th>   
+                        <th>Amount</th>
+                        <th>Type</th>   
                         </tr>
                     </thead>
                     <tbody>
@@ -221,6 +199,63 @@
                                 echo $item->getName()."-". $item->getQuantity()."  ";
                             } ?></td>
                             <td><?php echo $order->getAmount(); ?></td>
+                            <td>Order</td>
+
+                            
+                        </tr>
+                    
+                        
+                    
+                    </tbody>
+                </table>
+                </div>
+
+            </div>
+                 <?php   } ?>
+
+                 <?php  
+            foreach($this->returnOrders as $order){ ?> 
+                
+                <div id="<?php echo $order->getOrderId(); ?>" class="box">
+                <div class="box-header">
+                    <i class="icon-user icon-large"></i>
+                    <h5><?php echo $order->getCustomerName(); ?></h5>
+                </div>
+                <div>
+                <form method="post" <?php echo 'action="updateStatus/'.$order->getOrderId().'/1"'?>>
+                    <?php if($order->getStatus()==1){ ?>
+                    <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" title="Danger" value="Accept">
+                    <?php } ?>
+                    <?php if($order->getStatus()==2){ ?>
+                    <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" title="Danger" value="Delivered">
+                    <?php } ?>
+        
+
+                </form>
+                </div>
+                <div class="box-content box-table">
+                <table class="table table-hover tablesorter">
+                    <thead>
+                        <tr>
+                        <th>Name</th>
+                        <th>Telephone No</th>
+                        <th>Address</th>
+                        <th>Items</th>
+                        <th>Amount</th>
+                        <th>Type</th>   
+                        </tr>
+                    </thead>
+                    <tbody>
+                    
+                        <tr>
+                            <td><?php echo $order->getCustomer()->getName(); ?></td>
+                            <td><?php echo $order->getCustomer()->getMobile_no(); ?></td>
+                            <td><?php echo $order->getCustomer()->getAddress(); ?></td>
+                            <td><?php foreach ($order->getOrderItems() as $item){
+                                echo $item->getName()."-". $item->getQuantity()."  ";
+                            } ?></td>
+                            <td><?php echo $order->getAmount(); ?></td>
+                            <td>Return Order</td>
 
                             
                         </tr>

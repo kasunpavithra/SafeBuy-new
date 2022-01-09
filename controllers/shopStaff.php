@@ -10,7 +10,7 @@ abstract class ShopStaff extends Person
     private $email;
     private $profile_Pic;
     private $type;
-    private $status;
+    protected $status;
 
  
     function __construct($id)
