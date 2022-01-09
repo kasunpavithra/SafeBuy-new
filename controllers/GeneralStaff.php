@@ -138,8 +138,8 @@ class GeneralStaff extends ShopStaff
         $this->view->customerId = $customerId;
         $this->view->chatLog = ChatLog::getInstance($customerId);
         $this->view->render('GeneralStaffChat');
-        //mark as seen
-        $this->view->chatLog->markAsSeen($customerId);
+        //mark as seen  //since we want to mark as customers msgs side=0
+        $this->view->chatLog->markAsSeen($customerId,0);
     }
     private function setCustomers(){
         if(!isset($this->customers)){

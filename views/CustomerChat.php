@@ -21,7 +21,9 @@
                         foreach ($this->chatLog->getMessageList() as $chat) {
                             if ($chat->getStatus() == 0) {
                                 echo '<p class="text-end">' . $chat->getMessage() . '</p>';
-                            } else {
+                            } else if($chat->getSeenStatCus() == 0){
+                                echo '<p><b>' . $chat->getMessage() . '</b></p>';
+                            }else{
                                 echo '<p>' . $chat->getMessage() . '</p>';
                             }
                         }

@@ -41,10 +41,7 @@ class Customer extends Person
         $chatLog =  ChatLog::getInstance($this->customer_id);
         $this->view->chatLog = $chatLog;
         $this->view->render("CustomerChat");
-        // foreach ($messageList as $message) {
-        //     echo $message->getMessage() . " " . $message->getStatus() . " " . $message->getTime();
-        //     echo "<br>";
-        // }
+        $chatLog->markAsSeen($this->customer_id,1);
     }
     //
 

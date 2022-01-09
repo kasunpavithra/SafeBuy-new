@@ -5,6 +5,7 @@ class Chat extends Controller
     private $status;
     private $time;
     private $seenStatStaff;
+    private $seenStatCus;
     function __construct($chat_id)
     {
         parent::__construct();
@@ -22,6 +23,11 @@ class Chat extends Controller
             $this->seenStatStaff = 0;
         }else{
             $this->seenStatStaff = 1;
+        }
+        if((!$chatData["seen"]) && ($chatData["status"])){
+            $this->seenStatCus = 0;
+        }else{
+            $this->seenStatCus = 1;
         }
     }
 
@@ -55,5 +61,13 @@ class Chat extends Controller
     public function getSeenStatStaff()
     {
         return $this->seenStatStaff;
+    }
+
+    /**
+     * Get the value of seenStatCus
+     */ 
+    public function getSeenStatCus()
+    {
+        return $this->seenStatCus;
     }
 }
