@@ -243,6 +243,12 @@ class ShopManager extends ShopStaff
         }
         return NULL;
     }
+    function addOffers()
+    {
+        // $this->view->items = $this->menu->getItems();
+        $this->view->render("OfferAddPage");
+    }
+    
     function sendNotification($msg)
     {
         $this->mediator->sendNotification($msg);
