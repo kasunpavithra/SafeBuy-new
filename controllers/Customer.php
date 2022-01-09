@@ -38,8 +38,8 @@ class Customer extends Person
     }
     function getChat()
     {
-        $messageList =  (ChatLog::getInstance($this->customer_id))->getMessageList();
-        $this->view->messageList = $messageList;
+        $chatLog =  ChatLog::getInstance($this->customer_id);
+        $this->view->chatLog = $chatLog;
         $this->view->render("CustomerChat");
         // foreach ($messageList as $message) {
         //     echo $message->getMessage() . " " . $message->getStatus() . " " . $message->getTime();
@@ -50,10 +50,10 @@ class Customer extends Person
 
     function customerSendMessage()
     {
-        if (isset($_POST["sendBtn"])) {
-            $message = $_POST["message"];
+        if (isset($_POST["msg"])) {
+            $message = $_POST["msg"];
             if ($this->model->addMessage($this->customer_id, $message)) {
-                header("Location:getChat");
+                header("Location: getChat");
             }
         }
     }
