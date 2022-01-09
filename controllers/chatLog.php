@@ -3,6 +3,7 @@ require_once("Chat.php");
 class ChatLog extends Controller
 {
     private $hasNewMsgsStaff;
+    private $hasNewMsgsCus;
     private $messageList;
     private static $ChatLogList = array();
     private function __construct($customer_id)
@@ -35,14 +36,21 @@ class ChatLog extends Controller
             if(!isset($this->hasNewMsgsStaff) && $chatMsg->getSeenStatStaff()==0){
                 $this->hasNewMsgsStaff=1;
             }
+            if(!isset($this->hasNewMsgsCus) && $chatMsg->getSeenStatCus()==0){
+                $this->hasNewMsgsCus=1;
+            }
             array_push($this->messageList, $chatMsg);
         }
         if(!isset($this->hasNewMsgsStaff)){
             $this->hasNewMsgsStaff=0;
         }
+        if(!isset($this->hasNewMsgsCus)){
+            $this->hasNewMsgsCus=0;
+        }
+        
     }
-    function markAsSeen($customer_id){
-        $this->model->markAsSeen($customer_id);
+    function markAsSeen($customer_id,$side){
+        $this->model->markAsSeen($customer_id,$side);
     }
 
     /**
@@ -59,5 +67,13 @@ class ChatLog extends Controller
     public function getHasNewMsgsStaff()
     {
         return $this->hasNewMsgsStaff;
+    }
+
+    /**
+     * Get the value of hasNewMsgsCus
+     */ 
+    public function getHasNewMsgsCus()
+    {
+        return $this->hasNewMsgsCus;
     }
 }
