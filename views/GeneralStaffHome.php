@@ -30,7 +30,7 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#msgOffcanvas">
-            Messages
+            Messages <?php if($this->hasNewMsgs){echo '<span class="badge bg-secondary">New</span>';} ?>
           </button>
         </li>
         <li class="nav-item">
@@ -57,7 +57,9 @@
               echo '<div class="row">
               <div class="col-sm-12 border">
               <a href="../chatView/'.$cus[0].'" class="btn btn-light" style="width: 100%;">
-              <img src="../../../../public/Images/logo.png" style="width:40px;" class="rounded-pill">'.$cus[0].': '.$cus[1].'</a></div>
+              <img src="../../../../public/Images/logo.png" style="width:40px;" class="rounded-pill">' . $cus[0] . ': ' . $cus[1];
+              if($cus[2]){ echo '<span class="badge bg-secondary">New</span>';}
+              echo '</a></div>
               </div>';
             }
           ?>

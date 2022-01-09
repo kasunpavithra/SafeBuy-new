@@ -7,6 +7,7 @@ class GeneralStaff extends ShopStaff
 {
     private $orderLog;
     private $customers;
+    private $hasNewMsgs;
     function __construct($id)
     {
         parent::__construct($id);
@@ -137,13 +138,28 @@ class GeneralStaff extends ShopStaff
         $this->view->customerId = $customerId;
         $this->view->chatLog = ChatLog::getInstance($customerId);
         $this->view->render('GeneralStaffChat');
-        
+        //mark as seen
+        $this->view->chatLog->markAsSeen($customerId);
     }
     private function setCustomers(){
         if(!isset($this->customers)){
-            $this->customers =  $this->model->getCustomers();
+            $customers =  $this->model->getCustomers();
+            for($i=0; $i < count($customers); $i++){
+                if((ChatLog::getInstance($customers[$i]["Customer_id"]))->getHasNewMsgsStaff()){
+                    array_push($customers[$i],1);
+                    $this->hasNewMsgs =1;
+                }else{
+                    array_push($customers[$i],0);
+                }
+            }
+            if(!isset($this->hasNewMsgs)){
+                $this->hasNewMsgs =0;
+            }
+            $this->customers = $customers;
         }
+        //var_dump($this->customers);
         $this->view->customers = $this->customers;
+        $this->view->hasNewMsgs = $this->hasNewMsgs;
     }
 
     function sendMessage($customerId){
@@ -153,5 +169,13 @@ class GeneralStaff extends ShopStaff
             $this->model->sendMessage($customerId,$msg,1);
         }
         header("Location: ../chatView/".$customerId);
+    }
+
+    /**
+     * Get the value of haveNewMsgs
+     */ 
+    public function getHasNewMsgs()
+    {
+        return $this->hasNewMsgs;
     }
 }
