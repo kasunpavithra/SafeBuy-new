@@ -16,4 +16,7 @@ class ChatLog_Model extends Model
        
         return $arr;
     }
+    function markAsSeen($customer_id){
+        $this->db->runQuery("UPDATE chat SET seen=1 WHERE customer_id=$customer_id AND status=0");
+    }
 }
