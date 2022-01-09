@@ -28,6 +28,7 @@ class DeliveryPerson extends ShopStaff
         $this->checkIsStaff();
         $this->view->invoiceOrders = $this->getInvoiceOrders();
         $this->view->returnOrders = $this->getReturnOrders();
+        $this->view->stateName = $this->currentState->getName();
         $this->view->render('DeliveryPersonHome');
     }
 
@@ -76,7 +77,7 @@ class DeliveryPerson extends ShopStaff
     }
     function updateStatus($orderId, $type)
     {
-
+        $this->nextState();
         $order = $this->findOrder($orderId, $type);
         $order->updateStatus();
         header("Location: ../../Dashboard");
@@ -85,10 +86,15 @@ class DeliveryPerson extends ShopStaff
     public function setState($state)
     {
         $this->currentState = $state;
+        $this->updateStaffStatus();
     }
     public function nextState()
     {
         $this->currentState->nextState($this);
+    }
+
+    public function updateStaffStatus(){
+        $this->model->incrementStatus($this->staff_id);
     }
 }
 

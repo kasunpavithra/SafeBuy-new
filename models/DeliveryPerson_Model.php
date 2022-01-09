@@ -22,4 +22,9 @@ class DeliveryPerson_Model extends Model
         $OrderItems = $this->db->runQuery("SELECT * FROM orderitem WHERE orderID= $orderId");
         return $OrderItems;
     }
+    function incrementStatus($staff_id)
+    {
+        $new_status = ($this->db->runQuery("SELECT status FROM staff WHERE Staff_id=$staff_id")[0][0]+ 1)%3;
+        $this->db->runQuery("UPDATE staff SET status=$new_status WHERE Staff_id=$staff_id");
+    }
 }

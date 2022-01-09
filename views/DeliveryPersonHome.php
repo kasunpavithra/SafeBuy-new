@@ -22,55 +22,11 @@
 <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
-                    <button class="btn btn-navbar" data-toggle="collapse" data-target="#app-nav-top-bar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+                    
                     <a href="dashboard.html" class="brand"><i class="icon-leaf">Clean Dashboard</i></a>
+                    <h4>My Status : <?php echo $this->stateName ?></h4>
                     <div id="app-nav-top-bar" class="nav-collapse">
-                        <ul class="nav">
-                            
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">TRY ME!
-                                        <b class="caret hidden-phone"></b>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="dashboard.html">Dashboard</a>
-                                        </li>
-                                        <li>
-                                            <a href="form.html">Form</a>
-                                        </li>
-                                        <li>
-                                            <a href="custom-view.html">Custom View</a>
-                                        </li>
-                                        <li>
-                                            <a href="login.html">Login Page</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">CHANGE NAV BAR
-                                        <b class="caret hidden-phone"></b>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="demo-horizontal-nav.html">Horizontal</a>
-                                        </li>
-                                        <li>
-                                            <a href="demo-horizontal-fixed-nav.html">Horizontal Fixed</a>
-                                        </li>
-                                        <li>
-                                            <a href="demo-vertical-nav.html">Vertical</a>
-                                        </li>
-                                        <li>
-                                            <a href="demo-vertical-fixed-nav.html">Vertical Fixed</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            
-                        </ul>
+                        
                         <ul class="nav pull-right">
                             <li>
                                 <a href="login.html">Logout</a>
@@ -85,73 +41,10 @@
         <div id="body-container">
             <div id="body-content">
                 
-                    <div class="body-nav body-nav-horizontal body-nav-fixed">
-                        <div class="container">
-                            <ul>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-dashboard icon-large"></i> Dashboard
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-calendar icon-large"></i> Schedule
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-map-marker icon-large"></i> Map It
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-tasks icon-large"></i> Widgets
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-cogs icon-large"></i> Settings
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-list-alt icon-large"></i> Forms
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-bar-chart icon-large"></i> Charts
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    
                 
                 
-        <section class="nav-page">
-            <div class="container">
-                <div class="row">
-                    <div class="span7">
-                        <header class="page-header">
-                            <h3>Person<br/>
-                                <small>Address List</small>
-                            </h3>
-                        </header>
-                    </div>
-                    <div class="span9">
-                        <ul class="nav nav-pills">
-                            <li>
-                                
-                                    <a href="#" rel="tooltip" data-placement="left" title="Create New Person">
-                                        <i class="icon-group icon-large"></i>
-                                    </a>
-                                
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
 
         <section class="page container">
             <div class="row">

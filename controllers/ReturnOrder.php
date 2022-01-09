@@ -50,7 +50,7 @@ class ReturnOrder extends Order
             $this->model->closeOrder($order_id);
         }
 
-        header('Location: ../../../ReturnOrder/con1/' . $order_id . '/staffView');
+        //header('Location: ../../../ReturnOrder/con1/' . $order_id . '/staffView');
     }
 
     /**
