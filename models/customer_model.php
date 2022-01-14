@@ -9,6 +9,11 @@ class Customer_Model extends Model
     function index()
     {
     }
+    // function getNotifications($customer_id)
+    // {
+    //     $sql = "SELECT * FROM CUSTOMERNOTIFICATION WHERE CUSTOMER_ID=$customer_id and SEEN=0";
+    //     return $this->db->runQuery($sql);
+    // }
     function setAsDeletedAccount($customer_id)
     {
         return $this->db->insertQuery("UPDATE customer SET ACCOUNT_AVAILABILITY=1 WHERE customer_id=$customer_id");
@@ -233,5 +238,9 @@ class Customer_Model extends Model
     function setItemStatus($itemStatus, $itemID)
     {
         return $this->db->insertQuery("UPDATE ITEM SET STATUS=$itemStatus WHERE ITEMID=$itemID");
+    }
+    function saveRecievedNotification($cid, $msg, $nid)
+    {
+        return $this->db->runQuery("insert into customernotification (customer_id,notification_id) values ($cid,$nid)");
     }
 }

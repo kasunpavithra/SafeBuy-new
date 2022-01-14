@@ -3,7 +3,7 @@ include_once "Person.php";
 abstract class ShopStaff extends Person
 {
     private $orderLog;
-    protected $staff_id;
+    private $staff_id;
     private $name;
     private $mobile_no;
     private $userName;
@@ -46,5 +46,13 @@ abstract class ShopStaff extends Person
             session_destroy();
         }
         header("Location: ../../../stafflogin/");
+    }
+
+    /**
+     * Get the value of staff_id
+     */ 
+    public function getStaff_id()
+    {
+        return $this->staff_id;
     }
 }

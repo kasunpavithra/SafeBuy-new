@@ -8,7 +8,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
@@ -16,7 +20,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script> -->
     <link rel="stylesheet" href="../public/CSS/customer_profile.css">
     <link rel="stylesheet" href="../public/CSS/notify.css">
     <!-- <link rel="stylesheet" href="../public/CSS/CreditCard.css"> -->
@@ -309,26 +313,48 @@
 
     <nav>
         <div class="logo"> STAY HOME AND SHOP ONLINE </div>
-        <div class="icon" id="bell"> <img src="https://i.imgur.com/AC7dgLA.png" alt="">
-            <span>12</span>
-        </div>
+        <!-- <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
 
-        <div class="notifications" id="box">
-            <h2>Notifications - <span>2</span></h2>
-            <div class="notifications-item"> <img src="https://i.imgur.com/uIgDDDd.jpg" alt="img">
-                <div class="text">
-                    <h4>Samso aliao</h4>
-                    <p>Samso Nagaro Like your home work</p>
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="..." class="rounded me-2" alt="...">
+                    <strong class="me-auto">Bootstrap</strong>
+                    <small>11 mins ago</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Hello, world! This is a toast message.
                 </div>
             </div>
-            <div class="notifications-item"> <img src="https://img.icons8.com/flat_round/64/000000/vote-badge.png" alt="img">
+        </div> -->
+        <button type="button" class="btn btn-primary position-relative">
+            Inbox
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                <?php echo count($this->notifications); ?>+
+                <span class="visually-hidden">unseen notifications</span>
+            </span>
+        </button>
+        <!-- <div class="icon" id="bell"> <img src="https://i.imgur.com/AC7dgLA.png" alt="">
+            <span><?php echo count($this->notifications); ?></span>
+        </div> -->
+
+
+        <!-- Here for handle notifications-->
+        <!-- <div class="notifications" id="box">
+            <h2>Notifications - <span><?php echo count($this->notifications); ?></span></h2>
+            </div> -->
+
+        <?php
+
+        foreach ($this->notifications as $notification) { ?>
+            <div class="notifications-item"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmIpbf6JIEqeYtASCuaE26N59BuJ52RPPycQ&usqp=CAU" alt="img">
                 <div class="text">
-                    <h4>John Silvester</h4>
-                    <p>+20 vista badge earned</p>
+                    <h4><?php echo $notification->getCustomerNotificationID(); ?></h4>
+                    <p><?php echo $notification->getDescription(); ?></p>
                 </div>
             </div>
-
-        </div>
+        <?php   }  ?>
     </nav>
 
 

@@ -1,6 +1,9 @@
 <?php
 include_once "shopStaff.php";
 require_once "Menu.php";
+require_once "ChatMediatorImpl.php";
+require_once "Customer.php";
+
 class ShopManager extends ShopStaff
 {
     private $menu;
@@ -59,7 +62,15 @@ class ShopManager extends ShopStaff
         $this->view->categories = $categorySet;
         $this->view->render('shopManagerHome');
     }
-
+    function AddNotification()
+    {
+        if (isset($_POST["offerAddBtn"])) {
+            $limitAmount = $_POST["limitAmount"];
+            $offerPercent = $_POST["offerPercent"];
+            echo $limitAmount . " " . $offerPercent;
+            $this->sendNotification("Not");
+        }
+    }
     function categoryItems()
     {
         if (isset($_GET["category"])) {
@@ -248,9 +259,19 @@ class ShopManager extends ShopStaff
         // $this->view->items = $this->menu->getItems();
         $this->view->render("OfferAddPage");
     }
-    
+
     function sendNotification($msg)
     {
-        $this->mediator->sendNotification($msg);
+        $this->mediator = new ChatMediatorImpl();
+        $customers =  $this->model->getCustomers();
+        foreach ($customers as $customer) {
+            $this->mediator->addUser(new Customer($customer["Customer_id"]));
+        }
+        $notIDs = $this->model->AddNotification($this->getStaff_id(), $msg);
+        // print_r($notIDs);
+        if (!(empty($notIDs))) {
+            $this->mediator->sendNotification(end($notIDs)[0], $msg);
+        }
+        header("Location:Dashboard");
     }
 }

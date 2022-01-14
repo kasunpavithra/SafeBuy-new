@@ -5,6 +5,11 @@ class ShopManager_Model extends Model
   {
     parent::__construct();
   }
+  function getCustomers()
+  {
+    $customers =  $this->db->runQuery("SELECT Customer_id,Name FROM customer");
+    return $customers;
+  }
   function restockItem($itemID)
   {
     return $this->db->insertQuery("UPDATE ITEM SET item_availability=0 where itemID=$itemID");
@@ -81,5 +86,12 @@ class ShopManager_Model extends Model
   function getCategoryNames()
   {
     return $this->db->runQuery("SELECT category_name from category");
+  }
+  function AddNotification($id, $not)
+  {
+    $isAdded = $this->db->insertQuery("insert into notification (description,staff_id) values ('$not',$id)");
+    if ($isAdded) {
+      return ($this->db->runQuery("select notification_id from notification"));
+    }
   }
 }

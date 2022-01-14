@@ -29,7 +29,7 @@ $descriptionList = $this->descriptionList;
         background-color: #5f88e8 !important;
     }
 
-    
+
 
     .btn-outline-success {
         color: #00ff08;
@@ -51,7 +51,7 @@ $descriptionList = $this->descriptionList;
         /* margin: 7em auto; */
         border-radius: 1.5em;
         box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
-        
+
     }
 
     .pHelloUsername {
@@ -70,10 +70,7 @@ $descriptionList = $this->descriptionList;
         padding-right: 10px;
     }
 
-    td.hello {
-        /* padding-left: 20px; */
-    }
-
+   
     a {
         color: cornsilk
     }
@@ -94,7 +91,8 @@ $descriptionList = $this->descriptionList;
         width: 100%;
 
     }
-    .navbar-brand{
+
+    .navbar-brand {
         padding-left: 10px;
     }
 </style>
@@ -110,11 +108,13 @@ $descriptionList = $this->descriptionList;
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <table class="secondNav">
                     <tr>
-                    <td ><a class=" navbar-brand" href="#">SAFEBUY</a></td>
-                    <td><form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                        </form></td>
+                        <td><a class=" navbar-brand" href="#">SAFEBUY</a></td>
+                        <td>
+                            <form class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            </form>
+                        </td>
                         <td class="navbartd hello"><a href="customerProfile"><?php echo $_SESSION['username'] ?></a></td>
                         <td class="navbartd"><a href="orderHistory">Order History</a></td>
 
@@ -126,7 +126,7 @@ $descriptionList = $this->descriptionList;
                         <td class="navbartd"><a href="deleteAccount">Delete My Account</a></td>
                         <td class="navbartd"><a href="logout">Log out</a></td>
                         <td class="navbartd"><input type="hidden" id="searchbar" onkeyup="search_category()" type="text" name="search"></td>
-                        
+
                     </tr>
                 </table>
 
@@ -134,7 +134,13 @@ $descriptionList = $this->descriptionList;
             </div>
         </nav>
     </div>
-    
+    <select name="dropDownList" id="dropdowncategory">
+        <option value="categoryHead">Select Category</option>
+        <?php
+        foreach ($this->categories as $categoryName => $items) {  ?>
+            <option value="<?php echo $categoryName ?>"><?php echo $categoryName ?></option>
+        <?php } ?>
+    </select>
     <div class="bigContainer">
         <div class="container">
             <div id="list">
@@ -145,13 +151,7 @@ $descriptionList = $this->descriptionList;
                 ?>
                     <div class="category" value="<?php echo $categoryName ?> ">
                         <div class="card-body">
-                            <select name="dropDownList" id="dropdowncategory">
-                                <option value="categoryHead">Select Category</option>
-                                <?php
-                                foreach ($this->categories as $categoryName => $items) {  ?>
-                                    <option value="<?php echo $categoryName ?>"><?php echo $categoryName ?></option>
-                                <?php } ?>
-                            </select>
+
                             <h4>Popular products in <?php echo $categoryName;  ?></h4>
                             <p class="card-text"><?php echo $descriptionList[$categoryName][0]; ?></p>
                         </div>

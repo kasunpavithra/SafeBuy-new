@@ -6,6 +6,7 @@ require_once("Menu.php");
 require_once("OrderStatusCustomer.php");
 require_once("Cart.php");
 require_once("chatLog.php");
+require_once("NotificationBox.php");
 class Customer extends Person
 {
 
@@ -41,7 +42,7 @@ class Customer extends Person
         $chatLog =  ChatLog::getInstance($this->customer_id);
         $this->view->chatLog = $chatLog;
         $this->view->render("CustomerChat");
-        $chatLog->markAsSeen($this->customer_id,1);
+        $chatLog->markAsSeen($this->customer_id, 1);
     }
     //
 
@@ -372,6 +373,12 @@ class Customer extends Person
         if (!isset($_SESSION["userID"])) {
             $this->logout();
         }
+        // $notifications = $this->model->getNotifications($this->getCustomer_id());
+        // foreach ($notifications as $notification) {
+
+        // }
+        $notificationList =  (NotificationBox::getInstance($this->customer_id))->getCustomerNotificationList();
+        $this->view->notifications = $notificationList;
         $this->view->row = $this->getDataRow();
         $this->view->cartItems = $this->model->getCartItems($_SESSION['userID']);
         $this->view->render("customerProfile");
@@ -559,9 +566,10 @@ class Customer extends Person
         }
     }
 
-    function recieveNotification($msg)
+    function recieveNotification($nid, $msg)
     {
         //prsentation logic here
+        $this->model->saveRecievedNotification($this->getCustomer_id(), $msg, $nid);
     }
 
     /**
@@ -814,7 +822,8 @@ class Customer extends Person
         }
     }
 
-    public function getAddress(){
+    public function getAddress()
+    {
         $address = $this->house_no . "," . $this->street . "," . $this->city . "," . $this->district;
         return $address;
     }
