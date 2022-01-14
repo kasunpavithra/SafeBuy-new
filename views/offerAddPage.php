@@ -16,8 +16,8 @@
     <div class="input-group mb-3">
         <form action="AddNotification" method="post">
             <span class="input-group-text">Rs : </span>
-            <input type="number" class="form-control" placeholder="Add the least amount of order that you are going to add offer" aria-label="Dollar amount (with dot and two decimal places)">
-            <input type="number" class="form-control" placeholder="Amount of offer" aria-label="Dollar amount (with dot and two decimal places)">
+            <input type="number" name="limitAmount" class="form-control" placeholder="Add the least amount of order that you are going to add offer" aria-label="Dollar amount (with dot and two decimal places)">
+            <input type="number" class="form-control" name="offerPercent" placeholder="Amount of offer" aria-label="Dollar amount (with dot and two decimal places)">
             <input type="submit" value="Add Offer" name="offerAddBtn">
         </form>
     </div>

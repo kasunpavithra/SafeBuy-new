@@ -28,6 +28,7 @@ class Item extends Controller
 
         $itemDetails = $this->model->getItemDetails($itemId)[0];
         // var_dump($itemDetails);
+        
         $this->name = $itemDetails[1];
         $this->categoryId = $itemDetails[2];
         $this->price = $itemDetails[3];

@@ -31,9 +31,15 @@ class NotificationBox extends Controller
 
         foreach ($notification_idList as $notID) {
             $notification = new Notification($notID[0]);
-
             array_push($this->customerNotificationList, $notification);
         }
     }
-}
 
+    /**
+     * Get the value of customerNotificationList
+     */
+    public function getCustomerNotificationList()
+    {
+        return $this->customerNotificationList;
+    }
+}
