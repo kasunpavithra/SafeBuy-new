@@ -368,6 +368,16 @@ class Customer extends Person
     {
         (new OrderStatusCustomer())->index();
     }
+    function markAsSeen()
+    {
+        $nid = $_POST["notID"];
+        $markAsSeen = (NotificationBox::getInstance($this->customer_id))->markCustomerNotificationAsSeen($nid);
+        if ($markAsSeen) {
+            header("Location:customerProfile");
+        } else {
+            header("Location:customerProfile");
+        }
+    }
     function customerProfile()
     {
         if (!isset($_SESSION["userID"])) {

@@ -8,19 +8,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <!-- <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet"> -->
+    <!-- <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script> -->
     <link rel="stylesheet" href="../public/CSS/customer_profile.css">
     <link rel="stylesheet" href="../public/CSS/notify.css">
     <!-- <link rel="stylesheet" href="../public/CSS/CreditCard.css"> -->
@@ -313,59 +315,68 @@
 
     <nav>
         <div class="logo"> STAY HOME AND SHOP ONLINE </div>
-        <!-- <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
 
-        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-            <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-                <div class="toast-header">
-                    <img src="..." class="rounded me-2" alt="...">
-                    <strong class="me-auto">Bootstrap</strong>
-                    <small>11 mins ago</small>
-                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                </div>
-                <div class="toast-body">
-                    Hello, world! This is a toast message.
-                </div>
-            </div>
-        </div> -->
-        <button type="button" class="btn btn-primary position-relative">
+        <!-- Here for handle notifications-->
+
+
+        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
             Inbox
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                <?php echo count($this->notifications); ?>+
+                <?php
+                $count = 0;
+                foreach ($this->notifications as $notification) {
+                    if ($notification->getSeen() == 0) {
+                        $count++;
+                    }
+                }
+                if ($count > 0) {
+                    echo $count . "+";
+                }
+
+
+                ?>
                 <span class="visually-hidden">unseen notifications</span>
             </span>
         </button>
-        <!-- <div class="icon" id="bell"> <img src="https://i.imgur.com/AC7dgLA.png" alt="">
-            <span><?php echo count($this->notifications); ?></span>
-        </div> -->
 
-
-        <!-- Here for handle notifications-->
-        <!-- <div class="notifications" id="box">
-            <h2>Notifications - <span><?php echo count($this->notifications); ?></span></h2>
-            </div> -->
-
-        <?php
-
-        foreach ($this->notifications as $notification) { ?>
-            <div class="notifications-item"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmIpbf6JIEqeYtASCuaE26N59BuJ52RPPycQ&usqp=CAU" alt="img">
-                <div class="text">
-                    <h4><?php echo $notification->getCustomerNotificationID(); ?></h4>
-                    <p><?php echo $notification->getDescription(); ?></p>
-                </div>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+                <h5 id="offcanvasRightLabel">Notifications Unseen</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-        <?php   }  ?>
+            <div class="offcanvas-body">
+
+                <?php
+                foreach ($this->notifications as $notification) {
+                    if ($notification->getSeen() == 0) {
+                ?>
+                        <form action="markAsSeen" method="POST" id="frm<?php echo $notification->getCustomerNotificationID(); ?>" onclick="this.submit()">
+                            <div class="notifications-item"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmIpbf6JIEqeYtASCuaE26N59BuJ52RPPycQ&usqp=CAU" alt="img" >
+
+                                <div class="text">
+                                    <h4><?php echo $notification->getCustomerNotificationID(); ?></h4>
+                                    <p><?php echo $notification->getDescription(); ?></p>
+                                </div>
+                            </div>
+                            <input type="hidden" name="notID" value="<?php echo $notification->getCustomerNotificationID(); ?>" id="btn<?php echo $notification->getCustomerNotificationID() ?>">
+                        </form>
+                <?php   }
+                }  ?>
+            </div>
+        </div>
+
+
     </nav>
 
 
-    <!-- <div id="sample">
-        <a class="list-group-item list-group-item-action active" href="#Overview">Overview</a>
-        <a class="list-group-item list-group-item-action" href="#Orders">Orders</a>
-        <a class="list-group-item list-group-item-action" href="#Setting">Setting</a>
-        <a class="list-group-item list-group-item-action" href="#ShippingAddress">Shipping Address</a>
-        <a class="list-group-item list-group-item-action" href="#MessageCenter">Message Center</a>
+    <!-- <div id=" sample">
+                            <a class="list-group-item list-group-item-action active" href="#Overview">Overview</a>
+                            <a class="list-group-item list-group-item-action" href="#Orders">Orders</a>
+                            <a class="list-group-item list-group-item-action" href="#Setting">Setting</a>
+                            <a class="list-group-item list-group-item-action" href="#ShippingAddress">Shipping Address</a>
+                            <a class="list-group-item list-group-item-action" href="#MessageCenter">Message Center</a>
 
-    </div> -->
+            </div> -->
 
     <div class="row">
 

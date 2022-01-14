@@ -42,4 +42,8 @@ class NotificationBox extends Controller
     {
         return $this->customerNotificationList;
     }
+    public function markCustomerNotificationAsSeen($nid)
+    {
+        return $this->model->markAsSeen($nid);
+    }
 }
