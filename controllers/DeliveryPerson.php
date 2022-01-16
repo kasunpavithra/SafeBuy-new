@@ -26,6 +26,7 @@ class DeliveryPerson extends ShopStaff
     {
 
         $this->checkIsStaff();
+        $this->view->userName = $this->userName;
         $this->view->invoiceOrders = $this->getInvoiceOrders();
         $this->view->returnOrders = $this->getReturnOrders();
         $this->view->stateName = $this->currentState->getName();
@@ -77,10 +78,21 @@ class DeliveryPerson extends ShopStaff
     }
     function updateStatus($orderId, $type)
     {
-        $this->nextState();
         $order = $this->findOrder($orderId, $type);
+        $stat = $order->getStatus();
+        if($type==1){
+            $stat+=1;
+        }
+        if($this->status==0 && $stat==2 ){
+            $this->nextState();
+        }
         $order->updateStatus();
         header("Location: ../../Dashboard");
+    }
+    function updateStatusStaff()
+    {
+        $this->nextState();
+        header("Location: Dashboard");
     }
 
     public function setState($state)

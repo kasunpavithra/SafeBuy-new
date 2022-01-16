@@ -3,10 +3,10 @@ include_once "Person.php";
 abstract class ShopStaff extends Person
 {
     private $orderLog;
-    private $staff_id;
+    protected $staff_id;
     private $name;
     private $mobile_no;
-    private $userName;
+    protected $userName;
     private $email;
     private $profile_Pic;
     private $type;
