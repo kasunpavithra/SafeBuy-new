@@ -162,7 +162,7 @@
             <input class="pass" name="password" type="password" align="center" placeholder="Enter your Password" required>
             <input class="submit" name="signUpBtn" id="signUpBtn" type="submit" value="Register">
 
-
+        </form>
 
     </div>
 
