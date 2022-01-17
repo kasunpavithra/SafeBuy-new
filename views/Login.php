@@ -271,7 +271,18 @@
     </div>
 
   </div>
-
+  <div class="container" style="position: absolute; bottom: 10px; left: 15%;">
+    <?php
+    if (isset($_SESSION["invalidLogin"])) {
+      if ($_SESSION["invalidLogin"]) { ?>
+        <div class="alert alert-danger" role="alert">
+          Invalid Attempt Pelase try again!
+        </div>
+    <?php
+        unset($_SESSION["invalidLogin"]);
+      }
+    } ?>
+  </div>
 </body>
 
 
