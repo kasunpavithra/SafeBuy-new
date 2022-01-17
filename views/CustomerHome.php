@@ -70,7 +70,7 @@ $descriptionList = $this->descriptionList;
         padding-right: 10px;
     }
 
-   
+
     a {
         color: cornsilk
     }
@@ -123,13 +123,39 @@ $descriptionList = $this->descriptionList;
                         <td class="navbartd"><a href="OrderStatusCustomer">Orders</a></td>
                         <td class="navbartd"><a href="PayCart">Cart</a></td>
                         <td class="navbartd"><a href="getChat">Chat with us</a></td>
-                        <td class="navbartd"><a href="deleteAccount">Delete My Account</a></td>
+                        <!-- <td class="navbartd"><a href="deleteAccount">Delete My Account</a></td> -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteAccount">
+                            Delete My Account
+                        </button>
                         <td class="navbartd"><a href="logout">Log out</a></td>
                         <td class="navbartd"><input type="hidden" id="searchbar" onkeyup="search_category()" type="text" name="search"></td>
 
                     </tr>
                 </table>
+                <!-- Modal -->
+                <div class="modal fade" id="deleteAccount" tabindex="-1" role="dialog" aria-labelledby="deleteAccount" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteAccount">Confirmation Delete</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
 
+                            <div class="modal-body">
+                                <form action="deleteAccount" method="post">
+                                    <div class="form-group">
+                                        <label for="password" class="col-form-label">Input the password:</label>
+                                        <input type="password" class="form-control" name="password" name="password" required>
+                                    </div>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                    <button type="submit" name="delAcc" class="btn btn-primary">Confirm</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </nav>

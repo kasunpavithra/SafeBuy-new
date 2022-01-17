@@ -825,10 +825,20 @@ class Customer extends Person
     }
     function deleteAccount()
     {
-        $delete =  $this->model->setAsDeletedAccount($this->customer_id);
-        if ($delete) {
-            session_destroy();
-            header("Location:../../../login/");
+        if (isset($_POST["delAcc"])) {
+            $pass = $_POST["password"];
+            if ($pass == $this->model->getPassword($this->customer_id)) {
+                $delete =  $this->model->setAsDeletedAccount($this->customer_id);
+                if ($delete) {
+                    session_destroy();
+                    echo "<script>alert('You deleted your account successfully')</script>";
+                    echo "<script>location.href='../../../login/'</script>";
+
+                }
+            } else {
+                echo "<script>alert('Wrong Password')</script>";
+                echo "<script>location.href='dashboard'</script>";
+            }
         }
     }
 

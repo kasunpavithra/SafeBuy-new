@@ -24,53 +24,69 @@ $returnOrder = $this->returnOrder;
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <body>
-    <?php echo "Order ID : " . $order->getorderID(); ?>
-    <br>
-    <?php
-    $items = $order->getOrderItems(); ?>
-    <div>
-        <form id="shopRateForm" action="updateShopRatingViews" method="post">
-            <?php if ($order->getRating() == 0) { ?>
-                <label for="orderrate" id="rateLbl">Rate Now : (1-5) </label>
-                <input type="number" id="orderrate" name="orderrate" min="1" max="5" required>
-                <input type="hidden" name="orderID" value="<?php echo  $order->getOrderId(); ?>">
-                <input type="submit" id="shopRateBtn" name="submitOrderRatings" value="Rate the order">
+    <div class="sticky-top">
+        <span class="d-block p-2 bg-primary text-white text-center"><?php echo "Order ID : " . $order->getorderID();
+                                                                    echo "<br>";
+                                                                    echo "Created Date : " . $order->getCreateDate();
+                                                                    echo "<br>";
+                                                                    if ($order->getStatus() == 4) {
+                                                                        echo "Recieved Date : " . $order->getClosedDate();
+                                                                        echo "<br>";
+                                                                    }
+                                                                    echo "Price : " . $order->getAmount();
+                                                                    ?></span>
+    </div>
+    <div class="d-block p-2 bg-dark text-white">
+
+        <br>
+        <?php
+        $items = $order->getOrderItems(); ?>
+        <div>
+            <form id="shopRateForm" action="updateShopRatingViews" method="post">
+                <?php if ($order->getRating() == 0) { ?>
+                    <label for="orderrate" id="rateLbl">Rate Now : (1-5) </label>
+                    <input type="number" id="orderrate" name="orderrate" min="1" max="5" required>
+                    <input type="hidden" name="orderID" value="<?php echo  $order->getOrderId(); ?>">
+                    <input type="submit" id="shopRateBtn" name="submitOrderRatings" value="Rate the order">
+                <?php
+
+                } else { ?>
+                    <label for="rate">Rate </label>
+                    <input type="number" name="rate" min="1" max="5" value="<?php echo $order->getRating() ?>" readonly>
+
+                <?php  }
+                ?>
+            </form>
             <?php
-
-            } else { ?>
-                <label for="rate">Rate </label>
-                <input type="number" name="rate" min="1" max="5" value="<?php echo $order->getRating() ?>" readonly>
-
+            if ($order->getRating() != 0 && $order->getReview() == "") { ?>
+                <form id="shopReviewForm" action="updateShopRatingViews" method="post">
+                    <label for="orderreview">Review : </label>
+                    <input type="text" id="orderreview" name="orderreview" required>
+                    <input type="hidden" name="orderID" value="<?php echo  $order->getOrderId(); ?>">
+                    <input type="submit" id="shopReviewBtn" name="submitOrderReviews" value="Review the order">
+                </form>
             <?php  }
             ?>
-        </form>
-        <?php
-        if ($order->getRating() != 0 && $order->getReview() == "") { ?>
-            <form id="shopReviewForm" action="updateShopRatingViews" method="post">
+            <?php
+            if ($order->getReview() != "") { ?>
+                <form>
+                    <label>Review </label>
+                    <input type="text" value="<?php echo $order->getReview(); ?>" readonly>
+                </form>
+            <?php } ?>
+
+            <form id="shopReviewForm2" action="updateShopRatingViews" method="post" style="visibility: hidden;">
                 <label for="orderreview">Review : </label>
-                <input type="text" id="orderreview" name="orderreview" required>
+                <input type="text" id="orderreview2" name="orderreview" required>
                 <input type="hidden" name="orderID" value="<?php echo  $order->getOrderId(); ?>">
-                <input type="submit" id="shopReviewBtn" name="submitOrderReviews" value="Review the order">
+                <input type="submit" id="shopReviewBtn2" name="submitOrderReviews2" value="Review the order">
             </form>
-        <?php  }
-        ?>
-        <?php
-        if ($order->getReview() != "") { ?>
-            <label>Review </label>
-            <input type="text" value="<?php echo $order->getReview(); ?>" readonly>
+        </div>
 
-        <?php } ?>
-
-        <form id="shopReviewForm2" action="updateShopRatingViews" method="post" style="visibility: hidden;">
-            <label for="orderreview">Review : </label>
-            <input type="text" id="orderreview2" name="orderreview" required>
-            <input type="hidden" name="orderID" value="<?php echo  $order->getOrderId(); ?>">
-            <input type="submit" id="shopReviewBtn2" name="submitOrderReviews2" value="Review the order">
-        </form>
     </div>
 
 
-
+    <!-- Here -->
     <?php foreach ($items as $item) {
         $canSubmit = true;
 
@@ -111,22 +127,6 @@ $returnOrder = $this->returnOrder;
                                 <?php   } else {
 
                                 if ($item->getOItemReview() == "") { ?>
-                                    <!-- <form action="submitReview" id="reviewForm2<?php echo $item->getOrderItemId(); ?>" method="post">
-                                    <div>
-                                        <input type="hidden" name="itemID" value="<?php echo $item->getOrderItemId(); ?>">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="itemReview" class="col-form-label">Review : </label>
-                                        <input type="text" class="form-control" name="itemReview" id="review2<?php echo $item->getOrderItemId(); ?>" required>
-                                    </div>
-
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button id="reviewBtn2<?php echo $item->getOrderItemId(); ?>" name="reviewBtn" type="submit" class="btn btn-primary">Review Now</button>
-                                    </div>
-
-                                </form> -->
-
                                 <?php   } else { ?>
 
                                     <label class="col-form-label">Review : </label>
@@ -183,8 +183,9 @@ $returnOrder = $this->returnOrder;
     <?php
     }
     ?>
+
     <?php foreach ($items as $item) {
-        
+
         if ($order->getStatus() != 4) { ?>
 
             <?php
@@ -192,6 +193,7 @@ $returnOrder = $this->returnOrder;
                 <div class="container p-3 my-3 bg-primary text-white">
                     <h1><?php echo $item->getName(); ?></h1>
                     <p>Quantity : <?php echo $item->getQuantity(); ?></p>
+                    <p>Price : <?php echo $item->getPrice();  ?> X <?php echo $item->getQuantity();  ?></p>
 
                 </div>
         <?php
@@ -203,16 +205,22 @@ $returnOrder = $this->returnOrder;
         <div class="container p-3 my-3 bg-dark text-white" data-toggle="modal" data-target="#id<?php echo $item->getOrderItemId(); ?>" data-whatever="@mdo">
             <h1><?php echo $item->getName() ?></h1>
             <p>Quantity : <?php echo $item->getQuantity() ?></p>
-            <!-- <?php echo $order->getClosedDate()[0]; ?> -->
-            <?php $dates = 4;
+            <p>Price : <?php echo $item->getPrice();  ?> X <?php echo $item->getQuantity();  ?></p>
+
+            <?php
+            $timezone = "Asia/Kolkata";
+            date_default_timezone_set($timezone);
+            $closedDate = new DateTime($order->getClosedDate());
+            $today = new DateTime(date("Y-m-d H:i:s"));
+            $dates = $today->diff($closedDate)->d;
             $datesExceed = $dates > 7;
             $isAlreadyReturn = ($returnOrder != NULL);
             ?>
-
+        </div>
+        <div class="container p-3 my-3 bg-secondary text-white">
             <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample<?php echo $item->getOrderItemId(); ?>" role="button" aria-controls="offcanvasExample<?php echo $item->getOrderItemId(); ?>">
                 Return the item
             </a>
-
         </div>
 
 
@@ -239,6 +247,9 @@ $returnOrder = $this->returnOrder;
                     </div>
                 <?php   } else {
                 ?>
+
+                    <p>We have given you only <?php if (7 - $dates != 0) echo (7 - $dates) . " more days ";
+                                                else echo "today " ?> to return items.</p>
                     <form id="returnItem<?php echo $item->getOrderItemId(); ?>" action="" method="post">
                         <div class="form-outline">
                             <input type="number" id="form12<?php echo $item->getOrderItemId(); ?>" name="quantity" class="form-control" min="1" max="<?php echo $item->getQuantity(); ?>" required>
@@ -366,11 +377,13 @@ $returnOrder = $this->returnOrder;
 
             </tbody>
         </table>
+        <div class="alert alert-danger" role="alert">
+            <form action="placeReturnOrder" method="post" id="returnOrderConfirm">
+                <input type="hidden" name="orderID" value="<?php echo $order->getOrderId(); ?>">
+                <input type="submit" class="btn btn-danger" value="Confirm Return Order" name="confirmBtn" id="confirmReturnBtn">
+            </form>
+        </div>
 
-        <form action="placeReturnOrder" method="post" id="returnOrderConfirm">
-            <input type="hidden" name="orderID" value="<?php echo $order->getOrderId(); ?>">
-            <input type="submit" value="Confirm Return Order" name="confirmBtn" id="confirmReturnBtn">
-        </form>
     <?php } ?>
 </body>
 <script>
@@ -449,14 +462,19 @@ $returnOrder = $this->returnOrder;
         // event.preventDefault();
         let formValues = getReturnItemsDetails();
         console.log(formValues);
+        if (formValues.length == 0) {
+            alert("Please add items for returning");
+            event.preventDefault();
 
-        for (let i = 0; i < formValues.length; i++) {
-            let b = (formValues[i]);
+        } else {
+            for (let i = 0; i < formValues.length; i++) {
+                let b = (formValues[i]);
 
-            $.post("returnOrderPlace", b, function(html) {
+                $.post("returnOrderPlace", b, function(html) {
 
-            });
+                });
 
+            }
         }
         // document.getElementById("confirmReturnBtn").style.visibility = "hidden";
 
