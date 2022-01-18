@@ -20,8 +20,14 @@ $descriptionList = $this->descriptionList;
 
 <title>SafeBuy-search results</title>
 <style>
+    body {
+        background-image: url('../../SafeBuy-new/public/Images/customerHome.jpg');
+
+    }
+
     .bigContainer {
-        background-color: #F45B5B;
+        /* background-color: #00cc00; */
+
         padding-top: 20px;
     }
 
@@ -96,6 +102,145 @@ $descriptionList = $this->descriptionList;
         padding-left: 10px;
     }
 </style>
+<style>
+    .card {
+        height: 500px;
+        width: 100%;
+        background-color: #ecfeef;
+        position: relative;
+        overflow: hidden;
+        border: none;
+        transition: all 0.5s;
+        cursor: pointer;
+        border-radius: 20px
+    }
+
+    .content1 h1 {
+        margin-left: 30px;
+        font-size: 60px;
+        font-weight: bold;
+        color: #3cca5b;
+        z-index: 3
+    }
+
+    .content2 span {
+        margin-left: 30px;
+        font-style: Italic;
+        font-size: 23px;
+        color: #78d68f;
+        z-index: 3
+    }
+
+    .content3 h3 {
+        margin-left: 30px;
+        font-size: 28px;
+        font-weight: bold;
+        color: #3fc75d;
+        z-index: 3
+    }
+
+    .content3 {
+        font-size: 50px;
+        font-weight: 700;
+        color: #3fc75d;
+        font-family: 'Changa', sans-serif;
+        display: flex;
+        align-items: center;
+        z-index: 3
+    }
+
+    .image img {
+        height: 230px;
+        width: 250px;
+        position: absolute;
+        bottom: 10px;
+        right: 1px;
+        z-index: 1000;
+        transition: all 0.5s
+    }
+
+    .card:hover .image img {
+        transform: rotate(10deg)
+    }
+
+    .rounded-1 {
+        position: absolute;
+        height: 350px;
+        width: 350px;
+        background-color: #40cd60;
+        border-radius: 50% !important;
+        bottom: -100px;
+        left: -50px;
+        z-index: 1;
+        opacity: 0.4;
+        transition: all 0.5s;
+        transition-delay: 0.5s
+    }
+
+    .rounded-2 {
+        position: absolute;
+        height: 350px;
+        width: 350px;
+        background-color: #40cd60;
+        border-radius: 50% !important;
+        bottom: -78px;
+        left: -60px;
+        z-index: 1;
+        opacity: 0.4;
+        transition: all 0.5s
+    }
+
+    .card:hover .rounded-2 {
+        bottom: -90px
+    }
+
+    .card:hover .rounded-1 {
+        bottom: -110px
+    }
+
+    .warranty {
+        position: absolute;
+        font-weight: 600;
+        bottom: 40px;
+        left: 30px;
+        color: #fff;
+        z-index: 200;
+        font-size: 30px
+    }
+
+    @media (max-width:470px) {
+        .image img {
+            height: 180px;
+            width: 200px;
+            position: absolute;
+            bottom: 10px;
+            right: 1px;
+            z-index: 1000
+        }
+    }
+
+    .bubbles span:nth-child(1) {
+        position: absolute;
+        height: 100px;
+        width: 100px;
+        background-color: #40cd60;
+        border-radius: 50%;
+        top: 10px;
+        right: 10px;
+        opacity: 0.2
+    }
+
+    .bubbles span:nth-child(2) {
+        position: absolute;
+        height: 50px;
+        width: 50px;
+        background-color: #40cd60;
+        border-radius: 50%;
+        top: 80px;
+        right: 70px;
+        opacity: 0.2
+    }
+</style>
 
 <body>
     <div id="topNavBar">
@@ -115,12 +260,23 @@ $descriptionList = $this->descriptionList;
                                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                             </form>
                         </td>
-                        <td class="navbartd hello"><a href="customerProfile"><?php echo $_SESSION['username'] ?></a></td>
+                        <td class="navbartd">
+                            <div>
+                                <select name="dropDownList" id="dropdowncategory">
+                                    <option value="categoryHead">Select Category</option>
+                                    <?php
+                                    foreach ($this->categories as $categoryName => $items) {  ?>
+                                        <option value="<?php echo $categoryName ?>"><?php echo $categoryName ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </td>
+                        <td class="navbartd hello"><a href="customerProfile">My Profile</a></td>
                         <td class="navbartd"><a href="orderHistory">Order History</a></td>
 
 
 
-                        <td class="navbartd"><a href="OrderStatusCustomer">Orders</a></td>
+                        <!-- <td class="navbartd"><a href="OrderStatusCustomer">Orders</a></td> -->
                         <td class="navbartd"><a href="PayCart">Cart</a></td>
                         <td class="navbartd"><a href="getChat">Chat with us</a></td>
                         <!-- <td class="navbartd"><a href="deleteAccount">Delete My Account</a></td> -->
@@ -160,116 +316,123 @@ $descriptionList = $this->descriptionList;
             </div>
         </nav>
     </div>
-    <select name="dropDownList" id="dropdowncategory">
-        <option value="categoryHead">Select Category</option>
-        <?php
-        foreach ($this->categories as $categoryName => $items) {  ?>
-            <option value="<?php echo $categoryName ?>"><?php echo $categoryName ?></option>
-        <?php } ?>
-    </select>
-    <div class="bigContainer">
-        <div class="container">
-            <div id="list">
+
+    <!-- <div class="bigContainer"> -->
+    <!-- <div class="container"> -->
+
+    <!-- Here to implement New -->
+    <div id="list">
+        <?php foreach ($this->categories as $categoryName => $items) {
+            $count = 0; ?>
+            <div class="category" value="<?php echo $categoryName ?> ">
+                <div class="container" style="margin: 10px auto;">
+
+                    <div class="card-body">
+                        <h4>Popular products in <?php echo $categoryName;  ?></h4>
+                        <p class="card-text"><?php echo $descriptionList[$categoryName][0]; ?></p>
+                    </div>
+
+                    <form action="categoryDetail" method="GET">
+                        <input type="hidden" name="categoryID" value="<?php echo $items[0]->getCategoryId(); ?>">
+
+                        <button style="margin: 6px auto;" type="submit" class="btn btn-success">See More</button>
+
+                    </form>
+                </div>
                 <?php
-                $size = 0;
-                foreach ($this->categories as $categoryName => $items) {
-                    $count = 0;
-                ?>
-                    <div class="category" value="<?php echo $categoryName ?> ">
-                        <div class="card-body">
+                foreach ($items as $key => $item) {
 
-                            <h4>Popular products in <?php echo $categoryName;  ?></h4>
-                            <p class="card-text"><?php echo $descriptionList[$categoryName][0]; ?></p>
-                        </div>
-                        <form action="categoryDetail" method="GET">
-                            <input type="hidden" name="categoryID" value="<?php echo $items[0]->getCategoryId(); ?>">
-                            <button class="btn btn-primary" type="submit" name="">See More</button>
+                    if ($count++ == 5) {
+                        break;
+                    }; ?>
+                    <div class="fluid-container">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-10">
+                                <div class="card">
+                                    <div class="row g-0">
+                                        <div class="col-md-10">
+                                            <div class="content1 mt-5">
+                                                <h1><?php echo $item->getName(); ?><br></h1>
+                                                <div class="content2"> <span><?php echo $item->getDescription(); ?></span> </div>
+                                                <div class="content3 mt-5">
 
-                        </form>
-                        <div class="row" style="width: 100%;">
-                            <?php foreach ($items as $key => $item) {
-                                if ($count++ == 5) {
-                                    break;
-                                }; ?>
+                                                    <h3>Rs : <span class="ms-2"><?php echo ($item->getPrice()); ?></span></h3>
+                                                </div>
+                                                <?php $status = $item->getStatus();
 
-                                <div class="col" style="border: 1px solid black;">
-                                    <form action="addCartItem" method="POST">
-                                        <img style="width: 20%;  ;margin: 20px; margin-left: auto; margin-right: auto; display: block;" src="data:image/jpeg;charset=utf8;base64,<?php echo base64_encode($item->getImage()); ?>" />
-                                        <h3><?php echo ("Rs : " . $item->getPrice()); ?></h3>
-                                        <h3><?php echo $item->getDescription(); ?></h3>
-                                        <h3><?php echo "Discount Rs : " . $item->getDiscount(); ?></h3>
-                                        <h3><?php echo "Ratings : " . $item->getRating(); ?></h3>
-                                        <h3><?php echo "Review : " . $item->getReview(); ?></h3>
-                                        <input type="hidden" name="itemID" value="<?php echo $item->getItemID(); ?>">
-                                        <input type="number" placeholder="Quantity" name="quantity" min="1" required>
+                                                $state = "";
+                                                if ($status == 0) {
+                                                    $state = "In Stock";
+                                                } else if ($status == 1) {
+                                                    $state = "Out of Stock";
+                                                } else if ($status == 2) {
+                                                    $state = "Already removed from stock";
+                                                }
 
-                                        <?php $status = $item->getStatus();
+                                                ?>
+                                                <div class="content3 mt-5">
+                                                    <h5 style="margin-left: 5%;"><?php echo ($state); ?></h5>
+                                                </div>
+                                                <div>
+                                                    <form style="margin-left:30% ;" action="addCartItem" method="POST">
+                                                        <input type="hidden" name="itemID" value="<?php echo $item->getItemID(); ?>">
+                                                        <input type="number" placeholder="Quantity" name="quantity" min="1" required>
+                                                        <br><br>
+                                                        <button class="btn btn-secondary" type="submit" name="add">Add Item to Cart</button>
+                                                    </form>
+                                                </div>
+                                                <div class="image">
+                                                    <!-- <img class="card-img-top" style="width: 20%;  ;margin: 20px; margin-left: auto; margin-right: auto; display: block;" src="data:image/jpeg;charset=utf8;base64,<?php echo base64_encode($item->getImage()); ?>" /> -->
+                                                    <img src="https://i.imgur.com/kvdO7jw.png">
+                                                </div> <span class="rounded-1"></span> <span class="rounded-2"></span> <span class="warranty"><?php echo "Discount : " . $item->getDiscount() * 100 . "%"; ?></span>
+                                                <div class="bubbles"> <span></span> <span></span> </div>
 
-                                        $state = "";
-                                        if ($status == 0) {
-                                            $state = "In Stock";
-                                        } else if ($status == 1) {
-                                            $state = "Out of Stock";
-                                        } else if ($status == 2) {
-                                            $state = "Already removed from stock";
-                                        }
+                                            </div>
 
-                                        ?>
-
-                                        <h3><?php echo ("Status of the item : " . $state); ?></h3>
-                                        <button class="btn btn-primary" type="submit" name="add">Add Item to Cart</button>
-
-                                    </form>
-                                    <form action="item" method="GET">
-                                        <input type="hidden" name="itemID" value="<?php echo $item->getItemID(); ?>">
-
-                                        <button class="btn btn-primary" type="submit" name="">See More</button>
-
-                                    </form>
-
+                                        </div>
+                                    </div>
                                 </div>
-
-
-                            <?php }  ?>
+                            </div>
                         </div>
                     </div>
-                <?php
+                    <br>
+                <?php }
 
-                }
                 ?>
 
             </div>
-        </div>
     </div>
+<?php   }  ?>
 
 
-    <script>
-        let dropList = document.getElementById("dropdowncategory");
-        dropList.onchange = search_category;
 
-        function search_category() {
-            if (document.getElementById("dropdowncategory").value != "categoryHead") {
-                document.getElementById('searchbar').value = document.getElementById("dropdowncategory").value;
-                let input = document.getElementById('searchbar').value
-                input = input.toLowerCase();
-                let x = document.getElementsByClassName('category');
+<script>
+    let dropList = document.getElementById("dropdowncategory");
+    dropList.onchange = search_category;
 
-                for (i = 0; i < x.length; i++) {
-                    if (!x[i].innerHTML.toLowerCase().includes(input)) {
-                        x[i].style.display = "none";
-                    } else {
-                        x[i].style.display = "list-item";
-                    }
-                }
-            } else {
-                document.getElementById('searchbar').value = null;
-                let x = document.getElementsByClassName('category');
-                for (i = 0; i < x.length; i++) {
+    function search_category() {
+        if (document.getElementById("dropdowncategory").value != "categoryHead") {
+            document.getElementById('searchbar').value = document.getElementById("dropdowncategory").value;
+            let input = document.getElementById('searchbar').value
+            input = input.toLowerCase();
+            let x = document.getElementsByClassName('category');
+
+            for (i = 0; i < x.length; i++) {
+                if (!x[i].innerHTML.toLowerCase().includes(input)) {
+                    x[i].style.display = "none";
+                } else {
                     x[i].style.display = "list-item";
                 }
             }
+        } else {
+            document.getElementById('searchbar').value = null;
+            let x = document.getElementsByClassName('category');
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "list-item";
+            }
         }
-    </script>
+    }
+</script>
 </body>
 
 </html>
