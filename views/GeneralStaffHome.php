@@ -39,6 +39,9 @@
         <li class="nav-item">
           <a class="nav-link" href="../Dashboard/-1">Home</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link text-danger" href="../logout">Logout</a>
+        </li>
       </ul>
 
     </div>
