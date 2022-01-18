@@ -381,8 +381,8 @@ $descriptionList = $this->descriptionList;
                     <div class="fluid-container">
                         <div class="row d-flex justify-content-center">
                             <div class="col-md-10">
-                                <div class="card">
-                                    <div class="row g-0">
+                                <div class="card" >
+                                    <div class="row g-0" <?php echo 'onclick=location.href="item?itemID=' . $item->getItemId() . '"' ?>>
                                         <div class="col-md-10">
                                             <div class="content1 mt-5">
                                                 <h1><?php echo $item->getName(); ?><br></h1>
@@ -406,14 +406,7 @@ $descriptionList = $this->descriptionList;
                                                 <div class="content3 mt-5">
                                                     <h5 style="margin-left: 5%;"><?php echo ($state); ?></h5>
                                                 </div>
-                                                <div>
-                                                    <form style="margin-left:30% ;" action="addCartItem" method="POST">
-                                                        <input type="hidden" name="itemID" value="<?php echo $item->getItemID(); ?>">
-                                                        <input type="number" placeholder="Quantity" name="quantity" min="1" required>
-                                                        <br><br>
-                                                        <button class="btn btn-secondary" type="submit" name="add">Add Item to Cart</button>
-                                                    </form>
-                                                </div>
+
                                                 <div class="image">
                                                     <!-- <img class="card-img-top" style="width: 20%;  ;margin: 20px; margin-left: auto; margin-right: auto; display: block;" src="data:image/jpeg;charset=utf8;base64,<?php echo base64_encode($item->getImage()); ?>" /> -->
                                                     <img src="https://i.imgur.com/kvdO7jw.png">
@@ -423,6 +416,14 @@ $descriptionList = $this->descriptionList;
                                             </div>
 
                                         </div>
+                                    </div>
+                                    <div>
+                                        <form style="margin-left:30% ;" action="addCartItem" method="POST">
+                                            <input type="hidden" name="itemID" value="<?php echo $item->getItemID(); ?>">
+                                            <input type="number" placeholder="Quantity" name="quantity" min="1" required>
+                                            <br><br>
+                                            <button class="btn btn-secondary" type="submit" name="add">Add Item to Cart</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -466,6 +467,7 @@ $descriptionList = $this->descriptionList;
             }
         }
     </script>
+
 </body>
 
 </html>
