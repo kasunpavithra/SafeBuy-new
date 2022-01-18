@@ -21,9 +21,10 @@ $descriptionList = $this->descriptionList;
 <title>SafeBuy-search results</title>
 <style>
     body {
-        background-image: url('../../SafeBuy-new/public/Images/customerHome.jpg');
+        background-image: url('https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');
 
     }
+
 
     .bigContainer {
         /* background-color: #00cc00; */
@@ -32,7 +33,8 @@ $descriptionList = $this->descriptionList;
     }
 
     .navbar {
-        background-color: #5f88e8 !important;
+        background-color: wheat;
+        height: 100px;
     }
 
 
@@ -73,12 +75,14 @@ $descriptionList = $this->descriptionList;
     td.navbartd {
         /* width: min-content; */
         white-space: nowrap;
-        padding-right: 10px;
+        padding-top: 30px;
+
+
     }
 
 
     a {
-        color: cornsilk
+        color: grey
     }
 
     .navbar-collapse {
@@ -100,6 +104,23 @@ $descriptionList = $this->descriptionList;
 
     .navbar-brand {
         padding-left: 10px;
+    }
+
+
+
+    select {
+        background-color: wheat;
+        border: none;
+        width: 200px;
+    }
+
+    select {
+        background-image: url('https://image.shutterstock.com/z/stock-vector-icon-of-check-box-423141364.jpg');
+
+    }
+
+    .CategoryDropDown {
+        border: none;
     }
 </style>
 <style>
@@ -253,15 +274,15 @@ $descriptionList = $this->descriptionList;
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <table class="secondNav">
                     <tr>
-                        <td><a class=" navbar-brand" href="#">SAFEBUY</a></td>
-                        <td>
+                        <td class="navbartd"><a class=" navbar-brand" href="#">SAFEBUY</a></td>
+                        <td class="navbartd">
                             <form class="form-inline my-2 my-lg-0">
                                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                             </form>
                         </td>
                         <td class="navbartd">
-                            <div>
+                            <div class="CategoryDropDown">
                                 <select name="dropDownList" id="dropdowncategory">
                                     <option value="categoryHead">Select Category</option>
                                     <?php
@@ -280,9 +301,21 @@ $descriptionList = $this->descriptionList;
                         <td class="navbartd"><a href="PayCart">Cart</a></td>
                         <td class="navbartd"><a href="getChat">Chat with us</a></td>
                         <!-- <td class="navbartd"><a href="deleteAccount">Delete My Account</a></td> -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteAccount">
+
+
+
+                        <!-- <img src="../../SafeBuy-new/public/Images/logo.png"> -->
+                        <!-- Image Here -->
+
+                        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteAccount">
                             Delete My Account
-                        </button>
+                        </button> -->
+
+                        <!-- Delete Button Hre -->
+
+
+
+
                         <td class="navbartd"><a href="logout">Log out</a></td>
                         <td class="navbartd"><input type="hidden" id="searchbar" onkeyup="search_category()" type="text" name="search"></td>
 
@@ -401,38 +434,38 @@ $descriptionList = $this->descriptionList;
                 ?>
 
             </div>
+
+        <?php   }  ?>
     </div>
-<?php   }  ?>
 
 
+    <script>
+        let dropList = document.getElementById("dropdowncategory");
+        dropList.onchange = search_category;
 
-<script>
-    let dropList = document.getElementById("dropdowncategory");
-    dropList.onchange = search_category;
+        function search_category() {
+            if (document.getElementById("dropdowncategory").value != "categoryHead") {
+                document.getElementById('searchbar').value = document.getElementById("dropdowncategory").value;
+                let input = document.getElementById('searchbar').value
+                input = input.toLowerCase();
+                let x = document.getElementsByClassName('category');
 
-    function search_category() {
-        if (document.getElementById("dropdowncategory").value != "categoryHead") {
-            document.getElementById('searchbar').value = document.getElementById("dropdowncategory").value;
-            let input = document.getElementById('searchbar').value
-            input = input.toLowerCase();
-            let x = document.getElementsByClassName('category');
-
-            for (i = 0; i < x.length; i++) {
-                if (!x[i].innerHTML.toLowerCase().includes(input)) {
-                    x[i].style.display = "none";
-                } else {
+                for (i = 0; i < x.length; i++) {
+                    if (!x[i].innerHTML.toLowerCase().includes(input)) {
+                        x[i].style.display = "none";
+                    } else {
+                        x[i].style.display = "list-item";
+                    }
+                }
+            } else {
+                document.getElementById('searchbar').value = null;
+                let x = document.getElementsByClassName('category');
+                for (i = 0; i < x.length; i++) {
                     x[i].style.display = "list-item";
                 }
             }
-        } else {
-            document.getElementById('searchbar').value = null;
-            let x = document.getElementsByClassName('category');
-            for (i = 0; i < x.length; i++) {
-                x[i].style.display = "list-item";
-            }
         }
-    }
-</script>
+    </script>
 </body>
 
 </html>
