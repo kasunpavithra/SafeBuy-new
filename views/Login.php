@@ -61,7 +61,7 @@
   }
 
   .login-reg-panel {
-    color: #B8B8B8;
+    color: #333030;
   }
 
   .login-reg-panel #label-login,
