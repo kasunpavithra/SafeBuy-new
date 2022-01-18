@@ -124,6 +124,7 @@ class GeneralStaff extends ShopStaff
             $this->view->title = $OBuyOrders[0]->getCustomerName() . "'s Buy Orders";
         if(!empty($OReturnOrders))
         $this->view->title2 = $OReturnOrders[0]->getCustomerName() . "'s Return Orders";
+        $this->view->gStaff = $this;
         $this->view->title =
             $this->view->render('GeneralStaffHome');
     }
