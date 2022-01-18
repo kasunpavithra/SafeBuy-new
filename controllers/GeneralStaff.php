@@ -46,6 +46,7 @@ class GeneralStaff extends ShopStaff
             $this->view->title = "All Buy Orders";
         }
         $this->view->filter = true;
+        $this->view->gStaff = $this;
         $this->view->render('GeneralStaffHome');
     }
 

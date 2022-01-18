@@ -24,13 +24,16 @@
   <!-- navbar starts -->
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
+      <a type="button" class="navbar-brand" data-bs-toggle="popover" <?php echo 'title="'.$this->gStaff->getStaff_id().': '.$this->gStaff->getUserName().'"'; ?>
+       data-bs-content="Some content inside the popover">
         <img src="../../../../public/Images/logo.png" alt="Avatar Logo" style="width:40px;" class="rounded-pill">
       </a>
       <ul class="navbar-nav">
         <li class="nav-item">
           <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#msgOffcanvas">
-            Messages <?php if($this->hasNewMsgs){echo '<span class="badge bg-secondary">New</span>';} ?>
+            Messages <?php if ($this->hasNewMsgs) {
+                        echo '<span class="badge bg-secondary">New</span>';
+                      } ?>
           </button>
         </li>
         <li class="nav-item">
@@ -53,15 +56,17 @@
       <div class="row">
         <div class="col-sm-12 border">
           <?php
-            foreach($this->customers as $cus){
-              echo '<div class="row">
+          foreach ($this->customers as $cus) {
+            echo '<div class="row">
               <div class="col-sm-12 border">
-              <a href="../chatView/'.$cus[0].'" class="btn btn-light" style="width: 100%;">
+              <a href="../chatView/' . $cus[0] . '" class="btn btn-light" style="width: 100%;">
               <img src="../../../../public/Images/logo.png" style="width:40px;" class="rounded-pill">' . $cus[0] . ': ' . $cus[1];
-              if($cus[2]){ echo '<span class="badge bg-secondary">New</span>';}
-              echo '</a></div>
-              </div>';
+            if ($cus[2]) {
+              echo '<span class="badge bg-secondary">New</span>';
             }
+            echo '</a></div>
+              </div>';
+          }
           ?>
         </div>
       </div>
@@ -71,7 +76,7 @@
   <!--message canvas end-->
 
   <!-- chat model start -->
- 
+
   <!-- <div class="modal" id="chatModal">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -104,7 +109,7 @@
     </div>
   </div> -->
   <!-- chat model start -->
-  
+
 
 
   <div class="container-fluid pt-5">
@@ -169,7 +174,7 @@
                       -->
           
         </div>
-        <div class="col-md-12">order made on:' . $odr->getCreateDate() . ' by <a href="../chatView/'.$odr->getCustomerId().'">' . $odr->getCustomerName() . '</a></div>
+        <div class="col-md-12">order made on:' . $odr->getCreateDate() . ' by <a href="../chatView/' . $odr->getCustomerId() . '">' . $odr->getCustomerName() . '</a></div>
       </div>
     </div>
     <div class="col-md-2">
@@ -210,7 +215,7 @@
                               -->
                   
                 </div>
-                <div class="col-md-12">order made on:' . $odr->getCreateDate() . ' by <a href="../chatView/'.$odr->getCustomerId().'">' . $odr->getCustomerName() . '</a></div>
+                <div class="col-md-12">order made on:' . $odr->getCreateDate() . ' by <a href="../chatView/' . $odr->getCustomerId() . '">' . $odr->getCustomerName() . '</a></div>
               </div>
             </div>
             <div class="col-md-2">
@@ -245,7 +250,10 @@
 
   <!-- JS -->
   <script>
-
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
+      return new bootstrap.Popover(popoverTriggerEl)
+    })
   </script>
 </body>
 
