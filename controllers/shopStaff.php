@@ -55,4 +55,12 @@ abstract class ShopStaff extends Person
     {
         return $this->staff_id;
     }
+
+    /**
+     * Get the value of userName
+     */ 
+    public function getUserName()
+    {
+        return $this->userName;
+    }
 }
