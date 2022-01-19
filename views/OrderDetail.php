@@ -34,6 +34,30 @@ $returnOrder = $this->returnOrder;
                                                                         echo "<br>";
                                                                     }
                                                                     echo "Price : " . $order->getAmount();
+                                                                    echo '<br>';
+                                                                    switch ($order->getStatus()) {
+                                                                        case '0':
+                                                                            echo "Order Status : Approving";
+                                                                            break;
+                                                                        case '1':
+                                                                            echo "Order Status : Ready for shipping";
+                                                                            break;
+                                                                        case '2':
+                                                                            echo "Order Status : Invoiced";
+                                                                            break;
+                                                                        case '3':
+                                                                            echo "Order Status : Shipping";
+                                                                            break;
+                                                                        case '4':
+                                                                            echo "Order Status : Delivered";
+                                                                            break;
+                                                                        case '5':
+                                                                            echo "Order Status : Already Delivered and Closed";
+                                                                            break;
+                                                                        default:
+                                                                            echo '<div class="alert alert-danger" role="alert">Order has been rejected</div>';
+                                                                            break;
+                                                                    }
                                                                     ?></span>
     </div>
     <div class="d-block p-2 bg-dark text-white">
@@ -186,7 +210,7 @@ $returnOrder = $this->returnOrder;
 
     <?php foreach ($items as $item) {
 
-        if ($order->getStatus() != 4) { ?>
+        if ($order->getStatus() < 4 || $order->getStatus() > 5) { ?>
 
             <?php
             if ($item instanceof OrderItem) { ?>
@@ -362,7 +386,7 @@ $returnOrder = $this->returnOrder;
 
 
     <?php  } ?>
-    <?php if ($order->getStatus() == 4 && !$datesExceed && !$isAlreadyReturn) { ?>
+    <?php if ((3 < $order->getStatus() && $order->getStatus() < 6) && !$datesExceed && !$isAlreadyReturn) { ?>
         <table class="table" id="returnTable">
             <thead>
                 <tr>

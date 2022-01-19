@@ -12,6 +12,7 @@
 <style>
     body {
         margin-top: 20px;
+        background-image: url('https://images.unsplash.com/photo-1591030434469-3d78c7b17820?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80');
     }
 </style>
 
@@ -59,7 +60,10 @@
                                     </div>
                                     <div class="col-xs-6">
                                         <div class="col-xs-6 text-right">
-                                            <h6><strong><?php echo $cartitem->getPrice(); ?> <span class="text-muted">x</span></strong></h6>
+
+                                            <h6><strong><?php
+                                                        $prc = $cartitem->getPrice() - $cartitem->getPrice() * $cartitem->getDiscount();
+                                                        echo ($prc); ?> <span class="text-muted">x</span></strong></h6>
                                         </div>
                                         <div class="col-xs-4">
                                             <input type="text" class="form-control input-sm" value="<?php echo $cartitem->getQuantity(); ?> " readonly>
@@ -85,7 +89,7 @@
                                 <?php  } ?>
                             </form>
                             <hr>
-                        <?php $amount += ($cartitem->getPrice() * $cartitem->getQuantity());
+                        <?php $amount += ($prc * $cartitem->getQuantity());
                     }
                     if ($amount > 0) {
                         ?>

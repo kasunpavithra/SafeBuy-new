@@ -317,7 +317,7 @@ class Customer extends Person
                     foreach ($cartItems as $cartItem) {
                         $this->model->updateItem($cartItem->getItem_id(),  $cartItem->getAvQuantity() - $cartItem->getQuantity(), $cartItem->getSoldQuantity() + $cartItem->getQuantity());
 
-                        $this->model->addOrderItem($orderId, $cartItem->getItem_id(), $cartItem->getQuantity(), $cartItem->getPrice(), $cartItem->getDiscount());
+                        $this->model->addOrderItem($orderId, $cartItem->getItem_id(), $cartItem->getQuantity(), $cartItem->getPrice() - $cartItem->getPrice() * $cartItem->getDiscount(), $cartItem->getDiscount());
                         if ($cartItem->getAvQuantity() == $cartItem->getQuantity()) {
                             $this->model->setItemStatus(1, $cartItem->getItem_id());
                         }
@@ -833,7 +833,6 @@ class Customer extends Person
                     session_destroy();
                     echo "<script>alert('You deleted your account successfully')</script>";
                     echo "<script>location.href='../../../login/'</script>";
-
                 }
             } else {
                 echo "<script>alert('Wrong Password')</script>";
