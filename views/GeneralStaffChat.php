@@ -17,8 +17,9 @@
 </head>
 <style>
   body {
-        background: #F45B5B;
-    }
+    background: #F45B5B;
+  }
+
   .p-5 {
     overflow: auto;
     margin-top: 100px;
@@ -105,10 +106,10 @@
   <!--message canvas end-->
 
   <!-- chat view start -->
-  <div class="container-fluid p-5">
-    <div class="row">
-      <div class="col-sm-6">
-        <form action=<?php echo '"../sendMessage/' . $this->customerId . '"' ?> method="post" id="chat">
+  <form action=<?php echo '"../sendMessage/' . $this->customerId . '"' ?> method="post" id="chat">
+    <div class="container-fluid p-5">
+      <div class="row">
+        <div class="col-sm-6">
           <div class="col-sm-12">
             <?php
             foreach ($this->chatLog->getMessageList() as $chat) {
@@ -125,12 +126,11 @@
             ?>
 
           </div>
-        </form>
+        </div>
       </div>
     </div>
-    
-  </div>
-  <div class="panel-footer">
+
+    <div class="panel-footer">
       <div class="input-group">
         <input name="msg" id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />
         <span class="input-group-btn">
@@ -138,6 +138,11 @@
         </span>
       </div>
     </div>
+  </form>
+
+
+
+
   <!-- chat view end -->
 
 
