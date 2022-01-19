@@ -262,6 +262,19 @@ class Customer extends Person
     function ReturnitemDetails()
     {
         $orderID = $_GET["orderID"];
+        $this->setShop(new Shop());
+        $orderLog = $this->shop->getOrderLog();
+        $returnorders = $orderLog->getReturnOrders();
+        foreach ($returnorders as $key => $value) {
+            if ($value->getBuyOrderId() == $orderID) {
+                $returnOrder = $value;
+                break;
+            };
+        }
+        $this->view->order = new ReturnOrder($orderID);
+        $this->view->render('ReturnOrderDetail');
+
+
     }
     function orderHistory()
     {

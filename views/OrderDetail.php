@@ -217,7 +217,7 @@ $returnOrder = $this->returnOrder;
                 <div class="container p-3 my-3 bg-primary text-white">
                     <h1><?php echo $item->getName(); ?></h1>
                     <p>Quantity : <?php echo $item->getQuantity(); ?></p>
-                    <p>Price : <?php echo $item->getPrice();  ?> X <?php echo $item->getQuantity();  ?></p>
+                    <p>Price : <?php echo $item->getSoldPrice();  ?> X <?php echo $item->getQuantity();  ?></p>
 
                 </div>
         <?php
@@ -229,7 +229,7 @@ $returnOrder = $this->returnOrder;
         <div class="container p-3 my-3 bg-dark text-white" data-toggle="modal" data-target="#id<?php echo $item->getOrderItemId(); ?>" data-whatever="@mdo">
             <h1><?php echo $item->getName() ?></h1>
             <p>Quantity : <?php echo $item->getQuantity() ?></p>
-            <p>Price : <?php echo $item->getPrice();  ?> X <?php echo $item->getQuantity();  ?></p>
+            <p>Price : <?php echo $item->getSoldPrice();  ?> X <?php echo $item->getQuantity();  ?></p>
 
             <?php
             $timezone = "Asia/Kolkata";
@@ -287,7 +287,7 @@ $returnOrder = $this->returnOrder;
                         <div class="container p-3 my-3 bg-dark text-white">
                             <input type="hidden" name="orderID" value="<?php echo $order->getOrderId(); ?>">
                             <input type="hidden" name="itemName" value="<?php echo $item->getName(); ?>">
-                            <input type="hidden" name="price" value="<?php echo $item->getPrice(); ?>">
+                            <input type="hidden" name="price" value="<?php echo $item->getSoldPrice(); ?>">
                             <input type="hidden" name="orderItemID" value="<?php echo $item->getOrderItemId(); ?>">
                             <input class="btn btn-primary" type="submit" id="addBtn<?php echo $item->getOrderItemId(); ?>" name="addReturnItem" value="Add to return Order">
                         </div>
