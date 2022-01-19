@@ -14,8 +14,8 @@ class ReturnOrderItem extends OrderItem{
         $this->loadModel("ReturnOrderItem");
         $orderItemDe = $this->model->getOrderItemDetails($rOrderItemId)[0];
 
-        $this->rOrderId = $orderItemDe['returnitemID'];
-        $this->quantity = $orderItemDe['quantity'];
+        $this->rOrderId = $orderItemDe['returnOrderID'];
+        $this->rRuantity = $orderItemDe['quantity'];
         $this->returnReview = $orderItemDe['review'];
         //$itemId = $orderItemDe['itemID'];
         parent::__construct($orderItemDe['OrderItemID']);
