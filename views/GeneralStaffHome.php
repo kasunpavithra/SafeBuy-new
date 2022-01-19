@@ -21,19 +21,19 @@
 </head>
 
 <body>
+
   <!-- navbar starts -->
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container-fluid">
-      <a type="button" class="navbar-brand" data-bs-toggle="popover" <?php echo 'title="'.$this->gStaff->getStaff_id().': '.$this->gStaff->getUserName().'"'; ?>
-       data-bs-content="Some content inside the popover">
+      <a type="button" class="navbar-brand" data-bs-toggle="popover" <?php echo 'title="' . $this->gStaff->getStaff_id() . ': ' . $this->gStaff->getUserName() . '"'; ?> data-bs-content="Some content inside the popover">
         <img src="../../../../public/Images/logo.png" alt="Avatar Logo" style="width:40px;" class="rounded-pill">
       </a>
       <ul class="navbar-nav">
         <li class="nav-item">
           <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#msgOffcanvas">
-            Messages <?php if ($this->hasNewMsgs) {
-                        echo '<span class="badge bg-secondary">New</span>';
-                      } ?>
+            Messages <?php if ($this->hasNewMsgs) { ?>
+              <span class="badge bg-secondary">New</span>
+            <?php } ?>
           </button>
         </li>
         <li class="nav-item">
@@ -59,205 +59,171 @@
       <div class="row">
         <div class="col-sm-12 border">
           <?php
-          foreach ($this->customers as $cus) {
-            echo '<div class="row">
+          foreach ($this->customers as $cus) { ?>
+            <div class="row">
               <div class="col-sm-12 border">
-              <a href="../chatView/' . $cus[0] . '" class="btn btn-light" style="width: 100%;">
-              <img src="../../../../public/Images/logo.png" style="width:40px;" class="rounded-pill">' . $cus[0] . ': ' . $cus[1];
-            if ($cus[2]) {
-              echo '<span class="badge bg-secondary">New</span>';
-            }
-            echo '</a></div>
-              </div>';
-          }
-          ?>
+                <a href="../chatView/<?php echo $cus[0] ?>" class="btn btn-light" style="width: 100%;">
+                  <img src="../../../../public/Images/logo.png" style="width:40px;" class="rounded-pill"><?php echo $cus[0]; ?>:<?php echo $cus[1];
+                                                                                                                                if ($cus[2]) { ?>
+                  <span class="badge bg-secondary">New</span>
+                <?php } ?>
+                </a>
+              </div>
+            </div> <?php
+                  }
+                    ?>
         </div>
       </div>
     </div>
   </div>
 
   <!--message canvas end-->
+  <div style="background-image: url('../../../../public/Images/order_his_stf.jpg');background-size: 100% 100%;">
 
-  <!-- chat model start -->
 
-  <!-- <div class="modal" id="chatModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
+    <div class="container-fluid p-5">
+      <?php if (isset($this->filter)) { ?>
+        <div class="row justify-content-end">
+          <div class="col-sm-3">
+            <div class="dropdown">
+              <button id="dd1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                Filter Orders<i class="fa fa-filter"></i>
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <h5 class="dropdown-header text-danger">Buy Orders</h5>
+                </li>
+                <li><a class="dropdown-item" href="-1">All</a></li>
+                <li><a class="dropdown-item" href="0">Being Approved</a></li>
+                <li><a class="dropdown-item" href="1">Ready to ship</a></li>
+                <li><a class="dropdown-item" href="2">Invoiced</a></li>
+                <li><a class="dropdown-item" href="3">Shipped</a></li>
+                <li><a class="dropdown-item" href="4">Delivered</a></li>
+                <li><a class="dropdown-item" href="5">Closed</a></li>
+                <li><a class="dropdown-item" href="6">Cancelled</a></li>
+                <li>
+                  <h5 class="dropdown-header text-danger">Return Orders</h5>
+                </li>
+                <li><a class="dropdown-item" href="12">All</a></li>
+                <li><a class="dropdown-item" href="7">Being Approved</a></li>
+                <li><a class="dropdown-item" href="8">Being Shipped</a></li>
+                <li><a class="dropdown-item" href="9">Recieved</a></li>
+                <li><a class="dropdown-item" href="10">closed</a></li>
+                <li><a class="dropdown-item" href="11">Cancelled</a></li>
 
-        
-        <div class="modal-header">
-          <h4 class="modal-title">Customer Name</h4>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-
-        
-        <div class="modal-body">
-          <form action="" method="post" id="chat">
-            <div class="col-sm-12">
-              <p class="text-end">Sender HIIII</p>
-              <p class="reciever">Reciever HIIII</p>
-              <div class="panel-footer">
-                <div class="input-group">
-                  <input id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />
-                  <span class="input-group-btn">
-                    <button type="submit"  class="btn btn-primary btn-sm" id="send">Send</button>
-                  </span>
-                </div>
-              </div>
+              </ul>
             </div>
-          </form>
-        </div>
+          </div>
+        </div> <?php } ?>
 
-      </div>
-    </div>
-  </div> -->
-  <!-- chat model start -->
-
-
-
-  <div class="container-fluid pt-5">
-    <?php if (isset($this->filter)) echo '
-    <div class="row justify-content-end">
-      <div class="col-sm-3">
-        <div class="dropdown">
-          <button id="dd1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-            Filter Orders<i class="fa fa-filter"></i>
-          </button>
-          <ul class="dropdown-menu">
-            <li>
-              <h5 class="dropdown-header text-danger">Buy Orders</h5>
-            </li>
-            <li><a class="dropdown-item" href="-1">All</a></li>
-            <li><a class="dropdown-item" href="0">Being Approved</a></li>
-            <li><a class="dropdown-item" href="1">Ready to ship</a></li>
-            <li><a class="dropdown-item" href="2">Invoiced</a></li>
-            <li><a class="dropdown-item" href="3">Shipped</a></li>
-            <li><a class="dropdown-item" href="4">Delivered</a></li>
-            <li><a class="dropdown-item" href="5">Closed</a></li>
-            <li><a class="dropdown-item" href="6">Cancelled</a></li>
-            <li>
-              <h5 class="dropdown-header text-danger">Return Orders</h5>
-            </li>
-            <li><a class="dropdown-item" href="12">All</a></li>
-            <li><a class="dropdown-item" href="7">Being Approved</a></li>
-            <li><a class="dropdown-item" href="8">Being Shipped</a></li>
-            <li><a class="dropdown-item" href="9">Recieved</a></li>
-            <li><a class="dropdown-item" href="10">closed</a></li>
-            <li><a class="dropdown-item" href="11">Cancelled</a></li>
-
-          </ul>
-        </div>
-      </div>
-    </div>'; ?>
-
-    <!--order details started-->
-    <div class="row">
-      <div class="col-md-5">
-        <h2><?php if (isset($this->title)) echo $this->title; ?></h2>
-      </div>
-    </div>
-    <?php
-    foreach ($this->orderArr as $odr) {
-      echo
-      '<div class="row">
-    <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail" /></div>
-    <div class="col-md-6">
+      <!--order details started-->
       <div class="row">
-        <div class="col-md-12">
-          <div class="col-md-12"><label class="label label-danger">';
-      if ($odr instanceof BuyOrder) {
-        echo BuyOrder::STATES[$odr->getStatus()];
-      } else {
-        echo ReturnOrder::STATES[$odr->getStatus()];
-      }
-      echo '</label></div>
-          <span><strong>Order ID: </strong></span> <span class="label label-info">' . $odr->getOrderId() . '</span><br />
-          cost: $' . $odr->getAmount() . '<br />
-          <!-- add code to disable the accept reject buttons once the order is accepted
-                      -->
-          
+        <div class="col-md-5">
+          <h2><?php if (isset($this->title)) echo $this->title; ?></h2>
         </div>
-        <div class="col-md-12">order made on:' . $odr->getCreateDate() . ' by <a href="../chatView/' . $odr->getCustomerId() . '">' . $odr->getCustomerName() . '</a></div>
       </div>
-    </div>
-    <div class="col-md-2">
-        <a href="../';
-      if ($odr instanceof BuyOrder) {
-        echo "viewBuyOrder/";
-      } else {
-        echo "viewReturnOrder/";
-      }
-      echo  $odr->getOrderId() . '" class="btn btn-primary">View</a>
-      </div>
-  </div>';
-    }
+      <?php
+      foreach ($this->orderArr as $odr) { ?>
+        <div class="row">
+          <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail" /></div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-md-12"><label class="label label-danger"> <?php
+                                                                          if ($odr instanceof BuyOrder) {
+                                                                            echo BuyOrder::STATES[$odr->getStatus()];
+                                                                          } else {
+                                                                            echo ReturnOrder::STATES[$odr->getStatus()];
+                                                                          } ?>
+                  </label></div>
+                <span><strong>Order ID: </strong></span> <span class="label label-info"><?php echo $odr->getOrderId(); ?></span><br />
+                cost: $<?php echo $odr->getAmount(); ?><br />
+                <!-- add code to disable the accept reject buttons once the order is accepted
+                      -->
 
-    if (isset($this->ROrderArr) && !empty($this->ROrderArr)) {
-      echo '<div class="row">
-              <div class="col-md-6">
-                <h2>' . $this->title2 . '</h2>
               </div>
-            </div>';
-      foreach ($this->ROrderArr as $odr) {
-        echo
-        '<div class="row">
-            <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail" /></div>
-            <div class="col-md-6">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="col-md-12"><label class="label label-danger">';
-        if ($odr instanceof BuyOrder) {
-          echo BuyOrder::STATES[$odr->getStatus()];
-        } else {
-          echo ReturnOrder::STATES[$odr->getStatus()];
-        }
-        echo '</label></div>
-                  <span class="danger"><strong>Return Order ID: </strong></span> <span class="label label-info">' . $odr->getOrderId() . '</span><br />
-                  cost: $' . $odr->getAmount() . '<br />
-                  <!-- add code to disable the accept reject buttons once the order is accepted
-                              -->
-                  
-                </div>
-                <div class="col-md-12">order made on:' . $odr->getCreateDate() . ' by <a href="../chatView/' . $odr->getCustomerId() . '">' . $odr->getCustomerName() . '</a></div>
-              </div>
+              <div class="col-md-12">order made on:<?php echo $odr->getCreateDate() ?> by <a href="../chatView/<?php echo $odr->getCustomerId() ?>"><?php echo $odr->getCustomerName() ?></a></div>
             </div>
-            <div class="col-md-2">
-                <a href="../';
+          </div>
+          <div class="col-md-2">
+            <a href="../
+        <?php
         if ($odr instanceof BuyOrder) {
           echo "viewBuyOrder/";
         } else {
           echo "viewReturnOrder/";
         }
-        echo  $odr->getOrderId() . '" class="btn btn-primary">View</a>
-              </div>
-          </div>';
-      }
-    }
-    ?>
+        echo  $odr->getOrderId() ?>" class="btn btn-primary">View</a>
+          </div>
+        </div>
+      <?php }
 
+      if (isset($this->ROrderArr) && !empty($this->ROrderArr)) { ?>
+        <div class="row">
+          <div class="col-md-6">
+            <h2><?php echo $this->title2 ?></h2>
+          </div>
+        </div>
+        <?php
+        foreach ($this->ROrderArr as $odr) { ?>
 
-    <!-- Footer strat -->
-    <div class="fixed-bottom">
-      <footer class="footer ">
-        <div class="container foo-top">
           <div class="row">
-
-            <div class="container">
-              <p class="copyright">Copyright © 2019 <a href="#">themeies.com</a>. All rights reserved.</p>
+            <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail" /></div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="col-md-12"><label class="label label-danger">
+                      <?php
+                      if ($odr instanceof BuyOrder) {
+                        echo BuyOrder::STATES[$odr->getStatus()];
+                      } else {
+                        echo ReturnOrder::STATES[$odr->getStatus()];
+                      }
+                      ?></label></div>
+                  <span class="danger"><strong>Return Order ID: </strong></span> <span class="label label-info"><?php echo $odr->getOrderId() ?></span><br />
+                  cost: $<?php echo $odr->getAmount() ?><br />
+                </div>
+                <div class="col-md-12">order made on:<?php echo $odr->getCreateDate() ?> by <a href="../chatView/<?php echo $odr->getCustomerId() ?>"><?php echo $odr->getCustomerName() ?></a></div>
+              </div>
             </div>
-      </footer>
+            <div class="col-md-2">
+              <a href="../
+          <?php
+          if ($odr instanceof BuyOrder) {
+            echo "viewBuyOrder/";
+          } else {
+            echo "viewReturnOrder/";
+          }
+          echo  $odr->getOrderId(); ?>" class="btn btn-primary">View</a>
+            </div>
+          </div> <?php
+                }
+              } ?>
+
+
+      <!-- Footer strat -->
+      <div class="fixed-bottom">
+        <footer class="footer ">
+          <div class="container foo-top">
+            <div class="row">
+
+              <div class="container">
+                <p class="copyright">Copyright © 2019 <a href="#">themeies.com</a>. All rights reserved.</p>
+              </div>
+        </footer>
+      </div>
+      <!-- Footer end -->
+
     </div>
-    <!-- Footer end -->
 
-  </div>
+    <!-- JS -->
+    <script>
+      var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+      var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl)
+      })
+    </script>
 
-  <!-- JS -->
-  <script>
-    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-    var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
-      return new bootstrap.Popover(popoverTriggerEl)
-    })
-  </script>
 </body>
 
 </html>
