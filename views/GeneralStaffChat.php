@@ -15,6 +15,39 @@
   <meta name="robots" content="noindex, nofollow" />
   <title>Chat</title>
 </head>
+<style>
+  body {
+        background: #F45B5B;
+    }
+  .p-5 {
+    overflow: auto;
+    margin-top: 100px;
+    background-color: #ffffffdc;
+    backdrop-filter: blur(10px);
+    width: 75%;
+    height: 400px;
+    /* margin: 7em auto; */
+    border-radius: 1.5em;
+    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+  }
+
+  .input-group {
+    /* align-items: flex-end; */
+    /* margin: 40% 10px 10px 10px; */
+    width: 75%;
+    margin: 0 auto;
+  }
+
+  .btn-sm {
+    /* width: 100%; */
+    height: 100%;
+  }
+
+  .col-sm-6 {
+    width: 100%;
+
+  }
+</style>
 
 <body>
 
@@ -27,7 +60,9 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#msgOffcanvas">
-            Messages <?php if($this->hasNewMsgs){echo '<span class="badge bg-secondary">New</span>';} ?>
+            Messages <?php if ($this->hasNewMsgs) {
+                        echo '<span class="badge bg-secondary">New</span>';
+                      } ?>
           </button>
         </li>
         <li class="nav-item">
@@ -55,8 +90,10 @@
               <div class="col-sm-12 border">
               <a href="../chatView/' . $cus[0] . '" class="btn btn-light" style="width: 100%;">
               <img src="../../../../public/Images/logo.png" style="width:40px;" class="rounded-pill">' . $cus[0] . ': ' . $cus[1];
-              if($cus[2]){ echo '<span class="badge bg-secondary">New</span>';}
-              echo '</a></div>
+            if ($cus[2]) {
+              echo '<span class="badge bg-secondary">New</span>';
+            }
+            echo '</a></div>
               </div>';
           }
           ?>
@@ -71,41 +108,41 @@
   <div class="container-fluid p-5">
     <div class="row">
       <div class="col-sm-6">
-        <form action=<?php echo '"../sendMessage/'.$this->customerId.'"' ?> method="post" id="chat">
+        <form action=<?php echo '"../sendMessage/' . $this->customerId . '"' ?> method="post" id="chat">
           <div class="col-sm-12">
             <?php
-              foreach($this->chatLog->getMessageList() as $chat){
-                if($chat->getStatus() ==0){
-                  if(!($chat->getSeenStatStaff())){
-                    echo '<p><b>'.$chat->getMessage().'</b></p>';
-                  }else{
-                    echo '<p>'.$chat->getMessage().'</p>';
-                  }
-                  
+            foreach ($this->chatLog->getMessageList() as $chat) {
+              if ($chat->getStatus() == 0) {
+                if (!($chat->getSeenStatStaff())) {
+                  echo '<p><b>' . $chat->getMessage() . '</b></p>';
+                } else {
+                  echo '<p>' . $chat->getMessage() . '</p>';
                 }
-                else{
-                  echo '<p class="text-end">'.$chat->getMessage().'</p>';
-                }
+              } else {
+                echo '<p class="text-end">' . $chat->getMessage() . '</p>';
               }
+            }
             ?>
-            <div class="panel-footer">
-              <div class="input-group">
-                <input name="msg" id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />
-                <span class="input-group-btn">
-                  <button type="submit" class="btn btn-primary btn-sm" id="send">Send</button>
-                </span>
-              </div>
-            </div>
+
           </div>
         </form>
       </div>
     </div>
+    
   </div>
+  <div class="panel-footer">
+      <div class="input-group">
+        <input name="msg" id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-primary btn-sm" id="send">Send</button>
+        </span>
+      </div>
+    </div>
   <!-- chat view end -->
 
 
   <!-- Footer strat -->
-  <div class="fixed-bottom">
+  <!-- <div class="fixed-bottom">
     <footer class="footer ">
       <div class="container foo-top">
         <div class="row">
@@ -114,7 +151,7 @@
             <p class="copyright">Copyright © 2019 <a href="#">themeies.com</a>. All rights reserved.</p>
           </div>
     </footer>
-  </div>
+  </div> -->
   <!-- Footer end -->
 
   </div>
