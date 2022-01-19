@@ -262,7 +262,6 @@ class Customer extends Person
     function ReturnitemDetails()
     {
         $orderID = $_GET["orderID"];
-        $this->setShop(new Shop());
         $this->view->order = new ReturnOrder($orderID);
         $this->view->render('ReturnOrderDetail');
     }
