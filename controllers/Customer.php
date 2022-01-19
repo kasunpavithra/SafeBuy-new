@@ -170,7 +170,19 @@ class Customer extends Person
     {
         $this->checkLogin();
 
+        $buyOrders = $this->model->getBuyOrderDetails($this->customer_id);
+        $orderIDs = array();
+        foreach ($buyOrders as $buyOrder) {
+
+            array_push($orderIDs, $buyOrder[0]);
+        }
+        if (!in_array($_GET["orderID"], $orderIDs)) {
+            header("Location:orderHistory");
+        }
+
+
         $this->view->order_Id = $_GET["orderID"];
+
         $order = new BuyOrder($_GET["orderID"]);
         $this->view->stat_no  = $order->getStatus();
         $this->view->type = "BuyOrder";
@@ -179,7 +191,15 @@ class Customer extends Person
     function ReturnOrderStatus()
     {
         $this->checkLogin();
+        $returnOrders = $this->model->getReturnOrderDetails($this->customer_id);
+        $orderIDs = array();
+        foreach ($returnOrders as $returnOrder) {
 
+            array_push($orderIDs, $returnOrder[0]);
+        }
+        if (!in_array($_GET["orderID"], $orderIDs)) {
+            header("Location:orderHistory");
+        }
         $this->view->order_Id = $_GET["orderID"];
         $order = new ReturnOrder($_GET["orderID"]);
         $this->view->stat_no  = $order->getStatus();
@@ -538,15 +558,13 @@ class Customer extends Person
                 } else {
                     echo "<script>alert('Please upload an image file here')</script>";
                     echo "<script>location.href='customerProfile'</script>";
-
                 }
             } else {
                 echo "<script>alert('Please upload an image file here')</script>";
                 echo "<script>location.href='customerProfile'</script>";
-
             }
         }
-
+        echo "<script>location.href='customerProfile'</script>";
     }
 
     function saveEmail()
@@ -566,10 +584,11 @@ class Customer extends Person
             } else {
                 echo "<script>alert('Invalid Email')</script>";
                 echo "<script>location.href='customerProfile'</script>";
-
             }
             $this->index();
         }
+        echo "<script>location.href='customerProfile'</script>";
+
     }
 
     function savePassword()
@@ -675,6 +694,8 @@ class Customer extends Person
                 return;
             }
         }
+        echo "<script>location.href='Dashboard'</script>";
+
     }
 
     function recieveNotification($nid, $msg)
