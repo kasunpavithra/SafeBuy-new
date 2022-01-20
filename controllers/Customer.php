@@ -439,7 +439,6 @@ class Customer extends Person
     }
     function setCart($id)
     {
-        $this->checkLogin();
 
         $cart =  $this->model->setCart($id);
 
