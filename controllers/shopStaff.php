@@ -12,13 +12,10 @@ abstract class ShopStaff extends Person
     private $type;
     protected $status;
 
- 
+
     function __construct($id)
     {
         parent::__construct();
-        // if(!isset($_SESSION["staffuserID"])){
-        //     $this->logout();
-        // }
         $this->setDetails($id);
     }
     function index()
@@ -27,18 +24,21 @@ abstract class ShopStaff extends Person
 
     function setDetails($id)
     {
-        $this->loadModel("ShopStaff");
-        $details = $this->model->getDetails($id)[0];
-        $this->staff_id = $details["Staff_id"];
-        $this->name = $details["Name"];
-        $this->mobile_no = $details["Mobile_no"];
-        $this->userName = $details["Username"];
-        $this->email = $details["Email"];
-        $this->profile_Pic = $details["Profile_pic"];
-        $this->type = $details["Type"];
-        $this->status = $details["status"];
-        // echo $this->userName;
-        // echo $this->mobile_no;
+        if (is_numeric($id)) {
+            $this->loadModel("ShopStaff");
+            $details = $this->model->getDetails($id)[0];
+            $this->staff_id = $details["Staff_id"];
+            $this->name = $details["Name"];
+            $this->mobile_no = $details["Mobile_no"];
+            $this->userName = $details["Username"];
+            $this->email = $details["Email"];
+            $this->profile_Pic = $details["Profile_pic"];
+            $this->type = $details["Type"];
+            $this->status = $details["status"];
+        }
+        else{
+            header("Location: ../../../stafflogin/");
+        }
     }
     function logout()
     {
@@ -50,7 +50,7 @@ abstract class ShopStaff extends Person
 
     /**
      * Get the value of staff_id
-     */ 
+     */
     public function getStaff_id()
     {
         return $this->staff_id;
@@ -58,7 +58,7 @@ abstract class ShopStaff extends Person
 
     /**
      * Get the value of userName
-     */ 
+     */
     public function getUserName()
     {
         return $this->userName;
