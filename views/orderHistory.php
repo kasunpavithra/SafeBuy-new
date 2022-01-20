@@ -74,7 +74,9 @@ $returnOrders = $this->returnOrders;
 
 <body>
 
+
     <div class="container">
+        <a class=" navbar-brand" href="dashboard">SAFEBUY</a>
         <h1> Buy Orders
         </h1>
         <?php
@@ -134,11 +136,11 @@ $returnOrders = $this->returnOrders;
                                 <input class="btn btn-success" type="submit" value="See More Detail and Rate Items,Order" name="">
 
                             </form>
-                            <form action="ReturnOrderStatus" method="GET">
+                            <!-- <form action="ReturnOrderStatus" method="GET">
                                 <input type="hidden" name="orderID" value="<?php echo $returnOrder[0]; ?>">
 
                                 <input class="btn btn-success" type="submit" value="See order Status" name="">
-                            </form>
+                            </form> -->
 
 
                         </a>

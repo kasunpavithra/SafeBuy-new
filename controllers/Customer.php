@@ -670,7 +670,7 @@ class Customer extends Person
     function logout()
     {
         if (isset($_SESSION['userID'])) {
-            session_destroy();
+            unset($_SESSION['userID']);
         }
         header("Location: ../../../login/");
     }
@@ -955,8 +955,8 @@ class Customer extends Person
     {
         if (isset($_POST["delAcc"])) {
             $pass = $_POST["password"];
-            if(password_verify($pass, $this->model->getPassword($this->customer_id))){
-            // if ($pass == password_verify($this->model->getPassword($this->customer_id)) {
+            if (password_verify($pass, $this->model->getPassword($this->customer_id))) {
+                // if ($pass == password_verify($this->model->getPassword($this->customer_id)) {
                 $delete =  $this->model->setAsDeletedAccount($this->customer_id);
                 if ($delete) {
                     session_destroy();

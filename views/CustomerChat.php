@@ -46,8 +46,9 @@
 
 <body>
     <!-- chat view start -->
-    <form action="customerSendMessage" method="post" id="chat">
+    <a class=" navbar-brand" href="dashboard">SAFEBUY</a>
 
+    <form action="customerSendMessage" method="post" id="chat">
         <div class="container-fluid p-5">
             <div class="row">
                 <div class="col-sm-6">

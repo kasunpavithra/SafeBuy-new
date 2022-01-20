@@ -38,19 +38,14 @@ $order = $this->order;
                                                                             echo "Order Status : Ready for shipping";
                                                                             break;
                                                                         case '2':
-                                                                            echo "Order Status : Invoiced";
+                                                                            echo "Order Status : Recieved";
                                                                             break;
                                                                         case '3':
-                                                                            echo "Order Status : Shipping";
+                                                                            echo "Order Status : Closed";
                                                                             break;
-                                                                        case '4':
-                                                                            echo "Order Status : Delivered";
-                                                                            break;
-                                                                        case '5':
-                                                                            echo "Order Status : Already Delivered and Closed";
-                                                                            break;
+                                                                        
                                                                         default:
-                                                                            echo '<div class="alert alert-danger" role="alert">Order has been rejected</div>';
+                                                                            echo '<div class="alert alert-danger" role="alert">You can not return the order. It has been rejected</div>';
                                                                             break;
                                                                     }
                                                                     ?></span>

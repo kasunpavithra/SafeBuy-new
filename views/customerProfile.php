@@ -19,10 +19,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-    <!-- <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet"> -->
-    <!-- <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
     <link rel="stylesheet" href="../public/CSS/customer_profile.css">
     <link rel="stylesheet" href="../public/CSS/notify.css">
     <!-- <link rel="stylesheet" href="../public/CSS/CreditCard.css"> -->
@@ -36,10 +36,12 @@
 
         .titleContainer {
             margin-top: 5px;
-            background-color: #FF9680;
+            /* background-color: #FF9680; */
             border-bottom-left-radius: 15px;
             border-bottom-right-radius: 15px;
-            border-bottom: #FF9680;
+            /* border-bottom: #FF9677; */
+            background-image: url('https://images.unsplash.com/photo-1634973357973-f2ed2657db3c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80');
+
         }
 
         body {
@@ -95,15 +97,18 @@
         body {
             background: #F45B5B;
             color: black;
+            background-image: url('https://images.unsplash.com/photo-1576072446584-4955dfe17b86?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');
+
         }
 
         nav {
             display: flex;
             align-items: center;
-            background: #4ecc4a;
+            /* background: #4ecc4a; */
             height: 60px;
             position: relative;
-            border-bottom: 1px solid #495057
+            /* border-bottom: 1px solid #495057; */
+            /* background-image: url('https://images.unsplash.com/photo-1634973357973-f2ed2657db3c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80'); */
         }
 
         .icon {
@@ -308,66 +313,73 @@
                 </td>
             </tr>
         </table>
-    </div>\
-
-    </div>
 
 
-    <nav>
-        <div class="logo"> STAY HOME AND SHOP ONLINE </div>
-
-        <!-- Here for handle notifications-->
 
 
-        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-            Inbox
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                <?php
-                $count = 0;
-                foreach ($this->notifications as $notification) {
-                    if ($notification->getSeen() == 0) {
-                        $count++;
-                    }
-                }
-                if ($count > 0) {
-                    echo $count . "+";
-                }
+
+        <nav>
+            <div class="logo"> STAY HOME AND SHOP ONLINE </div>
+
+            <!-- Here for handle notifications-->
+
+            <div>
+                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                    Inbox
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        <?php
+                        $count = 0;
+                        foreach ($this->notifications as $notification) {
+                            if ($notification->getSeen() == 0) {
+                                $count++;
+                            }
+                        }
+                        if ($count > 0) {
+                            echo $count . "+";
+                        }
 
 
-                ?>
-                <span class="visually-hidden">unseen notifications</span>
-            </span>
-        </button>
-
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-            <div class="offcanvas-header">
-                <h5 id="offcanvasRightLabel">Notifications Unseen</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        ?>
+                        <span class="visually-hidden">unseen notifications</span>
+                    </span>
+                </button>
             </div>
-            <div class="offcanvas-body">
 
-                <?php
-                foreach ($this->notifications as $notification) {
-                    if ($notification->getSeen() == 0) {
-                ?>
-                        <form action="markAsSeen" method="POST" id="frm<?php echo $notification->getCustomerNotificationID(); ?>" onclick="this.submit()">
-                            <div class="notifications-item"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmIpbf6JIEqeYtASCuaE26N59BuJ52RPPycQ&usqp=CAU" alt="img" >
 
-                                <div class="text">
-                                    <h4><?php echo $notification->getCustomerNotificationID(); ?></h4>
-                                    <p><?php echo $notification->getDescription(); ?></p>
+
+
+
+
+
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-header">
+                    <h5 id="offcanvasRightLabel">Notifications Unseen</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+
+                    <?php
+                    foreach ($this->notifications as $notification) {
+                        if ($notification->getSeen() == 0) {
+                    ?>
+                            <form action="markAsSeen" method="POST" id="frm<?php echo $notification->getCustomerNotificationID(); ?>" onclick="this.submit()">
+                                <div class="notifications-item"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmIpbf6JIEqeYtASCuaE26N59BuJ52RPPycQ&usqp=CAU" alt="img">
+
+                                    <div class="text">
+                                        <h4><?php echo $notification->getCustomerNotificationID(); ?></h4>
+                                        <p><?php echo $notification->getDescription(); ?></p>
+                                    </div>
                                 </div>
-                            </div>
-                            <input type="hidden" name="notID" value="<?php echo $notification->getCustomerNotificationID(); ?>" id="btn<?php echo $notification->getCustomerNotificationID() ?>">
-                        </form>
-                <?php   }
-                }  ?>
+                                <input type="hidden" name="notID" value="<?php echo $notification->getCustomerNotificationID(); ?>" id="btn<?php echo $notification->getCustomerNotificationID() ?>">
+                            </form>
+                    <?php   }
+                    }  ?>
+                </div>
             </div>
-        </div>
 
 
-    </nav>
-
+        </nav>
+    </div>
 
     <!-- <div id=" sample">
                             <a class="list-group-item list-group-item-action active" href="#Overview">Overview</a>
@@ -455,7 +467,7 @@
             <div class="card text-center" id="Settings">
                 <div class="card-header">Account</div>
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <form action="saveImage" method="POST" enctype="multipart/form-data">
 
                             <div class="card EmailNotifications">
@@ -534,7 +546,7 @@
 
 
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Security Information</h5>
@@ -547,16 +559,6 @@
                     </div>
 
 
-
-
-                    <div class="col-sm-4">
-                        <div class="card EmailNotifications">
-                            <div class="card-body ">
-                                <h5 class="card-title">Activate email notifications</h5>
-                                <input type="checkbox" checked data-toggle="toggle" data-on="Enabled" data-off="Disabled">
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
             </div>

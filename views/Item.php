@@ -29,6 +29,12 @@ $ratingList = $this->item->getRatingList();
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <style>
+    td.navbartd {
+        /* width: min-content; */
+        /* white-space: nowrap; */
+        padding-left: 100px;
+    }
+
     * {
         margin: 10px;
         padding: 0
@@ -183,6 +189,61 @@ $ratingList = $this->item->getRatingList();
 </style>
 
 <body>
+    <div id="topNavBar">
+      
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+            <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span> -->
+
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <table class="secondNav">
+                    <tr>
+                        <td class="navbartd"><a class=" navbar-brand" href="dashboard">SAFEBUY</a></td>
+
+                        <td class="navbartd hello"><a href="customerProfile">My Profile</a></td>
+                        <td class="navbartd"><a href="orderHistory">Order History</a></td>
+                        <td class="navbartd"><a href="PayCart">Cart</a></td>
+                        <td class="navbartd"><a href="getChat">Chat with us</a></td>
+
+
+
+
+                        <td class="navbartd"><a href="logout">Log out</a></td>
+                        <td class="navbartd"><input type="hidden" id="searchbar" onkeyup="search_category()" type="text" name="search"></td>
+
+                    </tr>
+                </table>
+
+                <div class="modal fade" id="deleteAccount" tabindex="-1" role="dialog" aria-labelledby="deleteAccount" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteAccount">Confirmation Delete</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <form action="deleteAccount" method="post">
+                                    <div class="form-group">
+                                        <label for="password" class="col-form-label">Input the password:</label>
+                                        <input type="password" class="form-control" name="password" name="password" required>
+                                    </div>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                    <button type="submit" name="delAcc" class="btn btn-primary">Confirm</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+    </div>
+
     <div class="fluid-container">
         <div class="fluid-container">
             <div class="row d-flex justify-content-center">
