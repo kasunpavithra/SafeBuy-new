@@ -21,7 +21,7 @@ class Login_Model extends Model
       $result = $this->db->runQuery($query);
       if ($result) {
 
-        if ($result[0]['Password'] === $password && $result[0]["account_availability"] == 0) {
+        if (password_verify($password, $result[0]['Password']) && $result[0]["account_availability"] == 0) {
           return $result[0]['Customer_id'];
         }
       }
