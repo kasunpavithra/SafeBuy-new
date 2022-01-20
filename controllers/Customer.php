@@ -33,12 +33,16 @@ class Customer extends Person
     }
     function checkLogin()
     {
-        if (!isset($_SESSION["userID"])) {
-            $this->logout();
+        if (!isset($_SESSION['userID']) || $this->customer_id != $_SESSION['userID']) {
+
+            header("Location: ../../../login/");
+            die();
         }
     }
     function getChat()
     {
+        $this->checkLogin();
+
         $chatLog =  ChatLog::getInstance($this->customer_id);
         $this->view->chatLog = $chatLog;
         $this->view->render("CustomerChat");
@@ -48,6 +52,8 @@ class Customer extends Person
 
     function customerSendMessage()
     {
+        $this->checkLogin();
+
         if (isset($_POST["msg"])) {
             $message = $_POST["msg"];
             if ($this->model->addMessage($this->customer_id, $message)) {
@@ -76,6 +82,8 @@ class Customer extends Person
     }
     function deleteItem()
     {
+        $this->checkLogin();
+
         if (isset($_POST["deleteBtn"])) {
             $itemID = $_POST["itemID"];
             $isdelete = $this->model->deleteCartItem($itemID);
@@ -86,6 +94,8 @@ class Customer extends Person
     }
     function updateShopRatingViews()
     {
+        $this->checkLogin();
+
         if (isset($_POST["submitOrderRatings"])) {
             $orderID = $_POST["orderID"];
             $rate = $_POST["rate"];
@@ -95,10 +105,14 @@ class Customer extends Person
     }
     function  placeReturnOrder()
     {
+        $this->checkLogin();
+
         header("Location:orderHistory");
     }
     function returnOrderPlace()
     {
+        $this->checkLogin();
+
         $reason = $_POST["reason"];
         $quantity = $_POST["quantity"];
         $orderID = $_POST["orderID"];
@@ -126,10 +140,14 @@ class Customer extends Person
     }
     function addReturnOrder($customer_id, $price, $orderID)
     {
+        $this->checkLogin();
+
         $this->model->createReturnOrder($customer_id, $price, $orderID);
     }
     function updateRatingsViews()
     {
+        $this->checkLogin();
+
         $itemID = $_POST["orderItemID"];
         $rate = $review = NULL;
         if (isset($_POST["submitrateview"])) {
@@ -150,7 +168,21 @@ class Customer extends Person
     }
     function OrderStatus()
     {
+        $this->checkLogin();
+
+        $buyOrders = $this->model->getBuyOrderDetails($this->customer_id);
+        $orderIDs = array();
+        foreach ($buyOrders as $buyOrder) {
+
+            array_push($orderIDs, $buyOrder[0]);
+        }
+        if (!in_array($_GET["orderID"], $orderIDs)) {
+            header("Location:orderHistory");
+        }
+
+
         $this->view->order_Id = $_GET["orderID"];
+
         $order = new BuyOrder($_GET["orderID"]);
         $this->view->stat_no  = $order->getStatus();
         $this->view->type = "BuyOrder";
@@ -158,6 +190,16 @@ class Customer extends Person
     }
     function ReturnOrderStatus()
     {
+        $this->checkLogin();
+        $returnOrders = $this->model->getReturnOrderDetails($this->customer_id);
+        $orderIDs = array();
+        foreach ($returnOrders as $returnOrder) {
+
+            array_push($orderIDs, $returnOrder[0]);
+        }
+        if (!in_array($_GET["orderID"], $orderIDs)) {
+            header("Location:orderHistory");
+        }
         $this->view->order_Id = $_GET["orderID"];
         $order = new ReturnOrder($_GET["orderID"]);
         $this->view->stat_no  = $order->getStatus();
@@ -166,6 +208,8 @@ class Customer extends Person
     }
     function categoryDetail()
     {
+        $this->checkLogin();
+
         $categoryID = $_GET["categoryID"];
         $menu = new Menu();
         $items = $menu->getItems();
@@ -175,8 +219,12 @@ class Customer extends Person
                 array_push($categoryItems, $item);
             }
         }
-        $this->view->categoryItems = $categoryItems;
-        $this->view->render("CategoryItems");
+        if (!empty($categoryItems)) {
+            $this->view->categoryItems = $categoryItems;
+            $this->view->render("CategoryItems");
+        } else {
+            echo "Category Not found 404";
+        }
     }
     function rateItem()
     {
@@ -206,6 +254,7 @@ class Customer extends Person
     }
     function rateShop()
     {
+        $this->checkLogin();
 
         $orderID = $_POST["orderID"];
         $rate = $_POST["orderrate"];
@@ -216,6 +265,8 @@ class Customer extends Person
     }
     function reviewItem()
     {
+        $this->checkLogin();
+
         $itemID = $_POST["itemID"];
         $review = $_POST["itemReview"];
 
@@ -228,32 +279,49 @@ class Customer extends Person
     }
     function itemDetails()
     {
+        $this->checkLogin();
+
         $orderID = $_GET["orderID"];
-        $order = NULL;
-        $this->setShop(new Shop());
-        $orderLog = $this->shop->getOrderLog();
+        // $order = NULL;
+        // $this->setShop(new Shop());
+        // $orderLog = $this->shop->getOrderLog();
         // $buyorders = $orderLog->getBuyOrders();
         // foreach ($buyorders as $key => $value) {
         //     if ($value->getCustomerId() == $this->customer_id) {
         //         array_push($this->buyorders, $buyorders[$key]);
         //     };
         // }
-        $returnorders = $orderLog->getReturnOrders();
-        $returnOrder = NULL;
+        // $returnorders = $orderLog->getReturnOrders();
+        // $returnOrder = NULL;
 
-        foreach ($returnorders as $key => $value) {
-            if ($value->getBuyOrderId() == $orderID) {
-                $returnOrder = $value;
-                break;
-            };
-        }
+        // foreach ($returnorders as $key => $value) {
+        //     if ($value->getBuyOrderId() == $orderID) {
+        //         $returnOrder = $value;
+        //         break;
+        //     };
+        // }
         // foreach ($buyorders as $buyorder) {
         //     if ($buyorder->getOrderId() == $orderID) {
         //         $order = $buyorder;
         //         break;
         //     }
         // }
+        $buyOrders = $this->model->getBuyOrderDetails($this->customer_id);
+        $orderIDs = array();
+        foreach ($buyOrders as $buyOrder) {
 
+            array_push($orderIDs, $buyOrder[0]);
+        }
+        if (!in_array($orderID, $orderIDs)) {
+            header("Location:orderHistory");
+        }
+        $returnOrder = array();
+        $returnOrderSet = $this->model->getReturnOrderDetails($this->customer_id);
+        foreach ($returnOrderSet as $returnOrderTemp) {
+            if ($returnOrderTemp['buyOrderID'] == $orderID) {
+                $returnOrder = $returnOrderTemp;
+            }
+        }
         $this->view->order = new BuyOrder($orderID);
         $this->view->returnOrder = $returnOrder;
         $this->view->render("OrderDetail");
@@ -261,34 +329,59 @@ class Customer extends Person
 
     function ReturnitemDetails()
     {
+        $this->checkLogin();
+
         $orderID = $_GET["orderID"];
+        $returnOrderSet = $this->model->getReturnOrderDetails($this->customer_id);
+        $orderIDs = array();
+        foreach ($returnOrderSet as $returnOrder) {
+
+            array_push($orderIDs, $returnOrder[0]);
+        }
+        if (!in_array($orderID, $orderIDs)) {
+            header("Location:orderHistory");
+        }
+
+        $this->view->order = new ReturnOrder($orderID);
+        $this->view->render('ReturnOrderDetail');
     }
     function orderHistory()
     {
-        $this->setShop(new Shop());
-        $orderLog = $this->shop->getOrderLog();
-        $buyorders = $orderLog->getBuyOrders();
-        foreach ($buyorders as $key => $value) {
-            if ($value->getCustomerId() == $this->customer_id) {
-                array_push($this->buyorders, $buyorders[$key]);
-                // echo $value->getCustomerName();
-                // echo "<br>";
-            };
-        }
-        $returnorders = $orderLog->getReturnOrders();
-        foreach ($returnorders as $key => $value) {
-            if ($value->getCustomerId() == $this->customer_id) {
-                array_push($this->returnorders, $returnorders[$key]);
-                // echo $value->getCustomerName();
-                // echo "<br>";
-            };
-        }
-        $this->view->buyOrders = $this->buyorders;
-        $this->view->returnOrders = $this->returnorders;
+        $this->checkLogin();
+
+        $orderDetails = $this->model->getBuyOrderDetails($this->customer_id);
+        $returnOrderDetails = $this->model->getReturnOrderDetails($this->customer_id);
+        // foreach ($orderDetails as $detail) {
+        //     print_r($detail);
+        //     echo "<br>";
+        // }
+        // $this->setShop(new Shop());
+        // $orderLog = $this->shop->getOrderLog();
+        // $buyorders = $orderLog->getBuyOrders();
+        // foreach ($buyorders as $key => $value) {
+        //     if ($value->getCustomerId() == $this->customer_id) {
+        //         array_push($this->buyorders, $buyorders[$key]);
+        //         // echo $value->getCustomerName();
+        //         // echo "<br>";
+        //     };
+        // }
+        // $returnorders = $orderLog->getReturnOrders();
+        // foreach ($returnorders as $key => $value) {
+        //     if ($value->getCustomerId() == $this->customer_id) {
+        //         array_push($this->returnorders, $returnorders[$key]);
+        //         // echo $value->getCustomerName();
+        //         // echo "<br>";
+        //     };
+        // }
+        // $this->view->buyOrders = $this->buyorders;
+        $this->view->buyOrders = $orderDetails;
+        $this->view->returnOrders = $returnOrderDetails;
         $this->view->render("orderHistory");
     }
     function item()
     {
+        $this->checkLogin();
+
         $itemID = $_GET["itemID"];
         $menu = new Menu();
         $items = $menu->getItems();
@@ -299,9 +392,12 @@ class Customer extends Person
                 break;
             }
         }
+        echo "Item Not found 404";
     }
     function placeOrder()
     {
+        $this->checkLogin();
+
         if (isset($_POST["placeOrder"])) {
             $amount = $_POST["amount"];
             $paymentMethod = $_POST["paymentmethod"];
@@ -335,6 +431,8 @@ class Customer extends Person
     }
     function setCart($id)
     {
+        $this->checkLogin();
+
         $cart =  $this->model->setCart($id);
 
         if (empty($cart)) {
@@ -345,6 +443,8 @@ class Customer extends Person
     }
     function getOrders()
     {
+        $this->checkLogin();
+
         $this->setShop(new Shop());
         $orderLog = $this->shop->getOrderLog();
         $buyorders = $orderLog->getBuyOrders();
@@ -366,10 +466,14 @@ class Customer extends Person
     }
     function OrderStatusCustomer()
     {
+        $this->checkLogin();
+
         (new OrderStatusCustomer())->index();
     }
     function markAsSeen()
     {
+        $this->checkLogin();
+
         $nid = $_POST["notID"];
         $markAsSeen = (NotificationBox::getInstance($this->customer_id))->markCustomerNotificationAsSeen($nid);
         if ($markAsSeen) {
@@ -380,9 +484,8 @@ class Customer extends Person
     }
     function customerProfile()
     {
-        if (!isset($_SESSION["userID"])) {
-            $this->logout();
-        }
+        $this->checkLogin();
+
         // $notifications = $this->model->getNotifications($this->getCustomer_id());
         // foreach ($notifications as $notification) {
 
@@ -395,6 +498,8 @@ class Customer extends Person
     }
     function getDataRow()
     {
+        $this->checkLogin();
+
         $row = array();
         $row["customer_id"] = $this->getCustomer_id();
         $row["name"] = $this->getName();
@@ -411,6 +516,8 @@ class Customer extends Person
     }
     function saveInfo()
     {
+        $this->checkLogin();
+
         if (isset($_POST["save"])) {
             $name = "'" . $_POST["name"] . "'";
             $userName = "'" . $_POST["username"] . "'";
@@ -425,10 +532,14 @@ class Customer extends Person
             $result = $this->model->saveInfo($sql);
             header("Location: customerProfile");
             // $this->loadDefault();
+        } else {
+            header("Location: customerProfile");
         }
     }
     function saveImage()
     {
+        $this->checkLogin();
+
         if (isset($_POST["submit"])) {
             if (!empty($_FILES["image"]["name"])) {
                 $fileName = basename($_FILES["image"]["name"]);
@@ -446,15 +557,20 @@ class Customer extends Person
                     }
                 } else {
                     echo "<script>alert('Please upload an image file here')</script>";
+                    echo "<script>location.href='customerProfile'</script>";
                 }
             } else {
                 echo "<script>alert('Please upload an image file here')</script>";
+                echo "<script>location.href='customerProfile'</script>";
             }
         }
+        echo "<script>location.href='customerProfile'</script>";
     }
 
     function saveEmail()
     {
+        $this->checkLogin();
+
         if (isset($_POST["saveEmail"])) {
             $email = "'" . $_POST["email"] . "'";
 
@@ -467,13 +583,18 @@ class Customer extends Person
                 }
             } else {
                 echo "<script>alert('Invalid Email')</script>";
+                echo "<script>location.href='customerProfile'</script>";
             }
             $this->index();
         }
+        echo "<script>location.href='customerProfile'</script>";
+
     }
 
     function savePassword()
     {
+        $this->checkLogin();
+
         $currentPassword = "'" . $_POST["currentPassword"] . "'";
         $newPassword = "'" . $_POST["newPassword"] . "'";
         if ($_POST["currentPassword"] == $this->model->getPassword($_SESSION["userID"])) {
@@ -489,11 +610,8 @@ class Customer extends Person
     }
     function dashboard()
     {
-        if (!isset($_SESSION['userID'])) {
+        $this->checkLogin();
 
-            header("Location: ../../login/");
-            die();
-        }
         $menu = new Menu();
         $categories = array();
         $items = $menu->getItems();
@@ -551,6 +669,8 @@ class Customer extends Person
     }
     function addCartItem()
     {
+        $this->checkLogin();
+
         if (isset($_POST["add"])) {
             $itemID = $_POST["itemID"];
             $quantity = $_POST["quantity"];
@@ -574,6 +694,8 @@ class Customer extends Person
                 return;
             }
         }
+        echo "<script>location.href='Dashboard'</script>";
+
     }
 
     function recieveNotification($nid, $msg)

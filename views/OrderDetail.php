@@ -34,6 +34,30 @@ $returnOrder = $this->returnOrder;
                                                                         echo "<br>";
                                                                     }
                                                                     echo "Price : " . $order->getAmount();
+                                                                    echo '<br>';
+                                                                    switch ($order->getStatus()) {
+                                                                        case '0':
+                                                                            echo "Order Status : Approving";
+                                                                            break;
+                                                                        case '1':
+                                                                            echo "Order Status : Ready for shipping";
+                                                                            break;
+                                                                        case '2':
+                                                                            echo "Order Status : Invoiced";
+                                                                            break;
+                                                                        case '3':
+                                                                            echo "Order Status : Shipping";
+                                                                            break;
+                                                                        case '4':
+                                                                            echo "Order Status : Delivered";
+                                                                            break;
+                                                                        case '5':
+                                                                            echo "Order Status : Already Delivered and Closed";
+                                                                            break;
+                                                                        default:
+                                                                            echo '<div class="alert alert-danger" role="alert">Order has been rejected</div>';
+                                                                            break;
+                                                                    }
                                                                     ?></span>
     </div>
     <div class="d-block p-2 bg-dark text-white">
@@ -186,14 +210,14 @@ $returnOrder = $this->returnOrder;
 
     <?php foreach ($items as $item) {
 
-        if ($order->getStatus() != 4) { ?>
+        if ($order->getStatus() < 4 || $order->getStatus() > 5) { ?>
 
             <?php
             if ($item instanceof OrderItem) { ?>
                 <div class="container p-3 my-3 bg-primary text-white">
                     <h1><?php echo $item->getName(); ?></h1>
                     <p>Quantity : <?php echo $item->getQuantity(); ?></p>
-                    <p>Price : <?php echo $item->getPrice();  ?> X <?php echo $item->getQuantity();  ?></p>
+                    <p>Price : <?php echo $item->getSoldPrice();  ?> X <?php echo $item->getQuantity();  ?></p>
 
                 </div>
         <?php
@@ -205,7 +229,7 @@ $returnOrder = $this->returnOrder;
         <div class="container p-3 my-3 bg-dark text-white" data-toggle="modal" data-target="#id<?php echo $item->getOrderItemId(); ?>" data-whatever="@mdo">
             <h1><?php echo $item->getName() ?></h1>
             <p>Quantity : <?php echo $item->getQuantity() ?></p>
-            <p>Price : <?php echo $item->getPrice();  ?> X <?php echo $item->getQuantity();  ?></p>
+            <p>Price : <?php echo $item->getSoldPrice();  ?> X <?php echo $item->getQuantity();  ?></p>
 
             <?php
             $timezone = "Asia/Kolkata";
@@ -263,7 +287,7 @@ $returnOrder = $this->returnOrder;
                         <div class="container p-3 my-3 bg-dark text-white">
                             <input type="hidden" name="orderID" value="<?php echo $order->getOrderId(); ?>">
                             <input type="hidden" name="itemName" value="<?php echo $item->getName(); ?>">
-                            <input type="hidden" name="price" value="<?php echo $item->getPrice(); ?>">
+                            <input type="hidden" name="price" value="<?php echo $item->getSoldPrice(); ?>">
                             <input type="hidden" name="orderItemID" value="<?php echo $item->getOrderItemId(); ?>">
                             <input class="btn btn-primary" type="submit" id="addBtn<?php echo $item->getOrderItemId(); ?>" name="addReturnItem" value="Add to return Order">
                         </div>
@@ -362,7 +386,7 @@ $returnOrder = $this->returnOrder;
 
 
     <?php  } ?>
-    <?php if ($order->getStatus() == 4 && !$datesExceed && !$isAlreadyReturn) { ?>
+    <?php if ((3 < $order->getStatus() && $order->getStatus() < 6) && !$datesExceed && !$isAlreadyReturn) { ?>
         <table class="table" id="returnTable">
             <thead>
                 <tr>

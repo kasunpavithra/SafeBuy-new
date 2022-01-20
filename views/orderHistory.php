@@ -85,16 +85,16 @@ $returnOrders = $this->returnOrders;
                         <a href="#" class="list-group-item active">
 
                             <form action="itemDetails" method="GET">
-                                <h4>Order ID: <?php echo $buyOrder->getOrderId(); ?> </h4>
+                                <h4>Order ID: <?php echo $buyOrder[0]; ?> </h4>
 
-                                <h5>Created Date : <?php echo $buyOrder->getCreateDate();  ?></h5>
-                                <input type="hidden" name="orderID" value="<?php echo $buyOrder->getOrderId(); ?>">
+                                <h5>Created Date : <?php echo $buyOrder[1];  ?></h5>
+                                <input type="hidden" name="orderID" value="<?php echo $buyOrder[0]; ?>">
                                 <!-- <input type="submit" value="See More Detail and Rate Items,Order" name=""> -->
                                 <button type="submit" class="btn btn-success">See More Detail and Rate Items,Order</button>
 
                             </form>
                             <form action="OrderStatus" method="GET">
-                                <input type="hidden" name="orderID" value="<?php echo $buyOrder->getOrderId(); ?>">
+                                <input type="hidden" name="orderID" value="<?php echo $buyOrder[0]; ?>">
 
                                 <!-- <input type="submit" value="See order Status" name=""> -->
                                 <!-- <button type="button" class="btn btn-success">Success</button> -->
@@ -117,26 +117,27 @@ $returnOrders = $this->returnOrders;
         <h1> Return Orders</h1>
 
         <?php
-        foreach ($returnOrders as $returnOrder) { ?>
+        foreach ($returnOrders as $returnOrder) {
+        ?>
             <div class="row">
                 <div class="well">
                     <div class="list-group">
                         <a href="#" class="list-group-item active">
 
                             <form action="ReturnitemDetails" method="GET">
-                                <h4>Return Order ID: <?php echo $returnOrder->getOrderId(); ?> </h4>
-                                <h4>Buy Order ID of Return Order: <?php echo $returnOrder->getBuyOrderId(); ?> </h4>
+                                <h4>Return Order ID: <?php echo $returnOrder[0]; ?> </h4>
+                                <h4>Buy Order ID of Return Order: <?php echo $returnOrder[2]; ?> </h4>
 
 
-                                <h5>Created Date : <?php echo $returnOrder->getCreateDate();  ?></h5>
-                                <input type="hidden" name="orderID" value="<?php echo $returnOrder->getOrderId(); ?>">
-                                <input type="submit" value="See More Detail and Rate Items,Order" name="">
+                                <h5>Created Date : <?php echo $returnOrder[1];  ?></h5>
+                                <input type="hidden" name="orderID" value="<?php echo $returnOrder[0]; ?>">
+                                <input class="btn btn-success" type="submit" value="See More Detail and Rate Items,Order" name="">
 
                             </form>
                             <form action="ReturnOrderStatus" method="GET">
-                                <input type="hidden" name="orderID" value="<?php echo $returnOrder->getOrderId(); ?>">
+                                <input type="hidden" name="orderID" value="<?php echo $returnOrder[0]; ?>">
 
-                                <input type="submit" value="See order Status" name="">
+                                <input class="btn btn-success" type="submit" value="See order Status" name="">
                             </form>
 
 

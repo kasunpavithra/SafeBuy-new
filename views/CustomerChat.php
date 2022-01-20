@@ -29,8 +29,9 @@
     .input-group {
         /* align-items: flex-end; */
         /* margin: 40% 10px 10px 10px; */
-width: 75%;
-margin:0 auto;    }
+        width: 75%;
+        margin: 0 auto;
+    }
 
     .btn-sm {
         /* width: 100%; */
@@ -41,15 +42,15 @@ margin:0 auto;    }
         width: 100%;
 
     }
-    
 </style>
 
 <body>
     <!-- chat view start -->
-    <div class="container-fluid p-5">
-        <div class="row">
-            <div class="col-sm-6">
-                <form action="customerSendMessage" method="post" id="chat">
+    <form action="customerSendMessage" method="post" id="chat">
+
+        <div class="container-fluid p-5">
+            <div class="row">
+                <div class="col-sm-6">
                     <div class="col-sm-12">
                         <?php
                         foreach ($this->chatLog->getMessageList() as $chat) {
@@ -63,22 +64,23 @@ margin:0 auto;    }
                         }
                         ?>
                     </div>
-                </form>
-            </div>
-            </div>
-            
-
-
-        
-    </div>
-    <div class="panel-footer">
-                <div class="input-group">
-                    <input name="msg" id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />
-                    <span class="input-group-btn">
-                        <button type="submit" class="btn btn-primary btn-sm" id="send">Send</button>
-                    </span>
                 </div>
             </div>
+
+
+
+
+        </div>
+        <div class="panel-footer">
+            <div class="input-group">
+                <input name="msg" id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary btn-sm" id="send">Send</button>
+                </span>
+            </div>
+        </div>
+    </form>
+
     <!-- chat view end -->
 
     <!-- <form action="customerSendMessage" method="post">

@@ -14,6 +14,14 @@ class Customer_Model extends Model
     //     $sql = "SELECT * FROM CUSTOMERNOTIFICATION WHERE CUSTOMER_ID=$customer_id and SEEN=0";
     //     return $this->db->runQuery($sql);
     // }
+    function getBuyOrderDetails($customer_id)
+    {
+        return $this->db->runQuery("SELECT ORDERID,CREATE_DATE FROM ORDERS WHERE CUSTOMER_ID=$customer_id");
+    }
+    function getReturnOrderDetails($customer_id)
+    {
+        return $this->db->runQuery("SELECT returnOrderID,CREATE_DATE,buyOrderID FROM returnORDER WHERE CUSTOMER_ID=$customer_id");
+    }
     function setAsDeletedAccount($customer_id)
     {
         return $this->db->insertQuery("UPDATE customer SET ACCOUNT_AVAILABILITY=1 WHERE customer_id=$customer_id");

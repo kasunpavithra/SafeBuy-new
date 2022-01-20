@@ -31,7 +31,7 @@
 
                     <ul class="nav pull-right">
                         <li>
-                            <a href="login.html">Logout</a>
+                            <a href="logout">Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -53,7 +53,7 @@
                 <div id="app-nav-top-bar" class="nav-collapse">
 
                     <form method="post" <?php echo 'action="updateStatusStaff"' ?> class="nav pull-right">
-                    <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" title="Danger" value="Start to Deliver">
+                    <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd"  value="Start to Deliver">
                 </form>
 
                 </div>
@@ -80,7 +80,7 @@
                                 <div>
                                     <form method="post" <?php echo 'action="updateStatus/' . $order->getOrderId() . '/0"' ?>>
                                         
-                                            <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" title="Danger" value="Accept">
+                                            <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd"  value="Accept">
 
 
                                     </form>
@@ -139,7 +139,7 @@
                                     <form method="post" <?php echo 'action="updateStatus/' . $order->getOrderId() . '/0"' ?>>
                                         
                                         
-                                            <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" title="Danger" value="Delivered">
+                                            <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok"  value="Delivered">
                                        
 
 
@@ -198,7 +198,7 @@
                                 <div>
                                     <form method="post" <?php echo 'action="updateStatus/' . $order->getOrderId() . '/1"' ?>>
                                         
-                                            <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" title="Danger" value="Accept">
+                                            <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd"  value="Accept">
                 
 
 
@@ -257,7 +257,7 @@
                                 <div>
                                     <form method="post" <?php echo 'action="updateStatus/' . $order->getOrderId() . '/1"' ?>>
                                         
-                                            <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" title="Danger" value="Received">
+                                            <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok"  value="Received">
                                         
 
 
@@ -304,7 +304,7 @@
                         <div id="app-nav-top-bar" class="nav-collapse">
 
                     <form method="post" <?php echo 'action="updateStatusStaff"' ?> class="nav pull-right">
-                    <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" title="Danger" value="Done">
+                    <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd"  value="Done">
                     <?php } ?>
                 </form>
 
