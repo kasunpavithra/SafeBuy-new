@@ -16,6 +16,31 @@
   <title>Hello, world!</title>
 </head>
 
+<style>
+  body {
+    background-image: url('../../../../public/Images/order_his_stf.jpg');
+    background-attachment: fixed;
+  }
+
+  #details {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid greenyellow;
+    border-radius: 10px;
+  }
+
+  #order {
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+
+  .order-cr {
+    border: 1px solid greenyellow;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    border-radius: 10px;
+  }
+</style>
+
 <body>
   <!-- navbar statrts -->
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -36,76 +61,79 @@
   </nav>
   <!-- navbar ends -->
   <div class="container-fluid p-5">
-    <!--order details started-->
-    <div class="row">
-      <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail" /></div>
-      <div class="col-md-11">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="col-md-12"><label class="label label-danger"> <?php echo BuyOrder::STATES[$this->order->getStatus()]; ?></label></div>
-            <span><strong>Order ID: </strong></span> <span class="label label-info"><?php echo $this->order->getOrderId(); ?></span><br />
-            cost: $<?php echo $this->order->getamount() ?> <br />
-            <!-- add code to disable the accept reject buttons once the order is accepted
+
+    <div class="container-fluid p-5" id="details">
+      <!--order details started-->
+      <div class="row">
+        <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail" /></div>
+        <div class="col-md-11">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-12"><label class="label label-danger"> <?php echo BuyOrder::STATES[$this->order->getStatus()]; ?></label></div>
+              <span><strong>Order ID: </strong></span> <span class="label label-info"><?php echo $this->order->getOrderId(); ?></span><br />
+              cost: $<?php echo $this->order->getamount() ?> <br />
+              <!-- add code to disable the accept reject buttons once the order is accepted
                       -->
-            <form method="post" <?php echo 'action="../updateStatus/' . $this->order->getOrderId() . '/0"' ?>>
-              <?php
-              $status = $this->order->getStatus();
-              if ($status == 0) {
-                echo '<input name="approve" id="appr" type="submit" data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" title="View" value="Approve">
-                  <input name="cancel" id="cnl" type="submit" data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" title="Danger" value="Decline">';
-              } elseif ($status > 0 && $status < 5) {
-                echo '<input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" title="Danger" value="' . BuyOrder::STATES_PRESENT[$this->order->getStatus() + 1] . '">';
-              } elseif ($status == 6) {
-                echo '<input name="close" id="cls" type="submit" data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" title="Danger" value="Close">';
-              }
-              ?>
-            </form>
+              <form method="post" <?php echo 'action="../updateStatus/' . $this->order->getOrderId() . '/0"' ?>>
+                <?php
+                $status = $this->order->getStatus();
+                if ($status == 0) { ?>
+                  <input name="approve" id="appr" type="submit" data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" title="View" value="Approve">
+                  <input name="cancel" id="cnl" type="submit" data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" title="Danger" value="Decline">
+                <?php } elseif ($status > 0 && $status < 5) { ?>
+                  <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" title="Danger" value="<?php echo BuyOrder::STATES_PRESENT[$this->order->getStatus() + 1] ?>">
+                <?php } elseif ($status == 6) { ?>
+                  <input name="close" id="cls" type="submit" data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" title="Danger" value="Close">
+                <?php }
+                ?>
+              </form>
+            </div>
+            <div class="col-md-12">order made on: <?php echo $this->order->getCreateDate() ?> by <?php echo '<a href="../chatView/' . $this->order->getCustomerId() . '">' . $this->order->getCustomerName() ?> </a></div>
           </div>
-          <div class="col-md-12">order made on: <?php echo $this->order->getCreateDate() ?> by <?php echo '<a href="../chatView/' . $this->order->getCustomerId() . '">' . $this->order->getCustomerName() ?> </a></div>
         </div>
       </div>
-    </div>
-    <!--order details end-->
+      <!--order details end-->
 
-    <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-6">
-        <table class="table table-striped">
-          <tr>
-            <th>Item Id</th>
-            <th>Name</th>
-            <th>Quantity</th>
-            <th>Price(Rs)</th>
-            <th>Discount(%)</th>
-          </tr>
-          <?php
-          foreach ($this->order->getOrderItems() as $item) {
-            echo '<tr><td>' . $item->getItemId() . '</td>
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-6">
+          <table class="table table-striped">
+            <tr>
+              <th>Item Id</th>
+              <th>Name</th>
+              <th>Quantity</th>
+              <th>Price(Rs)</th>
+              <th>Discount(%)</th>
+            </tr>
+            <?php
+            foreach ($this->order->getOrderItems() as $item) {
+              echo '<tr><td>' . $item->getItemId() . '</td>
                   <td>' . $item->getName() . '</td>
                   <td>' . $item->getQuantity() . '</td>
                   <td>' . $item->getSoldPrice() . '</td>
                   <td>' . $item->getSoldDiscount() . '</td></tr>';
-          }
-          ?>
-        </table>
+            }
+            ?>
+          </table>
+        </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-md-1"></div>
-      <div class="col-md-4">
-        <?php echo
-        '<a class="btn btn-success btn-xs glyphicon glyphicon-ok" href="../cusOtherOrders/' . $this->order->getCustomerId() . '">See customers previous orders</a>'; ?>
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-4">
+          <?php echo
+          '<a class="btn btn-success btn-xs glyphicon glyphicon-ok" href="../cusOtherOrders/' . $this->order->getCustomerId() . '">See customers previous orders</a>'; ?>
+        </div>
       </div>
-    </div>
 
-    <!-- Footer strat -->
-    <footer class="footer text-centre" style="position: fixed; bottom:0;">
-      <div class="row ">
-        <p class="copyright">Copyright © 2019 <a href="#">themeies.com</a>. All rights reserved.</p>
-      </div>
-    </footer>
-    <!-- Footer end -->
+      <!-- Footer strat -->
+      <footer class="footer text-centre" style="position: fixed; bottom:0;">
+        <div class="row ">
+          <p class="copyright">Copyright © 2019 <a href="#">themeies.com</a>. All rights reserved.</p>
+        </div>
+      </footer>
+      <!-- Footer end -->
+    </div>
   </div>
 
 </body>

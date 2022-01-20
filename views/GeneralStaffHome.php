@@ -19,6 +19,32 @@
   <meta name="robots" content="noindex, nofollow" />
   <title>Staff View of Order History</title>
 </head>
+<style>
+  body {
+    background-image: url('../../../../public/Images/order_his_stf.jpg');
+    background-attachment: fixed;
+    /* background-repeat: repeat; */
+    background-size: 100% 100%;
+  }
+
+  #details {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid greenyellow;
+    border-radius: 10px;
+  }
+
+  #order {
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+
+  .order-cr {
+    border: 1px solid greenyellow;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    border-radius: 10px;
+  }
+</style>
 
 <body>
 
@@ -78,10 +104,11 @@
   </div>
 
   <!--message canvas end-->
-  <div style="background-image: url('../../../../public/Images/order_his_stf.jpg');background-size: 100% 100%;">
+  <!-- <div style="background-image: url('../../../../public/Images/order_his_stf.jpg');background-size: 100% 100%;"> -->
 
 
-    <div class="container-fluid p-5">
+  <div class="container-fluid p-5">
+    <div class="container-fluid p-5" id="details">
       <?php if (isset($this->filter)) { ?>
         <div class="row justify-content-end">
           <div class="col-sm-3">
@@ -125,35 +152,39 @@
       <?php
       foreach ($this->orderArr as $odr) { ?>
         <div class="row">
-          <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail" /></div>
-          <div class="col-md-6">
+          <div class="col-md-9 order-cr">
             <div class="row">
-              <div class="col-md-12">
-                <div class="col-md-12"><label class="label label-danger"> <?php
-                                                                          if ($odr instanceof BuyOrder) {
-                                                                            echo BuyOrder::STATES[$odr->getStatus()];
-                                                                          } else {
-                                                                            echo ReturnOrder::STATES[$odr->getStatus()];
-                                                                          } ?>
-                  </label></div>
-                <span><strong>Order ID: </strong></span> <span class="label label-info"><?php echo $odr->getOrderId(); ?></span><br />
-                cost: $<?php echo $odr->getAmount(); ?><br />
-                <!-- add code to disable the accept reject buttons once the order is accepted
+            <div class="col-md-2"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail" /></div>
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="col-md-12"><label class="label label-danger"> <?php
+                                                                            if ($odr instanceof BuyOrder) {
+                                                                              echo BuyOrder::STATES[$odr->getStatus()];
+                                                                            } else {
+                                                                              echo ReturnOrder::STATES[$odr->getStatus()];
+                                                                            } ?>
+                    </label></div>
+                  <span><strong>Order ID: </strong></span> <span class="label label-info"><?php echo $odr->getOrderId(); ?></span><br />
+                  cost: $<?php echo $odr->getAmount(); ?><br />
+                  <!-- add code to disable the accept reject buttons once the order is accepted
                       -->
 
+                </div>
+                <div class="col-md-12">order made on:<?php echo $odr->getCreateDate() ?> by <a href="../chatView/<?php echo $odr->getCustomerId() ?>"><?php echo $odr->getCustomerName() ?></a></div>
               </div>
-              <div class="col-md-12">order made on:<?php echo $odr->getCreateDate() ?> by <a href="../chatView/<?php echo $odr->getCustomerId() ?>"><?php echo $odr->getCustomerName() ?></a></div>
+            </div>
+            <div class="col-md-2">
+              <a href="../
+          <?php
+          if ($odr instanceof BuyOrder) {
+            echo "viewBuyOrder/";
+          } else {
+            echo "viewReturnOrder/";
+          }
+          echo  $odr->getOrderId() ?>" class="btn btn-primary">View</a>
             </div>
           </div>
-          <div class="col-md-2">
-            <a href="../
-        <?php
-        if ($odr instanceof BuyOrder) {
-          echo "viewBuyOrder/";
-        } else {
-          echo "viewReturnOrder/";
-        }
-        echo  $odr->getOrderId() ?>" class="btn btn-primary">View</a>
           </div>
         </div>
       <?php }
@@ -215,14 +246,16 @@
       <!-- Footer end -->
 
     </div>
+  </div>
 
-    <!-- JS -->
-    <script>
-      var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-      var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
-        return new bootstrap.Popover(popoverTriggerEl)
-      })
-    </script>
+  <!-- JS -->
+  <script>
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function(popoverTriggerEl) {
+      return new bootstrap.Popover(popoverTriggerEl)
+    })
+  </script>
+  <!-- </div> -->
 
 </body>
 
