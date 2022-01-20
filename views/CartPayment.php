@@ -14,6 +14,9 @@
         margin-top: 20px;
         background-image: url('https://images.unsplash.com/photo-1591030434469-3d78c7b17820?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80');
     }
+    .panel-body{
+        padding:0px !important;
+    }
 </style>
 
 <body>
