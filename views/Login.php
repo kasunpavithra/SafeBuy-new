@@ -194,19 +194,25 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
+
 <body>
   <div class="login-reg-panel">
     <div class="login-info-box">
       <h2>Have an account?</h2>
+
       <p>You can login here</p>
       <label id="label-register" for="log-reg-show">Login</label>
       <input type="radio" name="active-log-panel" id="log-reg-show" checked="checked">
+      <div class="alert alert-warning" role="alert">
+        Password should contain a number, a-z,A-Z and more than charactors
+      </div>
     </div>
 
     <div class="register-info-box">
       <h2>Don't have an account?</h2>
       <p>Stay Safe and shop online.</p>
       <label id="label-login" for="log-login-show">Register</label>
+
       <input type="radio" name="active-log-panel" id="log-login-show">
     </div>
 
@@ -222,6 +228,8 @@
       </form>
       <div class="register-show">
         <h2>REGISTER</h2>
+
+
         <form action="registerCustomer" class="form1" method="post">
           <div class="form-row">
             <div class="col">
@@ -260,12 +268,16 @@
               <input class="un" name="zipcode" type="text" placeholder="Enter your Zip-code" required>
             </div>
             <div class="col">
-              <input class="pass" name="password" type="password" placeholder="Enter your Password" required>
+              <input class="pass" id="psw" name="password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Enter your Password" required>
+
             </div>
+
           </div>
+
           <input class="submit" name="signUpBtn" id="signUpBtn" type="submit" value="Register">
 
         </form>
+
       </div>
 
     </div>
@@ -285,7 +297,27 @@
   </div>
 </body>
 
+<script>
+  var myInput = document.getElementById("psw");
+  myInput.onkeyup = function() {
+    var lowerCaseLetters = /[a-z]/g;
+    var upperCaseLetters = /[A-Z]/g;
+    var numbers = /[0-9]/g;
+    console.log(myInput.value.length);
+    if (!myInput.value.match(upperCaseLetters) || !myInput.value.match(lowerCaseLetters) || !myInput.value.match(numbers) || !myInput.value.length >= 8) {
+      this.style.border = "1px solid red";
+    } else {
+      if (myInput.value.length >= 8) {
+        this.style.border = "1px solid green";
 
+      } else {
+        this.style.border = "1px solid red";
+
+      }
+
+    }
+  }
+</script>
 <script>
   $(document).ready(function() {
     $('.login-info-box').fadeOut();
@@ -313,5 +345,6 @@
     }
   });
 </script>
+
 
 </html>

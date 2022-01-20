@@ -43,7 +43,7 @@ abstract class ShopStaff extends Person
     function logout()
     {
         if (isset($_SESSION['staffuserID'])) {
-            session_destroy();
+            unset($_SESSION['staffuserID']);
         }
         header("Location: ../../../stafflogin/");
     }
