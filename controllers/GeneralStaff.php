@@ -122,40 +122,43 @@ class GeneralStaff extends ShopStaff
 
         if (!empty($OBuyOrders))
             $this->view->title = $OBuyOrders[0]->getCustomerName() . "'s Buy Orders";
-        if(!empty($OReturnOrders))
-        $this->view->title2 = $OReturnOrders[0]->getCustomerName() . "'s Return Orders";
+        if (!empty($OReturnOrders))
+            $this->view->title2 = $OReturnOrders[0]->getCustomerName() . "'s Return Orders";
         $this->view->gStaff = $this;
         $this->view->title =
             $this->view->render('GeneralStaffHome');
     }
 
     /*this funtion sets orderLog*/
-    function setOrderLog(){
-        if(!isset($this->orderLog)){
+    function setOrderLog()
+    {
+        if (!isset($this->orderLog)) {
             $this->orderLog = new OrderLog();
         }
     }
-    function chatView($customerId){
+    function chatView($customerId)
+    {
         $this->setCustomers();
         $this->view->customerId = $customerId;
         $this->view->chatLog = ChatLog::getInstance($customerId);
         $this->view->render('GeneralStaffChat');
         //mark as seen  //since we want to mark as customers msgs side=0
-        $this->view->chatLog->markAsSeen($customerId,0);
+        $this->view->chatLog->markAsSeen($customerId, 0);
     }
-    private function setCustomers(){
-        if(!isset($this->customers)){
+    private function setCustomers()
+    {
+        if (!isset($this->customers)) {
             $customers =  $this->model->getCustomers();
-            for($i=0; $i < count($customers); $i++){
-                if((ChatLog::getInstance($customers[$i]["Customer_id"]))->getHasNewMsgsStaff()){
-                    array_push($customers[$i],1);
-                    $this->hasNewMsgs =1;
-                }else{
-                    array_push($customers[$i],0);
+            for ($i = 0; $i < count($customers); $i++) {
+                if ((ChatLog::getInstance($customers[$i]["Customer_id"]))->getHasNewMsgsStaff()) {
+                    array_push($customers[$i], 1);
+                    $this->hasNewMsgs = 1;
+                } else {
+                    array_push($customers[$i], 0);
                 }
             }
-            if(!isset($this->hasNewMsgs)){
-                $this->hasNewMsgs =0;
+            if (!isset($this->hasNewMsgs)) {
+                $this->hasNewMsgs = 0;
             }
             $this->customers = $customers;
         }
@@ -164,18 +167,26 @@ class GeneralStaff extends ShopStaff
         $this->view->hasNewMsgs = $this->hasNewMsgs;
     }
 
-    function sendMessage($customerId){
-        if(array_key_exists('msg',$_POST)){
+    function sendMessage($customerId)
+    {
+        if (array_key_exists('msg', $_POST)) {
             //since this is staff side status=1
-            $msg = htmlspecialchars( $_POST['msg']);
-            $this->model->sendMessage($customerId,$msg,1);
+            $msg = $this->validateMsg($_POST['msg']);
+            $this->model->sendMessage($customerId, $msg, 1);
         }
-        header("Location: ../chatView/".$customerId);
+        header("Location: ../chatView/" . $customerId);
+    }
+    function validateMsg($msg)
+    {
+        $msg = trim($msg);
+        $msg = stripslashes($msg);
+        $msg = htmlspecialchars($msg);
+        return $msg;
     }
 
     /**
      * Get the value of haveNewMsgs
-     */ 
+     */
     public function getHasNewMsgs()
     {
         return $this->hasNewMsgs;
