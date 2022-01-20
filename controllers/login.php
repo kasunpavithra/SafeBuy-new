@@ -10,11 +10,19 @@ class Login extends Controller
         $this->view->users = $this->model->getData();
         $this->view->render('Login');
     }
+    function test_input($data)
+    {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
     function loginProfile()
     {
         if (isset($_POST["submitLogin"])) {
-            $username = $_POST['username'];
+            $username = $this->test_input($_POST['username']);
             $password = $_POST['password'];
+            echo $password;
             $islogin = $this->model->isLogin($username, $password);
             if ($islogin) {
                 $_SESSION['username'] = $username;
@@ -29,21 +37,21 @@ class Login extends Controller
     function registerCustomer()
     {
         if (isset($_POST["signUpBtn"])) {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-            $name = $_POST['name'];
-            $email = $_POST['email'];
-            $houseno = $_POST['houseno'];
-            $street = $_POST['street'];
-            $city = $_POST['city'];
-            $district = $_POST['district'];
-            $zipcode = $_POST['zipcode'];
-            $mobileno = $_POST['mobileno'];
+            $username = $this->test_input($_POST['username']);
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $name = $this->test_input($_POST['name']);
+            // $email = $this->test_input($_POST['email']);
+            $email = $this->test_input(filter_var($_POST['email'], FILTER_SANITIZE_EMAIL));
+            $houseno = $this->test_input($_POST['houseno']);
+            $street = $this->test_input($_POST['street']);
+            $city = $this->test_input($_POST['city']);
+            $district = $this->test_input($_POST['district']);
+            $zipcode = $this->test_input($_POST['zipcode']);
+            $mobileno = $this->test_input($_POST['mobileno']);
             $isUserExits = $this->model->getUserAlreadyExist($username);
             if (!empty($isUserExits)) {
                 echo "<script>alert('User Already Exists')</script>";
                 echo "<script>location.href='../login/'</script>";
-                
             } else {
                 $isRegister =   $this->model->registerNewCustomer(
                     $username,
@@ -58,10 +66,10 @@ class Login extends Controller
                     $mobileno
                 );
 
-                // header("Location:../login/");
+                header("Location:../login/");
             }
         }
-        // header("Location:../login/");
+        header("Location:../login/");
     }
 
 

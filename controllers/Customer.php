@@ -31,6 +31,13 @@ class Customer extends Person
 
         $this->setDetails($id);
     }
+    function test_input($data)
+    {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
     function checkLogin()
     {
         if (!isset($_SESSION['userID']) || $this->customer_id != $_SESSION['userID']) {
@@ -55,12 +62,13 @@ class Customer extends Person
         $this->checkLogin();
 
         if (isset($_POST["msg"])) {
-            $message = $_POST["msg"];
+            $message = $this->test_input($_POST["msg"]);
             if ($this->model->addMessage($this->customer_id, $message)) {
                 header("Location: getChat");
             }
         }
     }
+
     function setDetails($id)
     {
         $this->loadModel("Customer");
@@ -85,7 +93,7 @@ class Customer extends Person
         $this->checkLogin();
 
         if (isset($_POST["deleteBtn"])) {
-            $itemID = $_POST["itemID"];
+            $itemID = $this->test_input($_POST["itemID"]);
             $isdelete = $this->model->deleteCartItem($itemID);
             if ($isdelete) {
                 header("Location:PayCart");
@@ -97,8 +105,8 @@ class Customer extends Person
         $this->checkLogin();
 
         if (isset($_POST["submitOrderRatings"])) {
-            $orderID = $_POST["orderID"];
-            $rate = $_POST["rate"];
+            $orderID = $this->test_input($_POST["orderID"]);
+            $rate = $this->test_input($_POST["rate"]);
             $this->model->rateOrder($orderID, $rate);
         }
         header("Location:orderHistory");
@@ -113,16 +121,16 @@ class Customer extends Person
     {
         $this->checkLogin();
 
-        $reason = $_POST["reason"];
-        $quantity = $_POST["quantity"];
-        $orderID = $_POST["orderID"];
-        $itemName = $_POST["itemName"];
-        $price = $_POST["price"];
+        $reason = $this->test_input($_POST["reason"]);
+        $quantity = $this->test_input($_POST["quantity"]);
+        $orderID = $this->test_input($_POST["orderID"]);
+        $itemName = $this->test_input($_POST["itemName"]);
+        $price = $this->test_input($_POST["price"]);
         $amount = NULL;
         if (isset($_POST["amount"])) {
-            $amount = $_POST["amount"];
+            $amount = $this->test_input($_POST["amount"]);
         }
-        $orderItemID = $_POST["orderItemID"];
+        $orderItemID = $this->test_input($_POST["orderItemID"]);
         $returnOrderID = NULL;
         $returnOrderIn = $this->model->returnOrderExists($orderID);
         if (empty($returnOrderIn)) {
@@ -148,14 +156,14 @@ class Customer extends Person
     {
         $this->checkLogin();
 
-        $itemID = $_POST["orderItemID"];
+        $itemID = $this->test_input($_POST["orderItemID"]);
         $rate = $review = NULL;
-        if (isset($_POST["submitrateview"])) {
-            if (isset($_POST["rate"])) {
-                $rate = $_POST["rate"];
+        if (isset(($_POST["submitrateview"]))) {
+            if (isset(($_POST["rate"]))) {
+                $rate = $this->test_input($_POST["rate"]);
             }
-            if (isset($_POST["review"])) {
-                $review = $_POST["review"];
+            if (isset(($_POST["review"]))) {
+                $review = $this->test_input(($_POST["review"]));
             }
         }
         if ($rate != NULL) {
@@ -176,14 +184,14 @@ class Customer extends Person
 
             array_push($orderIDs, $buyOrder[0]);
         }
-        if (!in_array($_GET["orderID"], $orderIDs)) {
+        if (!in_array($this->test_input($_GET["orderID"]), $orderIDs)) {
             header("Location:orderHistory");
         }
 
 
-        $this->view->order_Id = $_GET["orderID"];
+        $this->view->order_Id = $this->test_input(($_GET["orderID"]));
 
-        $order = new BuyOrder($_GET["orderID"]);
+        $order = new BuyOrder($this->test_input(($_GET["orderID"])));
         $this->view->stat_no  = $order->getStatus();
         $this->view->type = "BuyOrder";
         $this->view->render("OrderStatusCustomer");
@@ -197,11 +205,11 @@ class Customer extends Person
 
             array_push($orderIDs, $returnOrder[0]);
         }
-        if (!in_array($_GET["orderID"], $orderIDs)) {
+        if (!in_array($this->test_input($_GET["orderID"]), $orderIDs)) {
             header("Location:orderHistory");
         }
-        $this->view->order_Id = $_GET["orderID"];
-        $order = new ReturnOrder($_GET["orderID"]);
+        $this->view->order_Id = $this->test_input($_GET["orderID"]);
+        $order = new ReturnOrder($this->test_input($_GET["orderID"]));
         $this->view->stat_no  = $order->getStatus();
         $this->view->type = "ReturnOrder";
         $this->view->render("OrderStatusCustomer");
@@ -210,7 +218,7 @@ class Customer extends Person
     {
         $this->checkLogin();
 
-        $categoryID = $_GET["categoryID"];
+        $categoryID = $this->test_input($_GET["categoryID"]);
         $menu = new Menu();
         $items = $menu->getItems();
         $categoryItems = array();
@@ -230,8 +238,8 @@ class Customer extends Person
     {
         $this->checkLogin();
 
-        $itemID = $_POST["itemID"];
-        $rate = $_POST["Itemrate"];
+        $itemID = $this->test_input($_POST["itemID"]);
+        $rate = $this->test_input($_POST["Itemrate"]);
 
         if ($rate != NULL) {
             $success =  $this->model->rateItem($itemID, $rate);
@@ -244,8 +252,8 @@ class Customer extends Person
     {
         $this->checkLogin();
 
-        $orderID = $_POST["orderID"];
-        $review = $_POST["orderreview"];
+        $orderID = $this->test_input($_POST["orderID"]);
+        $review = $this->test_input($_POST["orderreview"]);
 
         $success = $this->model->reviewOrder($orderID, $review);
         if ($success) {
@@ -256,8 +264,8 @@ class Customer extends Person
     {
         $this->checkLogin();
 
-        $orderID = $_POST["orderID"];
-        $rate = $_POST["orderrate"];
+        $orderID = $this->test_input($_POST["orderID"]);
+        $rate = $this->test_input($_POST["orderrate"]);
         $success = $this->model->rateOrder($orderID, $rate);
         if ($success) {
             echo true;
@@ -267,8 +275,8 @@ class Customer extends Person
     {
         $this->checkLogin();
 
-        $itemID = $_POST["itemID"];
-        $review = $_POST["itemReview"];
+        $itemID = $this->test_input($_POST["itemID"]);
+        $review = $this->test_input($_POST["itemReview"]);
 
         if ($review != NULL) {
             $success =  $this->model->reviewItem($itemID, $review);
@@ -281,7 +289,7 @@ class Customer extends Person
     {
         $this->checkLogin();
 
-        $orderID = $_GET["orderID"];
+        $orderID = $this->test_input($_GET["orderID"]);
         // $order = NULL;
         // $this->setShop(new Shop());
         // $orderLog = $this->shop->getOrderLog();
@@ -331,7 +339,7 @@ class Customer extends Person
     {
         $this->checkLogin();
 
-        $orderID = $_GET["orderID"];
+        $orderID = $this->test_input($_GET["orderID"]);
         $returnOrderSet = $this->model->getReturnOrderDetails($this->customer_id);
         $orderIDs = array();
         foreach ($returnOrderSet as $returnOrder) {
@@ -382,7 +390,7 @@ class Customer extends Person
     {
         $this->checkLogin();
 
-        $itemID = $_GET["itemID"];
+        $itemID = $this->test_input($_GET["itemID"]);
         $menu = new Menu();
         $items = $menu->getItems();
         foreach ($items as $key => $item) {
@@ -474,7 +482,7 @@ class Customer extends Person
     {
         $this->checkLogin();
 
-        $nid = $_POST["notID"];
+        $nid = $this->test_input($_POST["notID"]);
         $markAsSeen = (NotificationBox::getInstance($this->customer_id))->markCustomerNotificationAsSeen($nid);
         if ($markAsSeen) {
             header("Location:customerProfile");
@@ -519,14 +527,14 @@ class Customer extends Person
         $this->checkLogin();
 
         if (isset($_POST["save"])) {
-            $name = "'" . $_POST["name"] . "'";
-            $userName = "'" . $_POST["username"] . "'";
-            $addr = "'" . $_POST["inputAddress"] . "'";
-            $homeNum = "'" . $_POST["houseNumber"] . "'";
-            $mobNum = "'" . $_POST["mobileNumber"] . "'";
-            $city = "'" . $_POST["inputCity"] . "'";
-            $district = "'" . $_POST["District"] . "'";
-            $zip = "'" . $_POST["inputZip"] . "'";
+            $name = "'" . $this->test_input($_POST["name"]) . "'";
+            $userName = "'" . $this->test_input($_POST["username"]) . "'";
+            $addr = "'" . $this->test_input($_POST["inputAddress"]) . "'";
+            $homeNum = "'" . $this->test_input($_POST["houseNumber"]) . "'";
+            $mobNum = "'" . $this->test_input($_POST["mobileNumber"]) . "'";
+            $city = "'" . $this->test_input($_POST["inputCity"]) . "'";
+            $district = "'" . $this->test_input($_POST["District"]) . "'";
+            $zip = "'" . $this->test_input($_POST["inputZip"]) . "'";
 
             $sql = "UPDATE CUSTOMER SET Name=$name , Username=$userName , Street=$addr , House_no=$homeNum , Mobile_no=$mobNum , City=$city , District=$district ,Zip_code=$zip where Customer_id='" . $_SESSION['userID'] . "'";
             $result = $this->model->saveInfo($sql);
@@ -572,7 +580,7 @@ class Customer extends Person
         $this->checkLogin();
 
         if (isset($_POST["saveEmail"])) {
-            $email = "'" . $_POST["email"] . "'";
+            $email = "'" . $this->test_input($_POST["email"]) . "'";
 
             if (/*filter_var($email, FILTER_VALIDATE_EMAIL)*/true) {
                 $sql = "UPDATE CUSTOMER SET email=$email where Customer_id='" . $_SESSION['userID'] . "'";
@@ -588,16 +596,16 @@ class Customer extends Person
             $this->index();
         }
         echo "<script>location.href='customerProfile'</script>";
-
     }
 
     function savePassword()
     {
         $this->checkLogin();
 
-        $currentPassword = "'" . $_POST["currentPassword"] . "'";
-        $newPassword = "'" . $_POST["newPassword"] . "'";
-        if ($_POST["currentPassword"] == $this->model->getPassword($_SESSION["userID"])) {
+        // $currentPassword = "'" . $this->test_input($_POST["currentPassword"]) . "'";
+        $newPassword = "'" . password_hash($_POST["newPassword"], PASSWORD_DEFAULT) . "'";
+        if (password_verify($_POST["currentPassword"], $this->model->getPassword($_SESSION["userID"]))) {
+            // if ($_POST["currentPassword"] == $this->model->getPassword($_SESSION["userID"])) {
             $sql = "UPDATE CUSTOMER SET Password=$newPassword where Customer_id='" . $_SESSION['userID'] . "'";
             if ($this->model->savePassword($sql)) {
                 header("Location: customerProfile");
@@ -611,7 +619,6 @@ class Customer extends Person
     function dashboard()
     {
         $this->checkLogin();
-
         $menu = new Menu();
         $categories = array();
         $items = $menu->getItems();
@@ -672,8 +679,8 @@ class Customer extends Person
         $this->checkLogin();
 
         if (isset($_POST["add"])) {
-            $itemID = $_POST["itemID"];
-            $quantity = $_POST["quantity"];
+            $itemID = $this->test_input($_POST["itemID"]);
+            $quantity = $this->test_input($_POST["quantity"]);
             $cartItems = $this->cart->getCartItems();
             foreach ($cartItems as $cartItem) {
                 if ($cartItem->getItem_id() == $itemID) {
@@ -695,7 +702,6 @@ class Customer extends Person
             }
         }
         echo "<script>location.href='Dashboard'</script>";
-
     }
 
     function recieveNotification($nid, $msg)
@@ -949,7 +955,8 @@ class Customer extends Person
     {
         if (isset($_POST["delAcc"])) {
             $pass = $_POST["password"];
-            if ($pass == $this->model->getPassword($this->customer_id)) {
+            if(password_verify($pass, $this->model->getPassword($this->customer_id))){
+            // if ($pass == password_verify($this->model->getPassword($this->customer_id)) {
                 $delete =  $this->model->setAsDeletedAccount($this->customer_id);
                 if ($delete) {
                     session_destroy();
