@@ -634,7 +634,7 @@ $items = $this->items;
     <div class="main">
         <div class="containerOrders">
             <form class="form1" method="post" action="loginProfile">
-                <h2 class="orders">Orders</h2>
+                <h2 class="orders">Statistics</h2>
                 <!-- <div class="chatBtn" style="text-align:right; padding:5px">
                     <button id="chatBtn" class="btn btn-primary dropdown-toggle" type="button">Chat
                     </button>
@@ -662,7 +662,7 @@ $items = $this->items;
                         </div>
 
                     </div> -->
-                    <script>
+                    <!-- <script>
                         // Get the modal
                         var chatModal = document.getElementById("myChatModal");
 
@@ -688,7 +688,7 @@ $items = $this->items;
                                 chatModal.style.display = "none";
                             }
                         }
-                    </script>
+                    </script> -->
                 </div>
                 <br><br><br><br><br>
                 <br><br><br><br><br>
