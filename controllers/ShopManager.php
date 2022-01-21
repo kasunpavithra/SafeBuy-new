@@ -30,10 +30,11 @@ class ShopManager extends ShopStaff
     }
     function dashboard()
     {
-        if (!isset($_SESSION['staffuserID'])) {
-            header("Location: ../../stafflogin/");
-            die();
-        }
+        $this->checkIsManager();
+        // if (!isset($_SESSION['staffuserID'])) {
+        //     header("Location: ../../stafflogin/");
+        //     die();
+        // }
         // $categories=array();
         // $items = $this->menu->getItems();
         //  foreach ($items as $key => $value) {

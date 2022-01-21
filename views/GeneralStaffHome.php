@@ -51,9 +51,10 @@
   <!-- navbar starts -->
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container-fluid">
-      <a type="button" class="navbar-brand" data-bs-toggle="popover" <?php echo 'title="' . $this->gStaff->getStaff_id() . ': ' . $this->gStaff->getUserName() . '"'; ?> data-bs-content="Some content inside the popover">
+      <a type="button" class="navbar-brand" data-bs-toggle="popover" <?php echo 'title="' . $this->gStaff->getStaff_id() . ': ' . $this->gStaff->getUserName() . '"'; ?>>
         <img src="../../../../public/Images/logo.png" alt="Avatar Logo" style="width:40px;" class="rounded-pill">
       </a>
+      <h3 class="text-white">Staff Dashboard</h3>
       <ul class="navbar-nav">
         <li class="nav-item">
           <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#msgOffcanvas">
@@ -175,12 +176,12 @@
               </div>
             </div>
             <div class="col-md-2">
-              <a href="../
+              
           <?php
           if ($odr instanceof BuyOrder) {
-            echo "viewBuyOrder/";
+            echo '<a href="../viewBuyOrder/';
           } else {
-            echo "viewReturnOrder/";
+            echo '<a href="../viewReturnOrder/';
           }
           echo  $odr->getOrderId() ?>" class="btn btn-primary">View</a>
             </div>
@@ -233,7 +234,7 @@
 
 
       <!-- Footer strat -->
-      <div class="fixed-bottom">
+      <!-- <div class="fixed-bottom">
         <footer class="footer ">
           <div class="container foo-top">
             <div class="row">
@@ -242,7 +243,7 @@
                 <p class="copyright">Copyright © 2019 <a href="#">themeies.com</a>. All rights reserved.</p>
               </div>
         </footer>
-      </div>
+      </div> -->
       <!-- Footer end -->
 
     </div>
