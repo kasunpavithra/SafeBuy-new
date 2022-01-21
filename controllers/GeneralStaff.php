@@ -55,6 +55,7 @@ class GeneralStaff extends ShopStaff
     order Id*/
     function viewBuyOrder($orderId)
     {
+        $this->checkIsStaff();
         $order = $this->findOrder($orderId, 0);
         $this->view->order = $order;
         $this->view->render('OrderDetailsStaff');
@@ -65,6 +66,7 @@ class GeneralStaff extends ShopStaff
     order Id*/
     function viewReturnOrder($orderId)
     {
+        $this->checkIsStaff();
         $order = $this->findOrder($orderId, 1);
         $this->view->order = $order;
         $this->view->render('ROrderDetailsStaff');
@@ -92,6 +94,7 @@ class GeneralStaff extends ShopStaff
     updates relavant ReturnOrder */
     public function updateStatus($orderId, $type)
     {
+        $this->checkIsStaff();
         $order = $this->findOrder($orderId, $type);
         $order->updateStatus();
         if ($type == 0)
@@ -103,6 +106,7 @@ class GeneralStaff extends ShopStaff
     then it prints them. */
     public function cusOtherOrders($customerId)
     {
+        $this->checkIsStaff();
         $this->setCustomers();
         $this->setOrderLog();
         $OBuyOrders = array();
@@ -138,6 +142,7 @@ class GeneralStaff extends ShopStaff
     }
     function chatView($customerId)
     {
+        $this->checkIsStaff();
         $this->setCustomers();
         $this->view->customerId = $customerId;
         $this->view->chatLog = ChatLog::getInstance($customerId);
@@ -169,6 +174,7 @@ class GeneralStaff extends ShopStaff
 
     function sendMessage($customerId)
     {
+        $this->checkIsStaff();
         if (array_key_exists('msg', $_POST)) {
             //since this is staff side status=1
             $msg = $this->validateMsg($_POST['msg']);

@@ -65,6 +65,9 @@
     <div class="container-fluid p-5" id="details">
       <!--order details started-->
       <div class="row">
+        <?php if($this->order==Null){
+          echo "<h1>No Such Order</h1>";
+        }else{?>
         <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail" /></div>
         <div class="col-md-11">
           <div class="row">
@@ -125,13 +128,13 @@
           '<a class="btn btn-success btn-xs glyphicon glyphicon-ok" href="../cusOtherOrders/' . $this->order->getCustomerId() . '">See customers previous orders</a>'; ?>
         </div>
       </div>
-
+      <?php } ?>
       <!-- Footer strat -->
-      <footer class="footer text-centre" style="position: fixed; bottom:0;">
+      <!-- <footer class="footer text-centre" style="position: fixed; bottom:0;">
         <div class="row ">
           <p class="copyright">Copyright © 2019 <a href="#">themeies.com</a>. All rights reserved.</p>
         </div>
-      </footer>
+      </footer> -->
       <!-- Footer end -->
     </div>
   </div>

@@ -44,8 +44,32 @@ abstract class ShopStaff extends Person
     {
         if (isset($_SESSION['staffuserID'])) {
             unset($_SESSION['staffuserID']);
+            unset($_SESSION['staffType']);
+            unset($_SESSION['staffusername']);
         }
         header("Location: ../../../stafflogin/");
+    }
+
+    public function checkIsStaff(){
+        if (!isset($_SESSION['staffuserID']) || $_SESSION['staffType']!='1' || $_SESSION['staffuserID']!=$this->staff_id) {
+
+            header("Location: ../../stafflogin/");
+            die();
+        }
+    }
+    public function checkIsManager(){
+        if (!isset($_SESSION['staffuserID']) || $_SESSION['staffType']!='0' || $_SESSION['staffuserID']!=$this->staff_id) {
+
+            header("Location: ../../stafflogin/");
+            die();
+        }
+    }
+    public function checkIsDeliveryPerson(){
+        if (!isset($_SESSION['staffuserID']) || $_SESSION['staffType']!='2' || $_SESSION['staffuserID']!=$this->staff_id) {
+
+            header("Location: ../../stafflogin/");
+            die();
+        }
     }
 
     /**

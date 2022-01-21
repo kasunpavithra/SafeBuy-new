@@ -22,6 +22,7 @@ class StaffLogin extends Login
             if ($islogin[0]) {
                 $_SESSION['staffusername'] = $username;
                 $_SESSION['staffuserID'] = $islogin[0];
+                $_SESSION['staffType'] = $islogin[1];
                 
                 switch ($islogin[1]) {
                     case 0:

@@ -25,7 +25,7 @@ class DeliveryPerson extends ShopStaff
     function dashboard()
     {
 
-        $this->checkIsStaff();
+        $this->checkIsDeliveryPerson();
         $this->view->userName = $this->userName;
         $this->view->invoiceOrders = $this->getInvoiceOrders();
         $this->view->returnOrders = $this->getReturnOrders();

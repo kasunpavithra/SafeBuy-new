@@ -129,11 +129,11 @@
 
 
         <!-- Footer strat -->
-        <footer class="footer text-centre" style="position: fixed; bottom:0;">
+        <!-- <footer class="footer text-centre" style="position: fixed; bottom:0;">
           <div class="row ">
             <p class="copyright">Copyright © 2019 <a href="#">themeies.com</a>. All rights reserved.</p>
           </div>
-        </footer>
+        </footer> -->
         <!-- Footer end -->
       </div>
     </div>
