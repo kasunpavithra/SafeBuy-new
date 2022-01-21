@@ -290,10 +290,21 @@
         <div class="alert alert-danger" role="alert">
           Invalid Attempt Pelase try again!
         </div>
-    <?php
+      <?php
         unset($_SESSION["invalidLogin"]);
       }
-    } ?>
+    }
+    if (isset($_SESSION["userExist"])) {
+      if ($_SESSION["userExist"]) { ?>
+        <div class="alert alert-danger" role="alert">
+          The Username Already Exists.
+        </div>
+    <?php
+        unset($_SESSION["userExist"]);
+      }
+    }
+
+    ?>
   </div>
 </body>
 
