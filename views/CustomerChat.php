@@ -11,8 +11,11 @@
 </head>
 <style>
     body {
-        background: #F45B5B;
-    }
+    background-image: url('../../../public/Images/order_his_stf.jpg');
+    background-attachment: fixed;
+    /* background-repeat: repeat; */
+    background-size: 100% 100%;
+  }
 
     .container-fluid {
         overflow: auto;
