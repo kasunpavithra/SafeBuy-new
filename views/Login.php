@@ -223,7 +223,7 @@
           <input type="text" name="username" placeholder="User Name">
           <input type="password" name="password" placeholder="Password">
           <input type="submit" name="submitLogin" value="Login">
-          <a href="">Forgot password?</a>
+          <!-- <a href="">Forgot password?</a> -->
         </div>
       </form>
       <div class="register-show">
