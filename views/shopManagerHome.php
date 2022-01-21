@@ -257,6 +257,9 @@ $items = $this->items;
     #chatboxpadding {
         padding-top: 5px;
     }
+    .addoffers{
+        text-align: center;
+    }
 </style>
 
 <body>
@@ -627,7 +630,7 @@ $items = $this->items;
 
         </tr>
     </table>
-    <h1><a href="addOffers">Add Offers</a></h1>
+    <h1 class="addoffers"><a href="addOffers">Add Offers</a></h1>
     <div class="main">
         <div class="containerOrders">
             <form class="form1" method="post" action="loginProfile">
