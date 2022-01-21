@@ -50,8 +50,9 @@ class Login extends Controller
             $mobileno = $this->test_input($_POST['mobileno']);
             $isUserExits = $this->model->getUserAlreadyExist($username);
             if (!empty($isUserExits)) {
-                echo "<script>alert('User Already Exists')</script>";
-                echo "<script>location.href='../login/'</script>";
+                $_SESSION["userExist"] = true;
+                // echo "<script>alert('User Already Exists')</script>";
+                header("Location:../login/");
             } else {
                 $isRegister =   $this->model->registerNewCustomer(
                     $username,
@@ -69,7 +70,7 @@ class Login extends Controller
                 header("Location:../login/");
             }
         }
-        header("Location:../login/");
+        // header("Location:../login/");
     }
 
 
