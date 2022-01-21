@@ -257,6 +257,9 @@ $items = $this->items;
     #chatboxpadding {
         padding-top: 5px;
     }
+    .addoffers{
+        text-align: center;
+    }
 </style>
 
 <body>
@@ -618,26 +621,26 @@ $items = $this->items;
                     </div>
                 </div>
             </td>
-            <td class="d">
+            <!-- <td class="d">
                 <h4> Profile </h4>
-            </td>
+            </td> -->
             <td class="e"><a href="logout">
                     <h4>LogOut</h4>
                 </a></td>
 
         </tr>
     </table>
-    <h1><a href="addOffers">Add Offers</a></h1>
+    <h1 class="addoffers"><a href="addOffers">Add Offers</a></h1>
     <div class="main">
         <div class="containerOrders">
             <form class="form1" method="post" action="loginProfile">
                 <h2 class="orders">Orders</h2>
-                <div class="chatBtn" style="text-align:right; padding:5px">
+                <!-- <div class="chatBtn" style="text-align:right; padding:5px">
                     <button id="chatBtn" class="btn btn-primary dropdown-toggle" type="button">Chat
                     </button>
                     <div id="myChatModal" class="modal">
 
-                        <!-- Modal content -->
+                         Modal content 
                         <div class="modal-content" id="chatboxpadding">
                             <span class="chatClose">&times;</span>
 
@@ -658,7 +661,7 @@ $items = $this->items;
 
                         </div>
 
-                    </div>
+                    </div> -->
                     <script>
                         // Get the modal
                         var chatModal = document.getElementById("myChatModal");
