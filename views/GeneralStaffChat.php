@@ -17,7 +17,10 @@
 </head>
 <style>
   body {
-    background: #F45B5B;
+    background-image: url('../../../../public/Images/order_his_stf.jpg');
+    background-attachment: fixed;
+    /* background-repeat: repeat; */
+    background-size: 100% 100%;
   }
 
   .p-5 {
@@ -140,24 +143,6 @@
     </div>
   </form>
 
-
-
-
-  <!-- chat view end -->
-
-
-  <!-- Footer strat -->
-  <!-- <div class="fixed-bottom">
-    <footer class="footer ">
-      <div class="container foo-top">
-        <div class="row">
-
-          <div class="container">
-            <p class="copyright">Copyright © 2019 <a href="#">themeies.com</a>. All rights reserved.</p>
-          </div>
-    </footer>
-  </div> -->
-  <!-- Footer end -->
 
   </div>
 
