@@ -621,6 +621,7 @@ class Customer extends Person
         $menu = new Menu();
         $categories = array();
         $items = $menu->getItems();
+
         foreach ($items as $key => $value) {
             if ($value->getAvailability() == 1) {
                 continue;
@@ -654,7 +655,8 @@ class Customer extends Person
         // }
         $this->view->descriptionList = $descList;
         $this->view->categories = $categories;
-        // 
+        $this->view->items = $menu->getItems();
+
         // foreach ($descriptionList as $key => $value) {
         //     $categories[$key]["description"] = $value[0];
         // }

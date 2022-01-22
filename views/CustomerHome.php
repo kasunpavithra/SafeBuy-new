@@ -1,5 +1,6 @@
 <?php $categories = $this->categories;
 $descriptionList = $this->descriptionList;
+$items = $this->items;
 ?>
 <html>
 
@@ -262,6 +263,85 @@ $descriptionList = $this->descriptionList;
         opacity: 0.2
     }
 </style>
+<style>
+    .wrapper {
+        max-width: 450px;
+        margin: 10px auto;
+    }
+
+    .wrapper .search-input {
+        background: #fff;
+        width: 100%;
+        border-radius: 5px;
+        box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.12);
+    }
+
+    .search-input input {
+        height: 55px;
+        width: 100%;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        padding: 0 60px 0 5px;
+        font-size: 18px;
+        box-shadow: 0px apx 5px rgba(0, 0, 0, 1);
+    }
+
+    .search-input .icon {
+        height: 55px;
+        width: 55px;
+        line-height: 55px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        text-align: center;
+        font-size: 20px;
+        color: black;
+        cursor: pointer;
+    }
+
+    .search-input .autocom-box {
+        max-height: 280px;
+        overflow-y: auto;
+        opacity: 1;
+        pointer-events: none;
+
+    }
+
+    .autocom-box li {
+        list-style: none;
+        padding: 8px 12px;
+        width: 100%;
+        cursor: default;
+        border-radius: 3px;
+        display: none;
+    }
+
+    .autocom-box li:hover {
+        background: #efefef;
+
+    }
+
+    .search-input.active .autocom-box {
+        padding: 10px 8px;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .search-input.active .autocom-box li {
+        display: block;
+    }
+</style>
+<script>
+    let itemList = [];
+    let count = 0;
+    <?php
+
+    foreach ($items as $item) { ?>
+        itemList[count++] = "<?php echo $item->getName();  ?>";
+    <?php }
+    ?>
+</script>
 
 <body>
     <div id="topNavBar">
@@ -281,6 +361,8 @@ $descriptionList = $this->descriptionList;
                                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                             </form>
                         </td>
+
+
                         <td class="navbartd">
                             <div class="CategoryDropDown">
                                 <select name="dropDownList" id="dropdowncategory">
@@ -322,6 +404,7 @@ $descriptionList = $this->descriptionList;
                     </tr>
                 </table>
                 <!-- Modal -->
+
                 <div class="modal fade" id="deleteAccount" tabindex="-1" role="dialog" aria-labelledby="deleteAccount" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
@@ -349,11 +432,24 @@ $descriptionList = $this->descriptionList;
             </div>
         </nav>
     </div>
-
+    <div class="wrapper">
+        <div class="search-input">
+            <input type="text" name="" id="" placeholder="Type to search...">
+            <div class="autocom-box">
+                <?php
+                foreach ($this->items as $item) { ?>
+                    <li><?php echo $item->getName();  ?></li>
+                <?php }
+                ?>
+            </div>
+            <div class="icon"><i class="fas fa-search"> </i></div>
+        </div>
+    </div>
     <!-- <div class="bigContainer"> -->
     <!-- <div class="container"> -->
 
     <!-- Here to implement New -->
+
     <div id="list">
         <?php foreach ($this->categories as $categoryName => $items) {
             $count = 0; ?>
@@ -381,7 +477,7 @@ $descriptionList = $this->descriptionList;
                     <div class="fluid-container">
                         <div class="row d-flex justify-content-center">
                             <div class="col-md-10">
-                                <div class="card" >
+                                <div class="card">
                                     <div class="row g-0" <?php echo 'onclick=location.href="item?itemID=' . $item->getItemId() . '"' ?>>
                                         <div class="col-md-10">
                                             <div class="content1 mt-5">
@@ -467,7 +563,54 @@ $descriptionList = $this->descriptionList;
             }
         }
     </script>
+    <script>
+        const searchWrapper = document.querySelector(".search-input");
+        const inputBox = searchWrapper.querySelector("input");
+        const suggBox = searchWrapper.querySelector(".autocom-box");
 
+
+        inputBox.onkeyup = (e) => {
+            let userData = e.target.value;
+            let emptyArray = [];
+            if (userData) {
+                emptyArray = itemList.filter((data) => {
+                    return data.toLowerCase().includes(userData.toLowerCase());
+                });
+                emptyArray = emptyArray.map((data) => {
+                    return data = '<li>' + data + '</li>';
+                });
+                searchWrapper.classList.add("active");
+                showSuggestions(emptyArray);
+                let allList = suggBox.querySelectorAll("li");
+                for (let i = 0; i < allList.length; i++) {
+                    allList[i].setAttribute("onclick", "select(this)");
+                }
+            } else {
+                // showSuggestions(emptyArray);
+                searchWrapper.classList.remove("active");
+
+            }
+
+        }
+
+
+        function select(element) {
+            console.log(element.textContent);
+            inputBox.value = element.textContent;
+        }
+
+        function showSuggestions(list) {
+            let listData;
+            if (!list.length) {
+                userValue = inputBox.value;
+
+                listData = '<li>' + 'Not Found' + '</li>';
+            } else {
+                listData = list.join('');
+            }
+            suggBox.innerHTML = listData;
+        }
+    </script>
 </body>
 
 </html>
