@@ -20,12 +20,12 @@
     </style>
 </head>
 
-<body>
+<body style="background-image:url('../../../public/Images/deliveryperson.jpg'); background-repeat:no-repeat; background-size:100%;">
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
 
-                <h4 >User Name : <?php echo $this->userName ?></h4> 
+                <h4>User Name : <?php echo $this->userName ?></h4>
                 <h5>My Status : <?php echo $this->stateName ?></h5>
                 <div id="app-nav-top-bar" class="nav-collapse">
 
@@ -49,269 +49,279 @@
 
 
             <section class="page container">
-                <?php if($this->stateName=="Accepting Jobs"){?>
-                <div id="app-nav-top-bar" class="nav-collapse">
+                <?php if ($this->stateName == "Accepting Jobs") { ?>
+                    <div id="app-nav-top-bar" class="nav-collapse">
 
-                    <form method="post" <?php echo 'action="updateStatusStaff"' ?> class="nav pull-right">
-                    <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd"  value="Start to Deliver">
-                </form>
-
-                </div>
-                <?php } ?>
-                <div class="row">
-
-                    <div class="span12">
-
-                        <?php
-                        $y= true;
-                        if(!($this->stateName=="Delivering")){
-                        foreach ($this->invoiceOrders as $order) { 
-                            if($order->getStatus() ==3){
-                                $y= false;
-                            }
-                            if ($order->getStatus() == 2 ) {
-                            ?>
-
-                            <div id="<?php echo $order->getOrderId(); ?>" class="box">
-                                <div class="box-header">
-                                    <i class="icon-user icon-large"></i>
-                                    <h5><?php echo $order->getCustomerName(); ?></h5>
-                                </div>
-                                <div>
-                                    <form method="post" <?php echo 'action="updateStatus/' . $order->getOrderId() . '/0"' ?>>
-                                        
-                                            <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd"  value="Accept">
-
-
-                                    </form>
-                                </div>
-                                <div class="box-content box-table">
-                                    <table class="table table-hover tablesorter">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Telephone No</th>
-                                                <th>Address</th>
-                                                <th>Items</th>
-                                                <th>Amount</th>
-                                                <th>Type</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            <tr>
-                                                <td><?php echo $order->getCustomer()->getName(); ?></td>
-                                                <td><?php echo $order->getCustomer()->getMobile_no(); ?></td>
-                                                <td><?php echo $order->getCustomer()->getAddress(); ?></td>
-                                                <td><?php foreach ($order->getOrderItems() as $item) {
-                                                        echo $item->getName() . "-" . $item->getQuantity() . "  ";
-                                                    } ?></td>
-                                                <td><?php echo $order->getAmount(); ?></td>
-                                                <td>Order</td>
-
-
-                                            </tr>
-
-
-
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-                        <?php } } } ?>
-
-                        <?php
-                        if(($this->stateName=="Delivering")){
-                        foreach ($this->invoiceOrders as $order) { 
-                            if($order->getStatus() ==3){
-                                $y= false;
-                            }
-                            if ($order->getStatus() == 3 ) {
-                            ?>
-
-                            <div id="<?php echo $order->getOrderId(); ?>" class="box">
-                                <div class="box-header">
-                                    <i class="icon-user icon-large"></i>
-                                    <h5><?php echo $order->getCustomerName(); ?></h5>
-                                </div>
-                                <div>
-                                    <form method="post" <?php echo 'action="updateStatus/' . $order->getOrderId() . '/0"' ?>>
-                                        
-                                        
-                                            <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok"  value="Delivered">
-                                       
-
-
-                                    </form>
-                                </div>
-                                <div class="box-content box-table">
-                                    <table class="table table-hover tablesorter">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Telephone No</th>
-                                                <th>Address</th>
-                                                <th>Items</th>
-                                                <th>Amount</th>
-                                                <th>Type</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            <tr>
-                                                <td><?php echo $order->getCustomer()->getName(); ?></td>
-                                                <td><?php echo $order->getCustomer()->getMobile_no(); ?></td>
-                                                <td><?php echo $order->getCustomer()->getAddress(); ?></td>
-                                                <td><?php foreach ($order->getOrderItems() as $item) {
-                                                        echo $item->getName() . "-" . $item->getQuantity() . "  ";
-                                                    } ?></td>
-                                                <td><?php echo $order->getAmount(); ?></td>
-                                                <td>Order</td>
-
-
-                                            </tr>
-
-
-
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-                        <?php } } } ?>
-
-                        <?php
-                        if(!($this->stateName=="Delivering")){
-                        foreach ($this->returnOrders as $order) { 
-                            if($order->getStatus()==2){
-                                $y=false;
-                            }
-                            if(($order->getStatus() == 1  ) ){
-                            ?>
-                            
-                            <div id="<?php echo $order->getOrderId(); ?>" class="box">
-                                <div class="box-header">
-                                    <i class="icon-user icon-large"></i>
-                                    <h5><?php echo $order->getCustomerName(); ?></h5>
-                                </div>
-                                <div>
-                                    <form method="post" <?php echo 'action="updateStatus/' . $order->getOrderId() . '/1"' ?>>
-                                        
-                                            <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd"  value="Accept">
-                
-
-
-                                    </form>
-                                </div>
-                                <div class="box-content box-table">
-                                    <table class="table table-hover tablesorter">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Telephone No</th>
-                                                <th>Address</th>
-                                                <th>Items</th>
-                                                <th>Amount</th>
-                                                <th>Type</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            <tr>
-                                                <td><?php echo $order->getCustomer()->getName(); ?></td>
-                                                <td><?php echo $order->getCustomer()->getMobile_no(); ?></td>
-                                                <td><?php echo $order->getCustomer()->getAddress(); ?></td>
-                                                <td><?php foreach ($order->getOrderItems() as $item) {
-                                                        echo $item->getName() . "-" . $item->getQuantity() . "  ";
-                                                    } ?></td>
-                                                <td><?php echo $order->getAmount(); ?></td>
-                                                <td>Return Order</td>
-
-
-                                            </tr>
-
-
-
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-                        <?php } }  } ?>
-                        <?php
-                        if(($this->stateName=="Delivering")){
-                        foreach ($this->returnOrders as $order) { 
-                            if($order->getStatus()==2){
-                                $y=false;
-                            }
-                            if ($order->getStatus() == 2) { 
-                            
-                            ?>
-                            
-                            <div id="<?php echo $order->getOrderId(); ?>" class="box">
-                                <div class="box-header">
-                                    <i class="icon-user icon-large"></i>
-                                    <h5><?php echo $order->getCustomerName(); ?></h5>
-                                </div>
-                                <div>
-                                    <form method="post" <?php echo 'action="updateStatus/' . $order->getOrderId() . '/1"' ?>>
-                                        
-                                            <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok"  value="Received">
-                                        
-
-
-                                    </form>
-                                </div>
-                                <div class="box-content box-table">
-                                    <table class="table table-hover tablesorter">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Telephone No</th>
-                                                <th>Address</th>
-                                                <th>Items</th>
-                                                <th>Amount</th>
-                                                <th>Type</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            <tr>
-                                                <td><?php echo $order->getCustomer()->getName(); ?></td>
-                                                <td><?php echo $order->getCustomer()->getMobile_no(); ?></td>
-                                                <td><?php echo $order->getCustomer()->getAddress(); ?></td>
-                                                <td><?php foreach ($order->getOrderItems() as $item) {
-                                                        echo $item->getName() . "-" . $item->getQuantity() . "  ";
-                                                    } ?></td>
-                                                <td><?php echo $order->getAmount(); ?></td>
-                                                <td>Return Order</td>
-
-
-                                            </tr>
-
-
-
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-                        <?php  } } } ?>
-
-
-                    <?php if($y && ($this->stateName=="Delivering") ){ ?>
-                        <div id="app-nav-top-bar" class="nav-collapse">
-
-                    <form method="post" <?php echo 'action="updateStatusStaff"' ?> class="nav pull-right">
-                    <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd"  value="Done">
-                    <?php } ?>
-                </form>
-
-                </div>
+                        <form method="post" <?php echo 'action="updateStatusStaff"' ?> class="nav pull-right">
+                            <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" value="Start to Deliver">
+                        </form>
 
                     </div>
+                <?php } ?>
+                <div id="details">
+                    <div class="row">
 
+
+                        <div class="span12">
+
+                            <?php
+                            $y = true;
+                            if (!($this->stateName == "Delivering")) {
+                                foreach ($this->invoiceOrders as $order) {
+                                    if ($order->getStatus() == 3) {
+                                        $y = false;
+                                    }
+                                    if ($order->getStatus() == 2) {
+                            ?>
+
+                                        <div id="<?php echo $order->getOrderId(); ?>" class="box">
+                                            <div class="box-header">
+                                               
+                                                <h5><?php echo $order->getCustomerName(); ?></h5>
+                                            </div>
+                                            <div>
+                                                <form method="post" <?php echo 'action="updateStatus/' . $order->getOrderId() . '/0"' ?>>
+
+                                                    <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" value="Accept">
+
+
+                                                </form>
+                                            </div>
+                                            <div class="box-content box-table">
+                                                <table class="table table-hover tablesorter">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Telephone No</th>
+                                                            <th>Address</th>
+                                                            <th>Items</th>
+                                                            <th>Amount</th>
+                                                            <th>Type</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <tr>
+                                                            <td><?php echo $order->getCustomer()->getName(); ?></td>
+                                                            <td><?php echo $order->getCustomer()->getMobile_no(); ?></td>
+                                                            <td><?php echo $order->getCustomer()->getAddress(); ?></td>
+                                                            <td><?php foreach ($order->getOrderItems() as $item) {
+                                                                    echo $item->getName() . "-" . $item->getQuantity() . "  ";
+                                                                } ?></td>
+                                                            <td><?php echo $order->getAmount(); ?></td>
+                                                            <td>Order</td>
+
+
+                                                        </tr>
+
+
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                            <?php }
+                                }
+                            } ?>
+
+                            <?php
+                            if (($this->stateName == "Delivering")) {
+                                foreach ($this->invoiceOrders as $order) {
+                                    if ($order->getStatus() == 3) {
+                                        $y = false;
+                                    }
+                                    if ($order->getStatus() == 3) {
+                            ?>
+
+                                        <div id="<?php echo $order->getOrderId(); ?>" class="box">
+                                            <div class="box-header">
+                                                <i class="icon-user icon-large"></i>
+                                                <h5><?php echo $order->getCustomerName(); ?></h5>
+                                            </div>
+                                            <div>
+                                                <form method="post" <?php echo 'action="updateStatus/' . $order->getOrderId() . '/0"' ?>>
+
+
+                                                    <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" value="Delivered">
+
+
+
+                                                </form>
+                                            </div>
+                                            <div class="box-content box-table">
+                                                <table class="table table-hover tablesorter">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Telephone No</th>
+                                                            <th>Address</th>
+                                                            <th>Items</th>
+                                                            <th>Amount</th>
+                                                            <th>Type</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <tr>
+                                                            <td><?php echo $order->getCustomer()->getName(); ?></td>
+                                                            <td><?php echo $order->getCustomer()->getMobile_no(); ?></td>
+                                                            <td><?php echo $order->getCustomer()->getAddress(); ?></td>
+                                                            <td><?php foreach ($order->getOrderItems() as $item) {
+                                                                    echo $item->getName() . "-" . $item->getQuantity() . "  ";
+                                                                } ?></td>
+                                                            <td><?php echo $order->getAmount(); ?></td>
+                                                            <td>Order</td>
+
+
+                                                        </tr>
+
+
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                            <?php }
+                                }
+                            } ?>
+
+                            <?php
+                            if (!($this->stateName == "Delivering")) {
+                                foreach ($this->returnOrders as $order) {
+                                    if ($order->getStatus() == 2) {
+                                        $y = false;
+                                    }
+                                    if (($order->getStatus() == 1)) {
+                            ?>
+
+                                        <div id="<?php echo $order->getOrderId(); ?>" class="box">
+                                            <div class="box-header">
+                                               
+                                                <h5><?php echo $order->getCustomerName(); ?></h5>
+                                            </div>
+                                            <div>
+                                                <form method="post" <?php echo 'action="updateStatus/' . $order->getOrderId() . '/1"' ?>>
+
+                                                    <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" value="Accept">
+
+
+
+                                                </form>
+                                            </div>
+                                            <div class="box-content box-table">
+                                                <table class="table table-hover tablesorter">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Telephone No</th>
+                                                            <th>Address</th>
+                                                            <th>Items</th>
+                                                            <th>Amount</th>
+                                                            <th>Type</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <tr>
+                                                            <td><?php echo $order->getCustomer()->getName(); ?></td>
+                                                            <td><?php echo $order->getCustomer()->getMobile_no(); ?></td>
+                                                            <td><?php echo $order->getCustomer()->getAddress(); ?></td>
+                                                            <td><?php foreach ($order->getOrderItems() as $item) {
+                                                                    echo $item->getName() . "-" . $item->getQuantity() . "  ";
+                                                                } ?></td>
+                                                            <td><?php echo $order->getAmount(); ?></td>
+                                                            <td>Return Order</td>
+
+
+                                                        </tr>
+
+
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                            <?php }
+                                }
+                            } ?>
+                            <?php
+                            if (($this->stateName == "Delivering")) {
+                                foreach ($this->returnOrders as $order) {
+                                    if ($order->getStatus() == 2) {
+                                        $y = false;
+                                    }
+                                    if ($order->getStatus() == 2) {
+
+                            ?>
+
+                                        <div id="<?php echo $order->getOrderId(); ?>" class="box">
+                                            <div class="box-header">
+                                               
+                                                <h5><?php echo $order->getCustomerName(); ?></h5>
+                                            </div>
+                                            <div>
+                                                <form method="post" <?php echo 'action="updateStatus/' . $order->getOrderId() . '/1"' ?>>
+
+                                                    <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" value="Received">
+
+
+
+                                                </form>
+                                            </div>
+                                            <div class="box-content box-table">
+                                                <table class="table table-hover tablesorter">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Telephone No</th>
+                                                            <th>Address</th>
+                                                            <th>Items</th>
+                                                            <th>Amount</th>
+                                                            <th>Type</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <tr>
+                                                            <td><?php echo $order->getCustomer()->getName(); ?></td>
+                                                            <td><?php echo $order->getCustomer()->getMobile_no(); ?></td>
+                                                            <td><?php echo $order->getCustomer()->getAddress(); ?></td>
+                                                            <td><?php foreach ($order->getOrderItems() as $item) {
+                                                                    echo $item->getName() . "-" . $item->getQuantity() . "  ";
+                                                                } ?></td>
+                                                            <td><?php echo $order->getAmount(); ?></td>
+                                                            <td>Return Order</td>
+
+
+                                                        </tr>
+
+
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                            <?php  }
+                                }
+                            } ?>
+
+
+                            <?php if ($y && ($this->stateName == "Delivering")) { ?>
+                                <div id="app-nav-top-bar" class="nav-collapse">
+
+                                    <form method="post" <?php echo 'action="updateStatusStaff"' ?> class="nav pull-right">
+                                        <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" value="Done">
+                                    <?php } ?>
+                                    </form>
+
+                                </div>
+
+                        </div>
+                    </div>
                 </div>
 
             </section>
@@ -326,10 +336,10 @@
 
     <footer class="application-footer">
         <div class="container">
-            <p>Application Footer</p>
+            <p>Safe-Buy</p>
             <div class="disclaimer">
-                <p>This is an example disclaimer. All right reserved.</p>
-                <p>Copyright © keaplogik 2011-2012</p>
+                <p>All rights reserved.</p>
+                <p>Copyright © kvha CSE 19 batch</p>
             </div>
         </div>
     </footer>

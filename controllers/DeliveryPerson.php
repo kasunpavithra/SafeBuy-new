@@ -6,8 +6,12 @@ class DeliveryPerson extends ShopStaff
 {
     private $orderLog;
     private $currentState;
-    function __construct($id)
+
+    function __construct($id=-1)
     {
+        if($id==-1){
+            header("Location: ../../StaffLogin");
+        }
         parent::__construct($id);
         if($this->status ==0){
             $this->currentState = new Idle();
