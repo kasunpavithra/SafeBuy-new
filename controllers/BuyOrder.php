@@ -54,6 +54,7 @@ class BuyOrder extends Order
     }
 
   }
+ 
 
   /**
    * Get the value of paymentMethod

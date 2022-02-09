@@ -10,6 +10,7 @@ class Controller
             // exit;
         }
         $this->view = new View();
+
     }
     public function loadModel($modelName)
     {
@@ -22,5 +23,14 @@ class Controller
             $this->model = new $className();
         }
     }
+    
+    public function checkIsStaff(){
+        if (!isset($_SESSION['staffuserID'])) {
+    
+            header("Location: ../../stafflogin/");
+            die();
+        }
+    }
+
     
 }
