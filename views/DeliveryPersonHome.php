@@ -6,7 +6,7 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Simple Dashboard</title>
+    <title>Delivery Person- <?php echo $this->userName ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="layout" content="main" />
