@@ -37,8 +37,11 @@ $items = $this->items;
 </head>
 <style>
     body {
-        background-color: #F45B5B;
+        /* background-color: #F45B5B; */
+        background-image: url("../../../public/images/managerDash.jpg");
         font-family: 'Ubuntu', sans-serif;
+        background-repeat: no-repeat;
+        background-size: 100%;
 
     }
 
@@ -257,7 +260,8 @@ $items = $this->items;
     #chatboxpadding {
         padding-top: 5px;
     }
-    .addoffers{
+
+    .addoffers {
         text-align: center;
     }
 </style>
@@ -662,7 +666,7 @@ $items = $this->items;
                         </div>
 
                     </div> -->
-                    <!-- <script>
+                <!-- <script>
                         // Get the modal
                         var chatModal = document.getElementById("myChatModal");
 
@@ -689,12 +693,12 @@ $items = $this->items;
                             }
                         }
                     </script> -->
-                </div>
-                <br><br><br><br><br>
-                <br><br><br><br><br>
-                <br><br><br><br><br>
-            </form>
         </div>
+        <br><br><br><br><br>
+        <br><br><br><br><br>
+        <br><br><br><br><br>
+        </form>
+    </div>
 
 
 
