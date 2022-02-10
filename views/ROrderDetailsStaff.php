@@ -114,7 +114,7 @@
                   <td>' . $item->getName() . '</td>
                   <td>' . $item->getQuantity() . '</td>
                   <td>' . $item->getSoldPrice() . '</td>
-                  <td>' . $item->getSoldDiscount() . '</td>
+                  <td>' . ($item->getSoldDiscount()*100) . '%</td>
                   <td>' . $item->getReturnReview() . '</td></tr>';
             }
             ?>

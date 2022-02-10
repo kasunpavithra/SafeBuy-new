@@ -84,10 +84,10 @@
                 if ($status == 0) { ?>
                   <input name="approve" id="appr" type="submit" data-placement="top" class="btn btn-success btn-xs glyphicon glyphicon-ok" title="View" value="Approve">
                   <input name="cancel" id="cnl" type="submit" data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" title="Danger" value="Decline">
-                <?php } elseif ($status > 0 && $status < 5) { ?>
+                <?php } elseif ($status > 0 && $status < 5 && $status!=2 && $status!=3) { ?>
                   <input name="updatestat" id="upt" type="submit" data-placement="top" class="btn btn-info btn-xs glyphicon glyphicon-usd" title="Danger" value="<?php echo BuyOrder::STATES_PRESENT[$this->order->getStatus() + 1] ?>">
                 <?php } elseif ($status == 6) { ?>
-                  <input name="close" id="cls" type="submit" data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" title="Danger" value="Close">
+                  <!-- <input name="close" id="cls" type="submit" data-placement="top" class="btn btn-danger btn-xs glyphicon glyphicon-trash" title="Danger" value="Close"> -->
                 <?php }
                 ?>
               </form>
@@ -115,7 +115,7 @@
                   <td>' . $item->getName() . '</td>
                   <td>' . $item->getQuantity() . '</td>
                   <td>' . $item->getSoldPrice() . '</td>
-                  <td>' . $item->getSoldDiscount() . '</td></tr>';
+                  <td>' . ($item->getSoldDiscount()*100) . '%</td></tr>';
             }
             ?>
           </table>
@@ -126,7 +126,7 @@
         <div class="col-md-1"></div>
         <div class="col-md-4">
           <?php echo
-          '<a class="btn btn-success btn-xs glyphicon glyphicon-ok" href="../cusOtherOrders/' . $this->order->getCustomerId() . '">See customers previous orders</a>'; ?>
+          '<a class="btn btn-success btn-xs glyphicon glyphicon-ok" href="../cusOtherOrders/' . $this->order->getCustomerId() . '">Go to orders of the customer</a>'; ?>
         </div>
       </div>
       <?php } ?>
