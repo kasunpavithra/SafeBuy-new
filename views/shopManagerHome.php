@@ -236,7 +236,8 @@ $items = $this->items;
         width: 100%;
         height: auto;
         /* margin: 7em auto; */
-
+        
+        padding: 20px;
         border-radius: 1.5em;
         box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
     }
@@ -264,6 +265,18 @@ $items = $this->items;
     .addoffers {
         text-align: center;
     }
+    
+    .statisticstable {
+  border: 1px solid black;
+}
+th.statisticstable,td.statisticstable{
+    text-align: center;
+}
+    /* .headerstatistics,th{
+        width: 100%;
+        padding: 10px;
+        text-align: center;
+    } */
 </style>
 
 <body>
@@ -639,60 +652,28 @@ $items = $this->items;
         <div class="containerOrders">
             <form class="form1" method="post" action="loginProfile">
                 <h2 class="orders">Statistics</h2>
-                <!-- <div class="chatBtn" style="text-align:right; padding:5px">
-                    <button id="chatBtn" class="btn btn-primary dropdown-toggle" type="button">Chat
-                    </button>
-                    <div id="myChatModal" class="modal">
-
-                         Modal content 
-                        <div class="modal-content" id="chatboxpadding">
-                            <span class="chatClose">&times;</span>
-
-                            <form action="addItem" method="post">
-                                <div class="chatbox">
-                                    <p class="sender">Sender HIIII</p>
-                                    <p class="reciever">Reciever HIIII</p>
-                                    <div class="panel-footer">
-                                        <div class="input-group">
-                                            <input id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-primary btn-sm" id="btn-chat">Send</button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-
-                        </div>
-
-                    </div> -->
-                <!-- <script>
-                        // Get the modal
-                        var chatModal = document.getElementById("myChatModal");
-
-                        // Get the button that opens the modal
-                        var chatBtn = document.getElementById("chatBtn");
-
-                        // Get the <span> element that closes the modal
-                        var chatSpan = document.getElementsByClassName("chatClose")[0];
-
-                        // When the user clicks the button, open the modal 
-                        chatBtn.onclick = function() {
-                            chatModal.style.display = "block";
-                        }
-
-                        // When the user clicks on <span> (x), close the modal
-                        chatSpan.onclick = function() {
-                            chatModal.style.display = "none";
-                        }
-
-                        // When the user clicks anywhere outside of the modal, close it
-                        window.onclick = function(event) {
-                            if (event.target == chatModal) {
-                                chatModal.style.display = "none";
-                            }
-                        }
-                    </script> -->
+                <table class ="statisticstable"style="width:100%">
+  <tr>
+    <th class ="statisticstable">Item</th>
+    <th class ="statisticstable">Sold Quantity</th> 
+    
+  </tr>
+  <tr>
+    <td class ="statisticstable">Item 1</td>
+    <td class ="statisticstable">Quantity 1</td>
+    
+  </tr>
+  <tr>
+  <td class ="statisticstable">Item 2</td>
+    <td class ="statisticstable">Quantity 2</td>
+    
+  </tr>
+  <tr>
+  <td class ="statisticstable">Item 2</td>
+    <td class ="statisticstable">Quantity 2</td>
+    
+  </tr>
+</table>
         </div>
         <br><br><br><br><br>
         <br><br><br><br><br>
