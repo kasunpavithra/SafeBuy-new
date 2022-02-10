@@ -155,37 +155,37 @@
         <div class="row">
           <div class="col-md-9 order-cr">
             <div class="row">
-            <div class="col-md-2"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail" /></div>
-            <div class="col-md-8">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="col-md-12"><label class="label label-danger"> <?php
-                                                                            if ($odr instanceof BuyOrder) {
-                                                                              echo BuyOrder::STATES[$odr->getStatus()];
-                                                                            } else {
-                                                                              echo ReturnOrder::STATES[$odr->getStatus()];
-                                                                            } ?>
-                    </label></div>
-                  <span><strong>Order ID: </strong></span> <span class="label label-info"><?php echo $odr->getOrderId(); ?></span><br />
-                  cost: $<?php echo $odr->getAmount(); ?><br />
-                  <!-- add code to disable the accept reject buttons once the order is accepted
+              <div class="col-md-2"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail" /></div>
+              <div class="col-md-8">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="col-md-12"><label class="label label-danger"> <?php
+                                                                              if ($odr instanceof BuyOrder) {
+                                                                                echo BuyOrder::STATES[$odr->getStatus()];
+                                                                              } else {
+                                                                                echo ReturnOrder::STATES[$odr->getStatus()];
+                                                                              } ?>
+                      </label></div>
+                    <span><strong>Order ID: </strong></span> <span class="label label-info"><?php echo $odr->getOrderId(); ?></span><br />
+                    cost: $<?php echo $odr->getAmount(); ?><br />
+                    <!-- add code to disable the accept reject buttons once the order is accepted
                       -->
 
+                  </div>
+                  <div class="col-md-12">order made on:<?php echo $odr->getCreateDate() ?> by <a href="../chatView/<?php echo $odr->getCustomerId() ?>"><?php echo $odr->getCustomerName() ?></a></div>
                 </div>
-                <div class="col-md-12">order made on:<?php echo $odr->getCreateDate() ?> by <a href="../chatView/<?php echo $odr->getCustomerId() ?>"><?php echo $odr->getCustomerName() ?></a></div>
+              </div>
+              <div class="col-md-2">
+
+                <?php
+                if ($odr instanceof BuyOrder) {
+                  echo '<a href="../viewBuyOrder/';
+                } else {
+                  echo '<a href="../viewReturnOrder/';
+                }
+                echo  $odr->getOrderId() ?>" class="btn btn-primary">View</a>
               </div>
             </div>
-            <div class="col-md-2">
-              
-          <?php
-          if ($odr instanceof BuyOrder) {
-            echo '<a href="../viewBuyOrder/';
-          } else {
-            echo '<a href="../viewReturnOrder/';
-          }
-          echo  $odr->getOrderId() ?>" class="btn btn-primary">View</a>
-            </div>
-          </div>
           </div>
         </div>
       <?php }
@@ -200,26 +200,28 @@
         foreach ($this->ROrderArr as $odr) { ?>
 
           <div class="row">
-            <div class="col-md-1"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail" /></div>
-            <div class="col-md-6">
+            <div class="col-md-9 order-cr">
               <div class="row">
-                <div class="col-md-12">
-                  <div class="col-md-12"><label class="label label-danger">
-                      <?php
-                      if ($odr instanceof BuyOrder) {
-                        echo BuyOrder::STATES[$odr->getStatus()];
-                      } else {
-                        echo ReturnOrder::STATES[$odr->getStatus()];
-                      }
-                      ?></label></div>
-                  <span class="danger"><strong>Return Order ID: </strong></span> <span class="label label-info"><?php echo $odr->getOrderId() ?></span><br />
-                  cost: $<?php echo $odr->getAmount() ?><br />
+                <div class="col-md-2"><img src="https://bootdey.com/img/Content/user_3.jpg" class="media-object img-thumbnail" /></div>
+                <div class="col-md-8">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-12"><label class="label label-danger">
+                          <?php
+                          if ($odr instanceof BuyOrder) {
+                            echo BuyOrder::STATES[$odr->getStatus()];
+                          } else {
+                            echo ReturnOrder::STATES[$odr->getStatus()];
+                          }
+                          ?></label></div>
+                      <span class="danger"><strong>Return Order ID: </strong></span> <span class="label label-info"><?php echo $odr->getOrderId() ?></span><br />
+                      cost: $<?php echo $odr->getAmount() ?><br />
+                    </div>
+                    <div class="col-md-12">order made on:<?php echo $odr->getCreateDate() ?> by <a href="../chatView/<?php echo $odr->getCustomerId() ?>"><?php echo $odr->getCustomerName() ?></a></div>
+                  </div>
                 </div>
-                <div class="col-md-12">order made on:<?php echo $odr->getCreateDate() ?> by <a href="../chatView/<?php echo $odr->getCustomerId() ?>"><?php echo $odr->getCustomerName() ?></a></div>
-              </div>
-            </div>
-            <div class="col-md-2">
-              <a href="../
+                <div class="col-md-2">
+                  <a href="../
           <?php
           if ($odr instanceof BuyOrder) {
             echo "viewBuyOrder/";
@@ -227,6 +229,8 @@
             echo "viewReturnOrder/";
           }
           echo  $odr->getOrderId(); ?>" class="btn btn-primary">View</a>
+                </div>
+              </div>
             </div>
           </div> <?php
                 }

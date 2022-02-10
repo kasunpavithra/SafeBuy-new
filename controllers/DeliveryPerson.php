@@ -10,7 +10,7 @@ class DeliveryPerson extends ShopStaff
     function __construct($id=-1)
     {
         if($id==-1){
-            header("Location: ../../StaffLogin");
+            header("Location: ../../StaffLogin/");
         }
         parent::__construct($id);
         if($this->status ==0){

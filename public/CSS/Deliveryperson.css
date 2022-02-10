@@ -11460,13 +11460,5 @@ body > #body-container {
 ***/
 #body-content {
   padding-top: 110px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid greenyellow;
-  border-radius: 10px;
 
-}
-#details {
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid greenyellow;
-  border-radius: 10px;
 }

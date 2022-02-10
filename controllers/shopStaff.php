@@ -60,7 +60,7 @@ abstract class ShopStaff extends Person
     public function checkIsManager(){
         if (!isset($_SESSION['staffuserID']) || $_SESSION['staffType']!='0' || $_SESSION['staffuserID']!=$this->staff_id) {
 
-            header("Location: ../../stafflogin/");
+            header("Location: ../../../stafflogin/");
             die();
         }
     }
