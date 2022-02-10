@@ -354,12 +354,14 @@ $items = $this->items;
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <table class="secondNav">
                     <tr>
-                        <td class="navbartd"><a class=" navbar-brand" href="#">SAFEBUY</a></td>
+                        <td class="navbartd"><img src="../../../public/Images/logo.png" style="border-radius: 16px; padding-left: 2%;" alt="Logo" width="70px">
+                        <a class=" navbar-brand" href="#">SAFEBUY</a></td>
                         <td class="navbartd">
-                            <form class="form-inline my-2 my-lg-0">
+                            <!-- <td class="navbartd"><img src="../../../public/Images/logo.png" style="border-radius: 16px;" alt="Logo" width="70px"></td> -->
+                            <!-- <form class="form-inline my-2 my-lg-0">
                                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                            </form>
+                            </form> -->
                         </td>
 
 
@@ -436,11 +438,11 @@ $items = $this->items;
         <div class="search-input">
             <input type="text" name="" id="" placeholder="Type to search...">
             <div class="autocom-box">
-                <?php
-                foreach ($this->items as $item) { ?>
+                <!-- <?php
+                        foreach ($this->items as $item) { ?>
                     <li><?php echo $item->getName();  ?></li>
                 <?php }
-                ?>
+                ?> -->
             </div>
             <div class="icon"><i class="fas fa-search"> </i></div>
         </div>
