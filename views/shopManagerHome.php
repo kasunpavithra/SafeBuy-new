@@ -1,7 +1,7 @@
 <?php
 $categories = $this->categories;
 $items = $this->items;
-
+$items1 = $this->items;
 ?>
 <script>
     $itemList = [];
@@ -236,7 +236,7 @@ $items = $this->items;
         width: 100%;
         height: auto;
         /* margin: 7em auto; */
-        
+
         padding: 20px;
         border-radius: 1.5em;
         box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
@@ -265,13 +265,16 @@ $items = $this->items;
     .addoffers {
         text-align: center;
     }
-    
+
     .statisticstable {
-  border: 1px solid black;
-}
-th.statisticstable,td.statisticstable{
-    text-align: center;
-}
+        border: 1px solid black;
+    }
+
+    th.statisticstable,
+    td.statisticstable {
+        text-align: center;
+    }
+
     /* .headerstatistics,th{
         width: 100%;
         padding: 10px;
@@ -652,28 +655,38 @@ th.statisticstable,td.statisticstable{
         <div class="containerOrders">
             <form class="form1" method="post" action="loginProfile">
                 <h2 class="orders">Statistics</h2>
-                <table class ="statisticstable"style="width:100%">
-  <tr>
-    <th class ="statisticstable">Item</th>
-    <th class ="statisticstable">Sold Quantity</th> 
-    
-  </tr>
-  <tr>
-    <td class ="statisticstable">Item 1</td>
-    <td class ="statisticstable">Quantity 1</td>
-    
-  </tr>
-  <tr>
-  <td class ="statisticstable">Item 2</td>
-    <td class ="statisticstable">Quantity 2</td>
-    
-  </tr>
-  <tr>
-  <td class ="statisticstable">Item 2</td>
-    <td class ="statisticstable">Quantity 2</td>
-    
-  </tr>
-</table>
+                <table class="statisticstable" style="width:100%">
+                    <tr>
+                        <th class="statisticstable">Item</th>
+                        <th class="statisticstable">Sold Quantity</th>
+
+                    </tr>
+                    <?php
+                    foreach ($items as $key => $item) {
+                         usort($items, fn ($a, $b) => $a->getSoldQuantity() < $b->getSoldQuantity());
+                    }
+                    foreach ($items as $item) { ?>
+                        <tr>
+                            <td class="statisticstable"><?php echo $item->getName(); ?></td>
+                            <td class="statisticstable"><?php echo $item->getSoldQuantity(); ?></td>
+
+                        </tr>
+                    <?php  }
+
+
+                    ?>
+
+                    <!-- <tr>
+                        <td class="statisticstable">Item 2</td>
+                        <td class="statisticstable">Quantity 2</td>
+
+                    </tr>
+                    <tr>
+                        <td class="statisticstable">Item 2</td>
+                        <td class="statisticstable">Quantity 2</td>
+
+                    </tr> -->
+                </table>
         </div>
         <br><br><br><br><br>
         <br><br><br><br><br>

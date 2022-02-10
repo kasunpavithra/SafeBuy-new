@@ -325,7 +325,7 @@
 
             <div>
                 <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                    Inbox
+                    Offer Notifications
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                         <?php
                         $count = 0;
@@ -366,8 +366,10 @@
                                 <div class="notifications-item"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmIpbf6JIEqeYtASCuaE26N59BuJ52RPPycQ&usqp=CAU" alt="img">
 
                                     <div class="text">
-                                        <h4><?php echo $notification->getCustomerNotificationID(); ?></h4>
-                                        <p><?php echo $notification->getDescription(); ?></p>
+                                        <!-- <h4><?php echo $notification->getCustomerNotificationID(); ?></h4> -->
+                                        <h4>
+                                            <b><?php echo $notification->getDescription(); ?></b>
+                                        </h4>
                                     </div>
                                 </div>
                                 <input type="hidden" name="notID" value="<?php echo $notification->getCustomerNotificationID(); ?>" id="btn<?php echo $notification->getCustomerNotificationID() ?>">

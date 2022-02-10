@@ -485,7 +485,7 @@ $returnOrder = $this->returnOrder;
     $("#returnOrderConfirm").submit(function(event) {
         // event.preventDefault();
         let formValues = getReturnItemsDetails();
-        console.log(formValues);
+        // console.log(formValues);
         if (formValues.length == 0) {
             alert("Please add items for returning");
             event.preventDefault();
@@ -493,7 +493,7 @@ $returnOrder = $this->returnOrder;
         } else {
             for (let i = 0; i < formValues.length; i++) {
                 let b = (formValues[i]);
-
+                console.log(b);
                 $.post("returnOrderPlace", b, function(html) {
 
                 });
