@@ -22,9 +22,13 @@
 
 <body style="background-image:url('../../../public/Images/deliveryperson.jpg'); background-repeat:no-repeat; background-size:100%;">
     <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
 
+        <div class="navbar-inner">
+            <div style=" display: inline-block; margin: 0 auto; padding: 25px; position: absolute; ">
+                <img src="../../../public/Images/logo.png" style="border-radius: 50%;" width="80px" alt="" style="width:40px;" class="rounded-pill">
+            </div>
+            <div class="container">
+                <div style=" padding: 15px;"> 
                 <h4>User Name : <?php echo $this->userName ?></h4>
                 <h5>My Status : <?php echo $this->stateName ?></h5>
                 <div id="app-nav-top-bar" class="nav-collapse">
@@ -35,11 +39,11 @@
                         </li>
                     </ul>
                 </div>
-
-
             </div>
 
         </div>
+
+    </div>
 
     </div>
 
@@ -76,7 +80,7 @@
 
                                         <div id="<?php echo $order->getOrderId(); ?>" class="box">
                                             <div class="box-header">
-                                               
+
                                                 <h5><?php echo $order->getCustomerName(); ?></h5>
                                             </div>
                                             <div>
@@ -198,7 +202,7 @@
 
                                         <div id="<?php echo $order->getOrderId(); ?>" class="box">
                                             <div class="box-header">
-                                               
+
                                                 <h5><?php echo $order->getCustomerName(); ?></h5>
                                             </div>
                                             <div>
@@ -259,7 +263,7 @@
 
                                         <div id="<?php echo $order->getOrderId(); ?>" class="box">
                                             <div class="box-header">
-                                               
+
                                                 <h5><?php echo $order->getCustomerName(); ?></h5>
                                             </div>
                                             <div>

@@ -103,7 +103,7 @@
       <div class="user_card">
         <div class="d-flex justify-content-center">
           <div class="brand_logo_container">
-            <img src="https://images.unsplash.com/photo-1580828343064-fde4fc206bc6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80" class="brand_logo" alt="Logo">
+            <img src="../public/Images/logo.png" class="brand_logo" alt="Logo">
           </div>
         </div>
         <div class="d-flex justify-content-center form_container">
