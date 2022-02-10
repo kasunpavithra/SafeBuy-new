@@ -20,6 +20,7 @@
   body {
     background-image: url('../../../../public/Images/order_his_stf.jpg');
     background-attachment: fixed;
+    background-size: 100%;
   }
 
   #details {

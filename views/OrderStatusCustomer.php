@@ -19,8 +19,10 @@ $order_id = $this->order_Id;
             color: #000;
             overflow-x: hidden;
             height: 100%;
-            background-color: #8C9EFF;
-            background-repeat: no-repeat
+            /* background-color: #8C9EFF; */
+            background-image: url("https://images.unsplash.com/photo-1559239115-ce3eb7cb87ea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8YnVzaW5lc3MlMjBncmVlbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60");
+            background-repeat: no-repeat;
+            background-size: 100%;
         }
 
         .card {
@@ -143,12 +145,9 @@ $order_id = $this->order_Id;
 </head>
 
 <body oncontextmenu='return false' class='snippet-body'>
-    <a href="../logout/">
-        <h4>LogOut</h4>
-    </a>
-    <a href="dashboard">
-        <h2>Dashboard</h2>
-    </a>
+
+    <a style="width: 20%; margin-left: 40%; margin-top: 10px;" class="btn btn-primary" href="dashboard">Dashboard</a>
+
     <!-- <a href="customerProfile.php">
         <h2>Dashboard</h2>
     </a> -->
@@ -270,12 +269,12 @@ $order_id = $this->order_Id;
                         <p class="font-weight-bold">Order<br>Approved</p>
                     </div>
                 </div>
-                <div class="row d-flex icon-content"> <img class="icon" src="public/Images/readytoship.png">
+                <div class="row d-flex icon-content"> <img class="icon" src="../../../public/Images/readytoship.png">
                     <div class="d-flex flex-column">
                         <p class="font-weight-bold">Ready<br>to<br>Ship</p>
                     </div>
                 </div>
-                <div class="row d-flex icon-content"> <img class="icon" src="public/Images/invoice.png">
+                <div class="row d-flex icon-content"> <img class="icon" src="../../../public/Images/invoice.png">
                     <div class="d-flex flex-column">
                         <p class="font-weight-bold">Order<br>Invoiced</p>
                     </div>
