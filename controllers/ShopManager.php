@@ -69,7 +69,7 @@ class ShopManager extends ShopStaff
             $limitAmount = $_POST["limitAmount"];
             $offerPercent = $_POST["offerPercent"];
             echo $limitAmount . " " . $offerPercent;
-            $this->sendNotification("Not");
+            $this->sendNotification("New Offer! ".($offerPercent*100)."% off for the first Rs: ".$limitAmount."/= orders.. Hurry Up!");
         }
     }
     function categoryItems()

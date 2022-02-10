@@ -126,7 +126,10 @@ class Customer extends Person
         $orderID = $this->test_input($_POST["orderID"]);
         $itemName = $this->test_input($_POST["itemName"]);
         $price = $this->test_input($_POST["price"]);
-        $amount = NULL;
+
+        $rsn = explode("+", $reason);
+        $reason = join(" ",$rsn);
+
         if (isset($_POST["amount"])) {
             $amount = $this->test_input($_POST["amount"]);
         }
