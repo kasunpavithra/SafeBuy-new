@@ -354,7 +354,7 @@ $items = $this->items;
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <table class="secondNav">
                     <tr>
-                        <td class="navbartd"><img src="../../../public/Images/logo.png" style="border-radius: 16px; padding-left: 2%;" alt="Logo" width="70px">
+                        <td class="navbartd"><img src="../../../public/Images/logo.png" style="border-radius: 16px; left: 2%;" alt="Logo" width="70px">
                         <a class=" navbar-brand" href="#">SAFEBUY</a></td>
                         <td class="navbartd">
                             <!-- <td class="navbartd"><img src="../../../public/Images/logo.png" style="border-radius: 16px;" alt="Logo" width="70px"></td> -->

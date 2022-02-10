@@ -21,12 +21,15 @@
     /* background-size: 100% 100%;
     background-repeat: no-repeat; */
     background-attachment: fixed;
+    background-size: 100%;
+    
   }
 
   #details {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.45);
     border: 1px solid greenyellow;
     border-radius: 10px;
+
   }
 
   #order {
