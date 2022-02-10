@@ -13,7 +13,7 @@ class StaffLogin extends Login
     }
     function loginProfile()
     {
-        echo("asdasd");
+        //echo("asdasd");
         if (isset($_POST["submitLogin"])) {
             $username = $_POST['username'];
             $password = $_POST['password'];
@@ -41,7 +41,9 @@ class StaffLogin extends Login
                         break;
                 }
             } else {
-                header("Location:../stafflogin/");
+                $this->view->wrongpair =1;
+                $this->index();
+                //header("Location:../stafflogin/");
             }
         }
     }
