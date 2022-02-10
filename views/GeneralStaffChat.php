@@ -109,38 +109,50 @@
   <!--message canvas end-->
 
   <!-- chat view start -->
-  <form action=<?php echo '"../sendMessage/' . $this->customerId . '"' ?> method="post" id="chat">
-    <div class="container-fluid p-5">
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="col-sm-12">
-            <?php
-            foreach ($this->chatLog->getMessageList() as $chat) {
-              if ($chat->getStatus() == 0) {
-                if (!($chat->getSeenStatStaff())) {
-                  echo '<p><b>' . $chat->getMessage() . '</b></p>';
-                } else {
-                  echo '<p>' . $chat->getMessage() . '</p>';
-                }
-              } else {
-                echo '<p class="text-end">' . $chat->getMessage() . '</p>';
-              }
-            }
-            ?>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-2 align-self-center">
+        <h1><?php foreach ($this->customers as $cus) {
+              if ($cus[0] == $this->customerId) echo $cus[1];
+            } ?></h1>
+      </div>
+    </div>
 
+    <form action=<?php echo '"../sendMessage/' . $this->customerId . '"' ?> method="post" id="chat">
+      <div class="container-fluid p-5">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="col-sm-12">
+              <?php
+              foreach ($this->chatLog->getMessageList() as $chat) {
+                if ($chat->getStatus() == 0) {
+                  if (!($chat->getSeenStatStaff())) {
+                    echo '<p><b>' . $chat->getMessage() . '</b></p>';
+                  } else {
+                    echo '<p>' . $chat->getMessage() . '</p>';
+                  }
+                } else {
+                  echo '<p class="text-end">' . $chat->getMessage() . '</p>';
+                }
+              }
+              ?>
+
+            </div>
           </div>
         </div>
       </div>
-    </div>
+  </div>
 
-    <div class="panel-footer">
-      <div class="input-group">
-        <input name="msg" id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />
-        <span class="input-group-btn">
-          <button type="submit" class="btn btn-primary btn-sm" id="send">Send</button>
-        </span>
-      </div>
+
+  <div class="panel-footer">
+    <div class="input-group">
+      <input name="msg" id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />
+      <span class="input-group-btn">
+        <button type="submit" class="btn btn-primary btn-sm" id="send">Send</button>
+      </span>
     </div>
+  </div>
   </form>
 
 
