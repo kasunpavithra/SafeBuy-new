@@ -28,8 +28,8 @@
   }
 
   #details {
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid greenyellow;
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid black;
     border-radius: 10px;
   }
 
